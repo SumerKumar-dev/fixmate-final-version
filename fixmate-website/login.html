@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login – FixMate</title>
+    <meta
+      name="description"
+      content="Sign in to your FixMate account to manage bookings, view verified local helpers, and track ₹ service estimates."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header / Navbar -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-logo" aria-label="FixMate Home">
+          <svg
+            class="brand-mark"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="32" height="32" rx="8" fill="#1D63ED" />
+            <path
+              d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+              fill="#FFFFFF"
+            />
+            <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+          </svg>
+          <span class="brand-name">FixMate</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="customer-dashboard.html" class="nav-link">My Bookings</a>
+          <a href="index.html#about" class="nav-link">About</a>
+          <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="login.html" class="btn-ghost is-active-action" aria-current="page">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileDrawer"
+          aria-label="Open navigation menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer" id="mobileDrawer" hidden>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="services.html" class="mobile-nav-link">Services</a>
+          <a href="customer-dashboard.html" class="mobile-nav-link">My Bookings</a>
+          <a href="index.html#about" class="mobile-nav-link">About</a>
+          <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="login.html" class="btn-outline-dark" aria-current="page">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="auth-page-main">
+      <div class="container">
+        <div class="auth-split-layout">
+          <!-- Left Branding & Highlights Column -->
+          <aside class="auth-showcase-panel" aria-label="FixMate Member Benefits">
+            <div class="auth-showcase-content">
+              <a href="index.html" class="auth-back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M19 12H5M12 19L5 12L12 5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>Back to Home</span>
+              </a>
+
+              <div class="auth-showcase-brand">
+                <a href="index.html" class="brand-logo" aria-label="FixMate">
+                  <svg
+                    class="brand-mark"
+                    width="34"
+                    height="34"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                    <path
+                      d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                      fill="#FFFFFF"
+                    />
+                    <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+                  </svg>
+                  <span class="brand-name">FixMate</span>
+                </a>
+              </div>
+
+              <h2 class="auth-showcase-title">Reliable local helpers across 12+ Indian cities</h2>
+              <p class="auth-showcase-desc">
+                Access your saved addresses, view standard ₹ rate cards, and schedule verified
+                electricians, plumbers, carpenters, AC technicians, cleaners, and mechanics.
+              </p>
+
+              <div class="auth-highlights-list">
+                <div class="auth-highlight-item">
+                  <div class="auth-highlight-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 2L4 5.5V11.5C4 16.5 7.4 21 12 22C16.6 21 20 16.5 20 11.5V5.5L12 2Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <path
+                        d="M9 12L11 14L15 10"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="auth-highlight-title">Police &amp; Aadhaar Verified</p>
+                    <p class="auth-highlight-sub">Every local specialist passes background checks</p>
+                  </div>
+                </div>
+
+                <div class="auth-highlight-item">
+                  <div class="auth-highlight-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M7 5H17M7 10H17M13 5C14.6569 5 16 6.34315 16 8C16 9.65685 14.6569 11 13 11H7L14 19"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="auth-highlight-title">Transparent ₹ Pricing</p>
+                    <p class="auth-highlight-sub">Inspection visits starting at ₹199</p>
+                  </div>
+                </div>
+
+                <div class="auth-highlight-item">
+                  <div class="auth-highlight-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                      <path d="M12 7V12L15.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="auth-highlight-title">30-Day Service Warranty</p>
+                    <p class="auth-highlight-sub">Free revisit cover on completed jobs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="auth-showcase-footer">
+              <span>Looking for nearby professionals?</span>
+              <a href="services.html">Explore Services</a>
+            </div>
+          </aside>
+
+          <!-- Right Login Form Card -->
+          <section class="auth-card" aria-labelledby="loginHeading">
+            <div class="auth-card-header">
+              <p class="auth-card-eyebrow">Member Sign In</p>
+              <h1 class="auth-card-title" id="loginHeading">Welcome Back to FixMate</h1>
+              <p class="auth-card-subtitle">
+                Enter your registered email address or 10-digit Indian mobile number to continue.
+              </p>
+            </div>
+
+            <form class="auth-page-form" id="loginForm" novalidate>
+              <div class="form-field">
+                <label for="loginIdentifier">Email or Mobile Number</label>
+                <div class="input-icon-wrap">
+                  <svg
+                    class="input-prefix-icon"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8" />
+                    <path
+                      d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    id="loginIdentifier"
+                    name="identifier"
+                    placeholder="arjun@example.in or 9876543210"
+                    autocomplete="username"
+                    required
+                  />
+                </div>
+                <span class="field-error" id="loginIdentifierError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="loginPassword">Password</label>
+                <div class="input-icon-wrap has-toggle">
+                  <svg
+                    class="input-prefix-icon"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="4"
+                      y="11"
+                      width="16"
+                      height="10"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                    <path
+                      d="M8 11V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V11"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                  </svg>
+                  <input
+                    type="password"
+                    id="loginPassword"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle-btn"
+                    data-toggle-password="loginPassword"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                  >
+                    <svg class="icon-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M2 12C4.5 7 8 5 12 5C16 5 19.5 7 22 12C19.5 17 16 19 12 19C8 19 4.5 17 2 12Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8" />
+                    </svg>
+                    <svg class="icon-eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+                      <path
+                        d="M3 3L21 21M10.58 10.58A2 2 0 0 0 13.42 13.42M9.88 5.09A9.77 9.77 0 0 1 12 5C16 5 19.5 7 22 12A13.16 13.16 0 0 1 18.88 16.32M6.61 6.61A13.52 13.52 0 0 0 2 12C4.5 17 8 19 12 19C13.68 19 15.27 18.64 16.71 17.98"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <span class="field-error" id="loginPasswordError" aria-live="polite"></span>
+              </div>
+
+              <div class="auth-options-row">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="rememberMe" name="rememberMe" />
+                  <span>Remember me on this device</span>
+                </label>
+                <button type="button" class="auth-inline-link" id="forgotPasswordBtn">
+                  Forgot Password?
+                </button>
+              </div>
+
+              <button type="submit" class="btn-primary btn-full auth-submit-btn">Login</button>
+
+              <div class="auth-feedback-box" id="loginFeedback" role="status" aria-live="polite" hidden></div>
+            </form>
+
+            <!-- Inline Forgot Password Panel -->
+            <div class="forgot-panel" id="forgotPanel" hidden>
+              <div class="forgot-panel-header">
+                <h2 class="forgot-panel-title">Reset Password Help</h2>
+                <button type="button" class="auth-inline-link" id="closeForgotPanelBtn">Close</button>
+              </div>
+              <p class="field-hint">
+                Enter your email or 10-digit mobile number to preview a password reset request.
+              </p>
+              <form id="forgotForm" novalidate>
+                <div class="forgot-inline-row">
+                  <input
+                    type="text"
+                    id="forgotIdentifier"
+                    placeholder="Email or 10-digit mobile"
+                    aria-label="Recovery email or mobile number"
+                  />
+                  <button type="submit" class="btn-primary">Send Link</button>
+                </div>
+                <span class="field-error" id="forgotError" aria-live="polite"></span>
+                <div class="auth-feedback-box" id="forgotFeedback" role="status" hidden></div>
+              </form>
+            </div>
+
+            <div class="auth-switch-footer">
+              <span>New to FixMate? <a href="register.html">Create an account</a></span>
+              <a href="index.html">Back to Home</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="index.html" class="brand-logo footer-logo" aria-label="FixMate Home">
+              <svg
+                class="brand-mark"
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                <path
+                  d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                  fill="#FFFFFF"
+                />
+                <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+              </svg>
+              <span class="brand-name brand-name-light">FixMate</span>
+            </a>
+            <p class="footer-tagline">
+              Connecting Indian households with background-verified local technicians at fair,
+              upfront prices in ₹.
+            </p>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Useful Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Explore Services</a></li>
+              <li><a href="index.html#how-it-works">How It Works</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Service Categories</h3>
+            <ul class="footer-links">
+              <li><a href="services.html?category=Electrician">Electrician (From ₹199)</a></li>
+              <li><a href="services.html?category=Plumber">Plumber (From ₹249)</a></li>
+              <li><a href="services.html?category=Carpenter">Carpenter (From ₹299)</a></li>
+              <li><a href="services.html?category=AC+Repair">AC Repair (From ₹499)</a></li>
+              <li><a href="services.html?category=Home+Cleaning">Home Cleaning (From ₹699)</a></li>
+              <li><a href="services.html?category=Mechanic">Mechanic (From ₹349)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Contact Details</h3>
+            <ul class="footer-contact-list">
+              <li>
+                <span class="footer-contact-label">Phone:</span>
+                <a href="tel:+918045682910">+91 80 4568 2910</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Email:</span>
+                <a href="mailto:support@fixmate.in">support@fixmate.in</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Office:</span>
+                <span>100 Feet Road, Indiranagar, Bengaluru 560038</span>
+              </li>
+              <li>
+                <span class="footer-contact-label">Cities:</span>
+                <span>Bengaluru · Mumbai · Delhi NCR · Pune · Hyderabad · Chennai</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; <span id="currentYear">2026</span> FixMate Home Services Pvt. Ltd. All rights
+            reserved.
+          </p>
+          <div class="footer-bottom-links">
+            <a href="index.html#about">30-Day Service Warranty</a>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <a href="index.html#contact">Partner With FixMate</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="js/auth.js"></script>
+  </body>
+</html>

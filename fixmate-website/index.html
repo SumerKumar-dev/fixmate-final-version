@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FixMate – Find Local Helpers</title>
+    <meta
+      name="description"
+      content="Book background-verified electricians, plumbers, carpenters, AC technicians, home cleaners, and mechanics near you with upfront ₹ pricing."
+    />
+    <meta property="og:title" content="FixMate – Find Local Helpers" />
+    <meta
+      property="og:description"
+      content="Book background-verified electricians, plumbers, carpenters, AC technicians, home cleaners, and mechanics near you with upfront ₹ pricing."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header / Navbar -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <!-- Zone 1: Brand Wordmark -->
+        <a href="#home" class="brand-logo" aria-label="FixMate Home">
+          <svg
+            class="brand-mark"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="32" height="32" rx="8" fill="#1D63ED" />
+            <path
+              d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+              fill="#FFFFFF"
+            />
+            <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+          </svg>
+          <span class="brand-name">FixMate</span>
+        </a>
+
+        <!-- Zone 2: Navigation Links -->
+        <nav class="main-nav" aria-label="Primary Navigation">
+          <a href="#home" class="nav-link is-active" aria-current="page">Home</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="customer-dashboard.html" class="nav-link">My Bookings</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- Zone 3: Auth Actions -->
+        <div class="header-actions" id="headerAuthArea">
+          <a href="login.html" class="btn-ghost">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileDrawer"
+          aria-label="Open navigation menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-drawer" id="mobileDrawer" hidden>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
+          <a href="#home" class="mobile-nav-link is-active" aria-current="page">Home</a>
+          <a href="#services" class="mobile-nav-link">Services</a>
+          <a href="customer-dashboard.html" class="mobile-nav-link">My Bookings</a>
+          <a href="#about" class="mobile-nav-link">About</a>
+          <a href="#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="login.html" class="btn-outline-dark">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Hero Section -->
+      <section class="hero-section" id="home">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="hero-kicker">Verified home services across 12+ Indian cities</p>
+              <h1 class="hero-title">Find Trusted Local Helpers Near You</h1>
+              <p class="hero-subtitle">
+                Book police-verified electricians, plumbers, carpenters, AC technicians, cleaners,
+                and mechanics at your doorstep within 60 minutes — with transparent pricing starting
+                at ₹199.
+              </p>
+
+              <!-- Hero Search Bar -->
+              <form class="hero-search-form" id="heroSearchForm" novalidate>
+                <div class="search-field-group">
+                  <label for="locationInput" class="sr-only">Your Location</label>
+                  <div class="input-with-icon">
+                    <svg
+                      class="field-icon"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.8" />
+                    </svg>
+                    <input
+                      type="text"
+                      id="locationInput"
+                      name="location"
+                      list="indianCitiesList"
+                      placeholder="Enter city or area (e.g., Bengaluru)"
+                      autocomplete="off"
+                    />
+                    <datalist id="indianCitiesList">
+                      <option value="Indiranagar, Bengaluru"></option>
+                      <option value="Andheri West, Mumbai"></option>
+                      <option value="Saket, New Delhi"></option>
+                      <option value="Kothrud, Pune"></option>
+                      <option value="Banjara Hills, Hyderabad"></option>
+                      <option value="Adyar, Chennai"></option>
+                    </datalist>
+                  </div>
+                </div>
+
+                <div class="search-divider" aria-hidden="true"></div>
+
+                <div class="search-field-group">
+                  <label for="serviceInput" class="sr-only">Search Service</label>
+                  <div class="input-with-icon">
+                    <svg
+                      class="field-icon"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8" />
+                      <path
+                        d="M20 20L16.5 16.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <input
+                      type="text"
+                      id="serviceInput"
+                      name="service"
+                      list="popularServicesList"
+                      placeholder="What do you need? (e.g., Electrician, AC Repair)"
+                      autocomplete="off"
+                    />
+                    <datalist id="popularServicesList">
+                      <option value="Electrician"></option>
+                      <option value="Plumber"></option>
+                      <option value="Carpenter"></option>
+                      <option value="AC Repair"></option>
+                      <option value="Home Cleaning"></option>
+                      <option value="Mechanic"></option>
+                    </datalist>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-search">Search Helpers</button>
+              </form>
+
+              <!-- Quick Search Shortcuts -->
+              <div class="hero-quick-links">
+                <span class="quick-label">Popular:</span>
+                <button type="button" class="quick-link-btn" data-quick-service="Electrician">
+                  Electrician (₹199)
+                </button>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <button type="button" class="quick-link-btn" data-quick-service="Plumber">
+                  Plumber (₹249)
+                </button>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <button type="button" class="quick-link-btn" data-quick-service="AC Repair">
+                  AC Repair (₹499)
+                </button>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <button type="button" class="quick-link-btn" data-quick-service="Home Cleaning">
+                  Home Cleaning (₹699)
+                </button>
+              </div>
+            </div>
+
+            <!-- Hero Visual Column -->
+            <div class="hero-visual">
+              <div class="hero-image-frame">
+                <img
+                  src="assets/images/hero-helper.jpg"
+                  alt="FixMate uniformed home technician warmly greeting an Indian homeowner in a sunlit living room"
+                  referrerpolicy="no-referrer"
+                  loading="eager"
+                />
+                <div class="hero-image-scrim" aria-hidden="true"></div>
+                <div class="hero-image-caption">
+                  <p class="caption-title">Standardised Inspection · ₹199</p>
+                  <p class="caption-sub">Adjusted against final bill on repair approval</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Full-Width Proof & Metrics Strip -->
+          <div class="hero-metrics-strip" aria-label="Platform Trust Highlights">
+            <div class="metric-item">
+              <p class="metric-value">48,000+</p>
+              <p class="metric-label">Jobs completed across Indian households</p>
+            </div>
+            <div class="metric-item">
+              <p class="metric-value">4.8 / 5</p>
+              <p class="metric-label">Average customer rating across 18,400 reviews</p>
+            </div>
+            <div class="metric-item">
+              <p class="metric-value">45–60 mins</p>
+              <p class="metric-label">Typical doorstep arrival in metro zones</p>
+            </div>
+            <div class="metric-item">
+              <p class="metric-value">30 Days</p>
+              <p class="metric-label">Free rework warranty on every completed job</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Services Section -->
+      <section class="section services-section" id="services">
+        <div class="container">
+          <div class="section-header-row">
+            <div class="section-heading-block">
+              <p class="section-eyebrow">Popular Services</p>
+              <h2 class="section-title">Skilled professionals for every home need</h2>
+              <p class="section-description">
+                Select a service to view upfront inspection rates in ₹ and book a verified helper in
+                your locality.
+              </p>
+            </div>
+
+            <!-- Interactive Category Filter Tabs -->
+            <div class="filter-tabs" role="tablist" aria-label="Filter services by category">
+              <button
+                type="button"
+                class="filter-tab is-active"
+                role="tab"
+                aria-selected="true"
+                data-category="all"
+              >
+                All Services
+              </button>
+              <button
+                type="button"
+                class="filter-tab"
+                role="tab"
+                aria-selected="false"
+                data-category="electrical"
+              >
+                Electrical &amp; Cooling
+              </button>
+              <button
+                type="button"
+                class="filter-tab"
+                role="tab"
+                aria-selected="false"
+                data-category="maintenance"
+              >
+                Plumbing &amp; Woodwork
+              </button>
+              <button
+                type="button"
+                class="filter-tab"
+                role="tab"
+                aria-selected="false"
+                data-category="care"
+              >
+                Cleaning &amp; Auto
+              </button>
+            </div>
+          </div>
+
+          <!-- Search Filter Banner (shown dynamically when filtering via hero search) -->
+          <div class="search-status-bar" id="searchStatusBar" hidden>
+            <p class="search-status-text" id="searchStatusText"></p>
+            <button type="button" class="btn-text-reset" id="resetSearchBtn">
+              Show all services
+            </button>
+          </div>
+
+          <!-- Services Grid -->
+          <div class="services-grid" id="servicesGrid">
+            <!-- 1. Electrician -->
+            <article
+              class="service-card"
+              data-service="Electrician"
+              data-category="electrical"
+              data-keywords="electrician wiring switchboard fan light mcb inverter socket power"
+              data-price="199"
+            >
+              <div class="service-card-top">
+                <div class="service-icon-box" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M13 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13 2Z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span class="service-price">From ₹199</span>
+              </div>
+              <h3 class="service-title">Electrician</h3>
+              <p class="service-desc">
+                Switchboard replacement, ceiling fan mounting, MCB tripping diagnostics, and
+                inverter wiring by licensed technicians.
+              </p>
+              <div class="service-meta">
+                <span>45 mins ETA</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>30-day warranty</span>
+              </div>
+              <button
+                type="button"
+                class="btn-card-action"
+                data-book-service="Electrician"
+                data-book-price="199"
+              >
+                Book Electrician
+              </button>
+            </article>
+
+            <!-- 2. Plumber -->
+            <article
+              class="service-card"
+              data-service="Plumber"
+              data-category="maintenance"
+              data-keywords="plumber pipe leak tap sink toilet bathroom drainage tank motor"
+              data-price="249"
+            >
+              <div class="service-card-top">
+                <div class="service-icon-box" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span class="service-price">From ₹249</span>
+              </div>
+              <h3 class="service-title">Plumber</h3>
+              <p class="service-desc">
+                Tap &amp; mixer installation, concealed pipe leakage repairs, bathroom fittings, and
+                blocked kitchen drain clearing.
+              </p>
+              <div class="service-meta">
+                <span>50 mins ETA</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>30-day warranty</span>
+              </div>
+              <button
+                type="button"
+                class="btn-card-action"
+                data-book-service="Plumber"
+                data-book-price="249"
+              >
+                Book Plumber
+              </button>
+            </article>
+
+            <!-- 3. Carpenter -->
+            <article
+              class="service-card"
+              data-service="Carpenter"
+              data-category="maintenance"
+              data-keywords="carpenter wood furniture door lock hinge cupboard wardrobe shelf"
+              data-price="299"
+            >
+              <div class="service-card-top">
+                <div class="service-icon-box" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M15 4L20 9L9 20H4V15L15 4Z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linejoin="round"
+                    />
+                    <path d="M12.5 6.5L17.5 11.5" stroke="currentColor" stroke-width="1.8" />
+                  </svg>
+                </div>
+                <span class="service-price">From ₹299</span>
+              </div>
+              <h3 class="service-title">Carpenter</h3>
+              <p class="service-desc">
+                Main door lock fitting, modular wardrobe hinges, furniture assembly, curtain rods,
+                and precision wooden repairs.
+              </p>
+              <div class="service-meta">
+                <span>60 mins ETA</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>30-day warranty</span>
+              </div>
+              <button
+                type="button"
+                class="btn-card-action"
+                data-book-service="Carpenter"
+                data-book-price="299"
+              >
+                Book Carpenter
+              </button>
+            </article>
+
+            <!-- 4. AC Repair -->
+            <article
+              class="service-card"
+              data-service="AC Repair"
+              data-category="electrical"
+              data-keywords="ac repair air conditioner cooling gas refill split window servicing jet"
+              data-price="499"
+            >
+              <div class="service-card-top">
+                <div class="service-icon-box" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect
+                      x="3"
+                      y="5"
+                      width="18"
+                      height="9"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                    <path d="M7 10H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path
+                      d="M8 17.5C8 19 7 20 7 20M12 17.5C12 19 12 20 12 20M16 17.5C16 19 17 20 17 20"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <span class="service-price">From ₹499</span>
+              </div>
+              <h3 class="service-title">AC Repair</h3>
+              <p class="service-desc">
+                Foam-jet deep servicing, split &amp; window AC installation, refrigerant gas top-up,
+                and PCB cooling troubleshooting.
+              </p>
+              <div class="service-meta">
+                <span>60 mins ETA</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>45-day cooling cover</span>
+              </div>
+              <button
+                type="button"
+                class="btn-card-action"
+                data-book-service="AC Repair"
+                data-book-price="499"
+              >
+                Book AC Repair
+              </button>
+            </article>
+
+            <!-- 5. Home Cleaning -->
+            <article
+              class="service-card"
+              data-service="Home Cleaning"
+              data-category="care"
+              data-keywords="home cleaning deep clean kitchen bathroom sofa sanitization maid"
+              data-price="699"
+            >
+              <div class="service-card-top">
+                <div class="service-icon-box" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 3V9M9 9H15L17 20H7L9 9Z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linejoin="round"
+                    />
+                    <path d="M8 15H16" stroke="currentColor" stroke-width="1.8" />
+                  </svg>
+                </div>
+                <span class="service-price">From ₹699</span>
+              </div>
+              <h3 class="service-title">Home Cleaning</h3>
+              <p class="service-desc">
+                Deep bathroom descaling, chimney &amp; kitchen degreasing, sofa shampooing, and
+                full 1BHK–4BHK apartment sanitization.
+              </p>
+              <div class="service-meta">
+                <span>Same-day slots</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>Eco-safe supplies</span>
+              </div>
+              <button
+                type="button"
+                class="btn-card-action"
+                data-book-service="Home Cleaning"
+                data-book-price="699"
+              >
+                Book Cleaning
+              </button>
+            </article>
+
+            <!-- 6. Mechanic -->
+            <article
+              class="service-card"
+              data-service="Mechanic"
+              data-category="care"
+              data-keywords="mechanic car bike scooter battery jumpstart puncture breakdown auto"
+              data-price="349"
+            >
+              <div class="service-card-top">
+                <div class="service-icon-box" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.77 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span class="service-price">From ₹349</span>
+              </div>
+              <h3 class="service-title">Mechanic</h3>
+              <p class="service-desc">
+                Doorstep car &amp; two-wheeler periodic servicing, battery jump-start, brake check,
+                and urgent roadside breakdown help.
+              </p>
+              <div class="service-meta">
+                <span>45 mins ETA</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>Genuine spares</span>
+              </div>
+              <button
+                type="button"
+                class="btn-card-action"
+                data-book-service="Mechanic"
+                data-book-price="349"
+              >
+                Book Mechanic
+              </button>
+            </article>
+          </div>
+
+          <!-- Empty Search State -->
+          <div class="empty-services-state" id="emptyServicesState" hidden>
+            <h3>No matching service found</h3>
+            <p>
+              We could not match that keyword with our standard categories. Try searching for
+              Electrician, Plumber, Carpenter, AC Repair, Home Cleaning, or Mechanic.
+            </p>
+            <button type="button" class="btn-primary" id="emptyResetBtn">View All Services</button>
+          </div>
+
+          <div class="services-directory-footer">
+            <p class="services-directory-note">
+              <strong>Want to compare individual technicians by PIN code &amp; ₹ rate card?</strong>
+              Explore 12+ background-verified local helpers in your city.
+            </p>
+            <a href="services.html" class="btn-primary">Browse All Services</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="section how-it-works-section" id="how-it-works">
+        <div class="container">
+          <div class="section-heading-center">
+            <p class="section-eyebrow">How It Works</p>
+            <h2 class="section-title">A reliable helper at your door in three clear steps</h2>
+            <p class="section-description">
+              No endless phone calls or surprise quotes at the doorstep. Every booking follows a
+              transparent rate card.
+            </p>
+          </div>
+
+          <div class="steps-grid">
+            <article class="step-card">
+              <div class="step-number">01</div>
+              <h3 class="step-title">Select Service &amp; Area</h3>
+              <p class="step-desc">
+                Enter your locality and pick the repair or cleaning service you need. See the
+                standard inspection rate in ₹ before confirming.
+              </p>
+            </article>
+
+            <article class="step-card">
+              <div class="step-number">02</div>
+              <h3 class="step-title">Get Matched Instantly</h3>
+              <p class="step-desc">
+                We assign the nearest background-verified FixMate technician with verified ID,
+                live arrival window, and tool kit ready.
+              </p>
+            </article>
+
+            <article class="step-card">
+              <div class="step-number">03</div>
+              <h3 class="step-title">Inspect &amp; Pay Securely</h3>
+              <p class="step-desc">
+                Review the completed work first, then pay via UPI, card, or cash. Every job
+                includes a 30-day service warranty.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose FixMate Section -->
+      <section class="section why-section" id="about">
+        <div class="container">
+          <div class="why-grid">
+            <div class="why-visual">
+              <div class="why-image-frame">
+                <img
+                  src="assets/images/why-fixmate.jpg"
+                  alt="Verified FixMate plumber inspecting kitchen brass fittings with precision tools"
+                  referrerpolicy="no-referrer"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="why-content">
+              <p class="section-eyebrow">Why Choose FixMate</p>
+              <h2 class="section-title">Built for trust, clear pricing, and lasting workmanship</h2>
+              <p class="why-lead">
+                Finding a dependable technician in an Indian city should not depend on guesswork.
+                FixMate vets every specialist and standardises every repair quote.
+              </p>
+
+              <div class="benefits-list">
+                <div class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 2L4 5.5V11.5C4 16.5 7.4 21 12 22C16.6 21 20 16.5 20 11.5V5.5L12 2Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M9 12L11 14L15 10"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="benefit-title">100% Background &amp; Police Verified</h3>
+                    <p class="benefit-desc">
+                      Every helper completes Aadhaar verification, trade skill testing, and police
+                      record screening before joining our network.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M7 5H17M7 10H17M13 5C14.6569 5 16 6.34315 16 8C16 9.65685 14.6569 11 13 11H7L14 19"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="benefit-title">Upfront Rate Cards in ₹</h3>
+                    <p class="benefit-desc">
+                      Clear inspection visits from ₹199 and approved repair estimates before work
+                      begins — zero hidden charges or bargaining.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                      <path
+                        d="M12 7V12L15.5 14"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="benefit-title">60-Minute Arrival Guarantee</h3>
+                    <p class="benefit-desc">
+                      Neighbourhood-based technician routing ensures urgent electrical, plumbing, and
+                      breakdown issues are resolved fast.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M20 7L9 18L4 13"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="benefit-title">30-Day Service Warranty</h3>
+                    <p class="benefit-desc">
+                      If a repaired issue recurs within 30 days, our specialist returns and fixes it
+                      at zero extra labour cost.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Testimonials Section -->
+      <section class="section testimonials-section" id="testimonials">
+        <div class="container">
+          <div class="section-heading-center">
+            <p class="section-eyebrow">Customer Stories</p>
+            <h2 class="section-title">Trusted by families across Indian neighbourhoods</h2>
+            <p class="section-description">
+              Real feedback from homeowners who booked FixMate helpers for urgent and routine home
+              maintenance.
+            </p>
+          </div>
+
+          <div class="testimonials-grid">
+            <article class="testimonial-card">
+              <div class="testimonial-rating" aria-label="Rated 5 out of 5 stars">
+                <svg class="stars-svg" width="88" height="16" viewBox="0 0 88 16" fill="none" aria-hidden="true">
+                  <path d="M8 1L10.1 5.3L14.8 6L11.4 9.3L12.2 14L8 11.8L3.8 14L4.6 9.3L1.2 6L5.9 5.3L8 1Z" fill="#1D63ED" />
+                  <path d="M26 1L28.1 5.3L32.8 6L29.4 9.3L30.2 14L26 11.8L21.8 14L22.6 9.3L19.2 6L23.9 5.3L26 1Z" fill="#1D63ED" />
+                  <path d="M44 1L46.1 5.3L50.8 6L47.4 9.3L48.2 14L44 11.8L39.8 14L40.6 9.3L37.2 6L41.9 5.3L44 1Z" fill="#1D63ED" />
+                  <path d="M62 1L64.1 5.3L68.8 6L65.4 9.3L66.2 14L62 11.8L57.8 14L58.6 9.3L55.2 6L59.9 5.3L62 1Z" fill="#1D63ED" />
+                  <path d="M80 1L82.1 5.3L86.8 6L83.4 9.3L84.2 14L80 11.8L75.8 14L76.6 9.3L73.2 6L77.9 5.3L80 1Z" fill="#1D63ED" />
+                </svg>
+                <span class="rating-text">5.0 · AC Repair</span>
+              </div>
+              <blockquote class="testimonial-quote">
+                “Our bedroom split AC stopped cooling right in the middle of May. The FixMate
+                technician reached Indiranagar in 40 minutes, cleaned the coils thoroughly, and the
+                entire service cost ₹599 as quoted upfront.”
+              </blockquote>
+              <div class="testimonial-author">
+                <img
+                  class="author-avatar"
+                  src="assets/images/testimonial-priya.jpg"
+                  alt="Priya Sharma"
+                  referrerpolicy="no-referrer"
+                  loading="lazy"
+                />
+                <div>
+                  <p class="author-name">Priya Sharma</p>
+                  <p class="author-meta">Indiranagar, Bengaluru · Paid ₹599</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-rating" aria-label="Rated 5 out of 5 stars">
+                <svg class="stars-svg" width="88" height="16" viewBox="0 0 88 16" fill="none" aria-hidden="true">
+                  <path d="M8 1L10.1 5.3L14.8 6L11.4 9.3L12.2 14L8 11.8L3.8 14L4.6 9.3L1.2 6L5.9 5.3L8 1Z" fill="#1D63ED" />
+                  <path d="M26 1L28.1 5.3L32.8 6L29.4 9.3L30.2 14L26 11.8L21.8 14L22.6 9.3L19.2 6L23.9 5.3L26 1Z" fill="#1D63ED" />
+                  <path d="M44 1L46.1 5.3L50.8 6L47.4 9.3L48.2 14L44 11.8L39.8 14L40.6 9.3L37.2 6L41.9 5.3L44 1Z" fill="#1D63ED" />
+                  <path d="M62 1L64.1 5.3L68.8 6L65.4 9.3L66.2 14L62 11.8L57.8 14L58.6 9.3L55.2 6L59.9 5.3L62 1Z" fill="#1D63ED" />
+                  <path d="M80 1L82.1 5.3L86.8 6L83.4 9.3L84.2 14L80 11.8L75.8 14L76.6 9.3L73.2 6L77.9 5.3L80 1Z" fill="#1D63ED" />
+                </svg>
+                <span class="rating-text">5.0 · Plumber</span>
+              </div>
+              <blockquote class="testimonial-quote">
+                “Two local plumbers could not locate our kitchen sink leak. FixMate sent Rajesh, who
+                replaced the worn angle valve cleanly without breaking tiles. Final bill was ₹450
+                via UPI with a 30-day warranty slip.”
+              </blockquote>
+              <div class="testimonial-author">
+                <img
+                  class="author-avatar"
+                  src="assets/images/testimonial-rohan.jpg"
+                  alt="Rohan Deshmukh"
+                  referrerpolicy="no-referrer"
+                  loading="lazy"
+                />
+                <div>
+                  <p class="author-name">Rohan Deshmukh</p>
+                  <p class="author-meta">Kothrud, Pune · Paid ₹450</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-rating" aria-label="Rated 5 out of 5 stars">
+                <svg class="stars-svg" width="88" height="16" viewBox="0 0 88 16" fill="none" aria-hidden="true">
+                  <path d="M8 1L10.1 5.3L14.8 6L11.4 9.3L12.2 14L8 11.8L3.8 14L4.6 9.3L1.2 6L5.9 5.3L8 1Z" fill="#1D63ED" />
+                  <path d="M26 1L28.1 5.3L32.8 6L29.4 9.3L30.2 14L26 11.8L21.8 14L22.6 9.3L19.2 6L23.9 5.3L26 1Z" fill="#1D63ED" />
+                  <path d="M44 1L46.1 5.3L50.8 6L47.4 9.3L48.2 14L44 11.8L39.8 14L40.6 9.3L37.2 6L41.9 5.3L44 1Z" fill="#1D63ED" />
+                  <path d="M62 1L64.1 5.3L68.8 6L65.4 9.3L66.2 14L62 11.8L57.8 14L58.6 9.3L55.2 6L59.9 5.3L62 1Z" fill="#1D63ED" />
+                  <path d="M80 1L82.1 5.3L86.8 6L83.4 9.3L84.2 14L80 11.8L75.8 14L76.6 9.3L73.2 6L77.9 5.3L80 1Z" fill="#1D63ED" />
+                </svg>
+                <span class="rating-text">5.0 · Electrician</span>
+              </div>
+              <blockquote class="testimonial-quote">
+                “Booked an electrician at 8:30 AM when our main MCB kept tripping during a power
+                cut. Very polite, wore shoe covers, fixed the loose inverter terminal in 25 minutes,
+                and charged only ₹349.”
+              </blockquote>
+              <div class="testimonial-author">
+                <div class="author-monogram" aria-hidden="true">AI</div>
+                <div>
+                  <p class="author-name">Ananya Iyer</p>
+                  <p class="author-meta">Adyar, Chennai · Paid ₹349</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact & Support Section -->
+      <section class="section contact-section" id="contact">
+        <div class="container">
+          <div class="contact-panel">
+            <div class="contact-info">
+              <p class="section-eyebrow">Need Help Booking?</p>
+              <h2 class="section-title">Request a quick callback from our support desk</h2>
+              <p class="contact-lead">
+                Not sure which technician to book or need support for an apartment society? Share
+                your phone number and our local coordinator will call back within 10 minutes.
+              </p>
+
+              <div class="contact-details-list">
+                <div class="contact-detail-row">
+                  <span class="contact-detail-label">Customer Helpline</span>
+                  <a href="tel:+918045682910" class="contact-detail-value">+91 80 4568 2910</a>
+                </div>
+                <div class="contact-detail-row">
+                  <span class="contact-detail-label">Support Email</span>
+                  <a href="mailto:support@fixmate.in" class="contact-detail-value">
+                    support@fixmate.in
+                  </a>
+                </div>
+                <div class="contact-detail-row">
+                  <span class="contact-detail-label">Service Hours</span>
+                  <span class="contact-detail-value">Daily, 7:00 AM – 10:00 PM IST</span>
+                </div>
+              </div>
+            </div>
+
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="form-row-two">
+                <div class="form-field">
+                  <label for="contactName">Full Name</label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="name"
+                    placeholder="e.g., Vikram Nair"
+                    required
+                  />
+                  <span class="field-error" id="contactNameError" aria-live="polite"></span>
+                </div>
+                <div class="form-field">
+                  <label for="contactPhone">Mobile Number</label>
+                  <input
+                    type="tel"
+                    id="contactPhone"
+                    name="phone"
+                    placeholder="10-digit mobile number"
+                    maxlength="10"
+                    required
+                  />
+                  <span class="field-error" id="contactPhoneError" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="contactCity">City &amp; Requirement</label>
+                <input
+                  type="text"
+                  id="contactCity"
+                  name="requirement"
+                  placeholder="e.g., Mumbai – Split AC repair and kitchen plumbing"
+                  required
+                />
+                <span class="field-error" id="contactCityError" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn-primary btn-full">Request Callback</button>
+
+              <div class="form-feedback" id="contactFeedback" role="status" hidden></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="#home" class="brand-logo footer-logo" aria-label="FixMate Home">
+              <svg
+                class="brand-mark"
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                <path
+                  d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                  fill="#FFFFFF"
+                />
+                <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+              </svg>
+              <span class="brand-name brand-name-light">FixMate</span>
+            </a>
+            <p class="footer-tagline">
+              Connecting Indian households with background-verified local technicians at fair,
+              upfront prices in ₹.
+            </p>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Useful Links</h3>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">Popular Services</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#about">Why FixMate</a></li>
+              <li><a href="#contact">Contact Support</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Service Categories</h3>
+            <ul class="footer-links">
+              <li><a href="#services" data-footer-service="Electrician">Electrician (From ₹199)</a></li>
+              <li><a href="#services" data-footer-service="Plumber">Plumber (From ₹249)</a></li>
+              <li><a href="#services" data-footer-service="Carpenter">Carpenter (From ₹299)</a></li>
+              <li><a href="#services" data-footer-service="AC Repair">AC Repair (From ₹499)</a></li>
+              <li><a href="#services" data-footer-service="Home Cleaning">Home Cleaning (From ₹699)</a></li>
+              <li><a href="#services" data-footer-service="Mechanic">Mechanic (From ₹349)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Contact Details</h3>
+            <ul class="footer-contact-list">
+              <li>
+                <span class="footer-contact-label">Phone:</span>
+                <a href="tel:+918045682910">+91 80 4568 2910</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Email:</span>
+                <a href="mailto:support@fixmate.in">support@fixmate.in</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Office:</span>
+                <span>100 Feet Road, Indiranagar, Bengaluru 560038</span>
+              </li>
+              <li>
+                <span class="footer-contact-label">Cities:</span>
+                <span>Bengaluru · Mumbai · Delhi NCR · Pune · Hyderabad · Chennai</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">&copy; <span id="currentYear">2026</span> FixMate Home Services Pvt. Ltd. All rights reserved.</p>
+          <div class="footer-bottom-links">
+            <a href="#about">30-Day Service Warranty</a>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <a href="#contact">Partner With FixMate</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle" hidden>
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow">Instant Service Request</p>
+            <h2 class="modal-title" id="bookingModalTitle">Book Electrician</h2>
+          </div>
+          <button type="button" class="modal-close-btn" data-close-modal="bookingModal" aria-label="Close booking modal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <form id="bookingForm" class="modal-form" novalidate>
+          <div class="booking-summary-strip">
+            <div>
+              <span class="summary-label">Selected Service</span>
+              <strong id="bookingServiceName">Electrician</strong>
+            </div>
+            <div class="summary-right">
+              <span class="summary-label">Inspection Fee</span>
+              <strong id="bookingServicePrice">₹199</strong>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="bookingLocality">Locality / Address</label>
+            <input type="text" id="bookingLocality" placeholder="e.g., Flat 302, Indiranagar, Bengaluru" required />
+            <span class="field-error" id="bookingLocalityError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-field">
+              <label for="bookingCustomerName">Your Name</label>
+              <input type="text" id="bookingCustomerName" placeholder="Full name" required />
+              <span class="field-error" id="bookingNameError" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="bookingPhone">Mobile Number</label>
+              <input type="tel" id="bookingPhone" placeholder="10-digit mobile" maxlength="10" required />
+              <span class="field-error" id="bookingPhoneError" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="bookingSlot">Preferred Arrival Slot</label>
+            <select id="bookingSlot">
+              <option value="Express (Within 60 mins)">Express (Within 60 mins)</option>
+              <option value="Today, 4:00 PM – 6:00 PM">Today, 4:00 PM – 6:00 PM</option>
+              <option value="Tomorrow, 9:00 AM – 11:00 AM">Tomorrow, 9:00 AM – 11:00 AM</option>
+              <option value="Tomorrow, 11:00 AM – 1:00 PM">Tomorrow, 11:00 AM – 1:00 PM</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">Confirm Booking Request</button>
+        </form>
+
+        <div class="modal-confirmation" id="bookingConfirmation" hidden>
+          <div class="confirmation-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3>Booking Request Received</h3>
+          <p id="bookingConfirmText"></p>
+          <button type="button" class="btn-primary btn-full" data-close-modal="bookingModal">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth Modal (Login / Register) -->
+    <div class="modal-backdrop" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" hidden>
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow">FixMate Account</p>
+            <h2 class="modal-title" id="authModalTitle">Welcome back</h2>
+          </div>
+          <button type="button" class="modal-close-btn" data-close-modal="authModal" aria-label="Close account modal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab is-active" data-auth-tab="login" role="tab" aria-selected="true">
+            Login
+          </button>
+          <button type="button" class="auth-tab" data-auth-tab="register" role="tab" aria-selected="false">
+            Register
+          </button>
+        </div>
+
+        <form id="authForm" class="modal-form" novalidate>
+          <div class="form-field" id="authNameGroup" hidden>
+            <label for="authFullName">Full Name</label>
+            <input type="text" id="authFullName" placeholder="e.g., Arjun Mehta" />
+            <span class="field-error" id="authNameError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="authIdentifier">Email or Mobile Number</label>
+            <input type="text" id="authIdentifier" placeholder="name@example.com or 9876543210" required />
+            <span class="field-error" id="authIdentifierError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="authPassword">Password</label>
+            <input type="password" id="authPassword" placeholder="Minimum 6 characters" required />
+            <span class="field-error" id="authPasswordError" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full" id="authSubmitBtn">Login to FixMate</button>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

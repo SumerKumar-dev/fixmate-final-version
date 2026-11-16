@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account – FixMate</title>
+    <meta
+      name="description"
+      content="Create a FixMate Customer or Service Provider account to book or offer verified home services with transparent ₹ pricing."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header / Navbar -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-logo" aria-label="FixMate Home">
+          <svg
+            class="brand-mark"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="32" height="32" rx="8" fill="#1D63ED" />
+            <path
+              d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+              fill="#FFFFFF"
+            />
+            <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+          </svg>
+          <span class="brand-name">FixMate</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="customer-dashboard.html" class="nav-link">My Bookings</a>
+          <a href="index.html#about" class="nav-link">About</a>
+          <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="login.html" class="btn-ghost">Login</a>
+          <a href="register.html" class="btn-primary is-active-action" aria-current="page">Register</a>
+        </div>
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileDrawer"
+          aria-label="Open navigation menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer" id="mobileDrawer" hidden>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="services.html" class="mobile-nav-link">Services</a>
+          <a href="customer-dashboard.html" class="mobile-nav-link">My Bookings</a>
+          <a href="index.html#about" class="mobile-nav-link">About</a>
+          <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="login.html" class="btn-outline-dark">Login</a>
+          <a href="register.html" class="btn-primary" aria-current="page">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="auth-page-main">
+      <div class="container">
+        <div class="auth-split-layout">
+          <!-- Left Branding & Value Column -->
+          <aside class="auth-showcase-panel" aria-label="Why Join FixMate">
+            <div class="auth-showcase-content">
+              <a href="index.html" class="auth-back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M19 12H5M12 19L5 12L12 5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>Back to Home</span>
+              </a>
+
+              <div class="auth-showcase-brand">
+                <a href="index.html" class="brand-logo" aria-label="FixMate">
+                  <svg
+                    class="brand-mark"
+                    width="34"
+                    height="34"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                    <path
+                      d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                      fill="#FFFFFF"
+                    />
+                    <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+                  </svg>
+                  <span class="brand-name">FixMate</span>
+                </a>
+              </div>
+
+              <h2 class="auth-showcase-title">Join households &amp; skilled technicians across India</h2>
+              <p class="auth-showcase-desc">
+                Register as a homeowner to book trusted doorstep repairs starting at ₹199, or join
+                as a verified trade specialist to grow steady local bookings.
+              </p>
+
+              <div class="auth-highlights-list">
+                <div class="auth-highlight-item">
+                  <div class="auth-highlight-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M3 10L12 3L21 10V20H15V14H9V20H3V10Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="auth-highlight-title">For Customers</p>
+                    <p class="auth-highlight-sub">
+                      Book Electricians (₹199), Plumbers (₹249), AC Repair (₹499) &amp; more
+                    </p>
+                  </div>
+                </div>
+
+                <div class="auth-highlight-item">
+                  <div class="auth-highlight-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="auth-highlight-title">For Service Providers</p>
+                    <p class="auth-highlight-sub">
+                      Zero listing fee · Direct ₹ payouts via UPI or bank transfer
+                    </p>
+                  </div>
+                </div>
+
+                <div class="auth-highlight-item">
+                  <div class="auth-highlight-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M20 7L9 18L4 13"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="auth-highlight-title">60-Minute Local Matching</p>
+                    <p class="auth-highlight-sub">Fast PIN-code routing in Bengaluru, Mumbai, Delhi &amp; Pune</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="auth-showcase-footer">
+              <span>Want to browse rates first?</span>
+              <a href="services.html">Explore Services</a>
+            </div>
+          </aside>
+
+          <!-- Right Registration Form Card -->
+          <section class="auth-card" aria-labelledby="registerHeading">
+            <div class="auth-card-header">
+              <p class="auth-card-eyebrow">Get Started</p>
+              <h1 class="auth-card-title" id="registerHeading">Create Your FixMate Account</h1>
+              <p class="auth-card-subtitle">
+                Fill in your details below to register as a Customer or Service Provider.
+              </p>
+            </div>
+
+            <form class="auth-page-form" id="registerForm" novalidate>
+              <!-- Account Type Selection -->
+              <fieldset class="account-type-fieldset">
+                <legend class="account-type-legend">Account Type</legend>
+                <div class="account-type-grid">
+                  <label class="account-type-option">
+                    <input type="radio" name="accountType" value="Customer" checked />
+                    <span class="account-type-box">
+                      <span class="account-type-name">Customer</span>
+                      <span class="account-type-desc">Book local helpers at home</span>
+                    </span>
+                  </label>
+                  <label class="account-type-option">
+                    <input type="radio" name="accountType" value="Service Provider" />
+                    <span class="account-type-box">
+                      <span class="account-type-name">Service Provider</span>
+                      <span class="account-type-desc">Offer verified repair skills</span>
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="provider-note-banner" id="providerNoteBanner" hidden>
+                Service Provider onboarding includes Aadhaar verification and transparent ₹ rate card
+                setup once backend verification is activated.
+              </div>
+
+              <div class="form-field">
+                <label for="registerName">Full Name</label>
+                <div class="input-icon-wrap">
+                  <svg
+                    class="input-prefix-icon"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8" />
+                    <path
+                      d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    id="registerName"
+                    name="fullName"
+                    placeholder="e.g., Arjun Mehta"
+                    autocomplete="name"
+                    required
+                  />
+                </div>
+                <span class="field-error" id="registerNameError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-row-two">
+                <div class="form-field">
+                  <label for="registerEmail">Email Address</label>
+                  <div class="input-icon-wrap">
+                    <svg
+                      class="input-prefix-icon"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <rect
+                        x="3"
+                        y="5"
+                        width="18"
+                        height="14"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <path
+                        d="M3 7L12 13L21 7"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <input
+                      type="email"
+                      id="registerEmail"
+                      name="email"
+                      placeholder="arjun@example.in"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                  <span class="field-error" id="registerEmailError" aria-live="polite"></span>
+                </div>
+
+                <div class="form-field">
+                  <label for="registerPhone">Mobile Number</label>
+                  <div class="input-icon-wrap has-phone-prefix">
+                    <svg
+                      class="input-prefix-icon"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <rect
+                        x="7"
+                        y="2.5"
+                        width="10"
+                        height="19"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <path
+                        d="M11 18H13"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <span class="phone-prefix-tag" aria-hidden="true">+91</span>
+                    <input
+                      type="tel"
+                      id="registerPhone"
+                      name="phone"
+                      placeholder="9876543210"
+                      maxlength="10"
+                      autocomplete="tel-national"
+                      required
+                    />
+                  </div>
+                  <span class="field-error" id="registerPhoneError" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="registerPassword">Password</label>
+                <div class="input-icon-wrap has-toggle">
+                  <svg
+                    class="input-prefix-icon"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="4"
+                      y="11"
+                      width="16"
+                      height="10"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                    <path
+                      d="M8 11V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V11"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                  </svg>
+                  <input
+                    type="password"
+                    id="registerPassword"
+                    name="password"
+                    placeholder="Minimum 8 characters"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle-btn"
+                    data-toggle-password="registerPassword"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                  >
+                    <svg class="icon-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M2 12C4.5 7 8 5 12 5C16 5 19.5 7 22 12C19.5 17 16 19 12 19C8 19 4.5 17 2 12Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8" />
+                    </svg>
+                    <svg class="icon-eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+                      <path
+                        d="M3 3L21 21M10.58 10.58A2 2 0 0 0 13.42 13.42M9.88 5.09A9.77 9.77 0 0 1 12 5C16 5 19.5 7 22 12A13.16 13.16 0 0 1 18.88 16.32M6.61 6.61A13.52 13.52 0 0 0 2 12C4.5 17 8 19 12 19C13.68 19 15.27 18.64 16.71 17.98"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <span class="field-hint">
+                  Use at least 8 characters including letters and at least 1 number.
+                </span>
+                <span class="field-error" id="registerPasswordError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="registerConfirmPassword">Confirm Password</label>
+                <div class="input-icon-wrap has-toggle">
+                  <svg
+                    class="input-prefix-icon"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="4"
+                      y="11"
+                      width="16"
+                      height="10"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                    <path
+                      d="M8 11V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V11"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    />
+                  </svg>
+                  <input
+                    type="password"
+                    id="registerConfirmPassword"
+                    name="confirmPassword"
+                    placeholder="Re-enter your password"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle-btn"
+                    data-toggle-password="registerConfirmPassword"
+                    aria-label="Show confirm password"
+                    aria-pressed="false"
+                  >
+                    <svg class="icon-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M2 12C4.5 7 8 5 12 5C16 5 19.5 7 22 12C19.5 17 16 19 12 19C8 19 4.5 17 2 12Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8" />
+                    </svg>
+                    <svg class="icon-eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+                      <path
+                        d="M3 3L21 21M10.58 10.58A2 2 0 0 0 13.42 13.42M9.88 5.09A9.77 9.77 0 0 1 12 5C16 5 19.5 7 22 12A13.16 13.16 0 0 1 18.88 16.32M6.61 6.61A13.52 13.52 0 0 0 2 12C4.5 17 8 19 12 19C13.68 19 15.27 18.64 16.71 17.98"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <span class="field-error" id="registerConfirmError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="termsCheckbox" name="terms" required />
+                  <span>
+                    I accept the
+                    <button type="button" class="auth-inline-link" id="openTermsBtn">
+                      Terms and Conditions
+                    </button>
+                    for using FixMate home services.
+                  </span>
+                </label>
+                <span class="field-error" id="registerTermsError" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn-primary btn-full auth-submit-btn">
+                Create Account
+              </button>
+
+              <div
+                class="auth-feedback-box"
+                id="registerFeedback"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></div>
+            </form>
+
+            <div class="auth-switch-footer">
+              <span>Already have an account? <a href="login.html">Login here</a></span>
+              <a href="index.html">Back to Home</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Terms Summary Modal -->
+    <div
+      class="modal-backdrop"
+      id="termsModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="termsModalTitle"
+      hidden
+    >
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow">FixMate Guidelines</p>
+            <h2 class="modal-title" id="termsModalTitle">Terms and Conditions Summary</h2>
+          </div>
+          <button
+            type="button"
+            class="modal-close-btn"
+            data-close-modal="termsModal"
+            aria-label="Close terms modal"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="profile-bio">
+          <p>
+            1. Inspection charges start from ₹199 depending on service category and are adjusted
+            against the final approved repair invoice.
+          </p>
+          <p style="margin-top: 10px">
+            2. Completed services carry a 30-day workmanship warranty on labour provided by the
+            assigned FixMate specialist.
+          </p>
+          <p style="margin-top: 10px">
+            3. Service Providers agree to complete identity and trade skill verification before
+            accepting doorstep bookings.
+          </p>
+        </div>
+        <button type="button" class="btn-primary btn-full" data-close-modal="termsModal">
+          I Understand
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="index.html" class="brand-logo footer-logo" aria-label="FixMate Home">
+              <svg
+                class="brand-mark"
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                <path
+                  d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                  fill="#FFFFFF"
+                />
+                <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+              </svg>
+              <span class="brand-name brand-name-light">FixMate</span>
+            </a>
+            <p class="footer-tagline">
+              Connecting Indian households with background-verified local technicians at fair,
+              upfront prices in ₹.
+            </p>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Useful Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Explore Services</a></li>
+              <li><a href="index.html#how-it-works">How It Works</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Service Categories</h3>
+            <ul class="footer-links">
+              <li><a href="services.html?category=Electrician">Electrician (From ₹199)</a></li>
+              <li><a href="services.html?category=Plumber">Plumber (From ₹249)</a></li>
+              <li><a href="services.html?category=Carpenter">Carpenter (From ₹299)</a></li>
+              <li><a href="services.html?category=AC+Repair">AC Repair (From ₹499)</a></li>
+              <li><a href="services.html?category=Home+Cleaning">Home Cleaning (From ₹699)</a></li>
+              <li><a href="services.html?category=Mechanic">Mechanic (From ₹349)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Contact Details</h3>
+            <ul class="footer-contact-list">
+              <li>
+                <span class="footer-contact-label">Phone:</span>
+                <a href="tel:+918045682910">+91 80 4568 2910</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Email:</span>
+                <a href="mailto:support@fixmate.in">support@fixmate.in</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Office:</span>
+                <span>100 Feet Road, Indiranagar, Bengaluru 560038</span>
+              </li>
+              <li>
+                <span class="footer-contact-label">Cities:</span>
+                <span>Bengaluru · Mumbai · Delhi NCR · Pune · Hyderabad · Chennai</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; <span id="currentYear">2026</span> FixMate Home Services Pvt. Ltd. All rights
+            reserved.
+          </p>
+          <div class="footer-bottom-links">
+            <a href="index.html#about">30-Day Service Warranty</a>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <a href="index.html#contact">Partner With FixMate</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="js/auth.js"></script>
+  </body>
+</html>

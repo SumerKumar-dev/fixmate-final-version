@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Provider Profile – FixMate</title>
+    <meta
+      name="description"
+      content="View verified FixMate service provider profile, transparent ₹ rate card, customer ratings, and book an appointment."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header / Navbar -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-logo" aria-label="FixMate Home">
+          <svg
+            class="brand-mark"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="32" height="32" rx="8" fill="#1D63ED" />
+            <path
+              d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+              fill="#FFFFFF"
+            />
+            <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+          </svg>
+          <span class="brand-name">FixMate</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link is-active" aria-current="page">Services</a>
+          <a href="customer-dashboard.html" class="nav-link">My Bookings</a>
+          <a href="index.html#about" class="nav-link">About</a>
+          <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="login.html" class="btn-ghost">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileDrawer"
+          aria-label="Open navigation menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer" id="mobileDrawer" hidden>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="services.html" class="mobile-nav-link is-active" aria-current="page">Services</a>
+          <a href="customer-dashboard.html" class="mobile-nav-link">My Bookings</a>
+          <a href="index.html#about" class="mobile-nav-link">About</a>
+          <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="login.html" class="btn-outline-dark">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Profile Header Banner -->
+      <section class="provider-banner" id="providerBanner">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="container">
+          <nav class="page-breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true">&gt;</span>
+            <a href="services.html">Services</a>
+            <span aria-hidden="true">&gt;</span>
+            <span id="breadcrumbProviderName">Provider Profile</span>
+          </nav>
+
+          <div class="provider-hero-card" id="providerHeroCard">
+            <div class="provider-hero-identity">
+              <div class="provider-hero-avatar" id="providerHeroAvatar"></div>
+              <div>
+                <div class="provider-hero-meta-top">
+                  <span class="provider-hero-category" id="providerHeroCategory">Electrician</span>
+                  <span class="verified-badge-inline">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 2L4 5.5V11.5C4 16.5 7.4 21 12 22C16.6 21 20 16.5 20 11.5V5.5L12 2Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M9 12L11 14L15 10"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <span>Verified Professional (Sample UI)</span>
+                  </span>
+                </div>
+                <h1 class="provider-hero-name" id="providerHeroName">Loading Profile…</h1>
+                <div class="provider-hero-facts">
+                  <span id="providerHeroLocation"></span>
+                  <span class="meta-sep" aria-hidden="true">·</span>
+                  <span id="providerHeroExp"></span>
+                  <span class="meta-sep" aria-hidden="true">·</span>
+                  <span class="provider-hero-rating" id="providerHeroRating"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="provider-hero-status-col">
+              <span class="status-availability-label" id="providerHeroAvailability">Available Today</span>
+              <span class="status-price-display" id="providerHeroPrice">From ₹199</span>
+              <span class="status-price-caption">Standard inspection visit</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Profile Body -->
+      <section class="provider-main-section">
+        <div class="container">
+          <!-- Friendly Provider Not Found State -->
+          <div class="provider-not-found-card" id="providerNotFound" hidden>
+            <h1>Provider Profile Not Found</h1>
+            <p id="providerNotFoundMessage">
+              We could not find a FixMate specialist matching that profile ID. Browse our verified
+              local helpers in Explore Services.
+            </p>
+            <a href="services.html" class="btn-primary">Back to Explore Services</a>
+          </div>
+
+          <!-- Active Provider Profile Layout -->
+          <div class="provider-content-grid" id="providerContentGrid">
+            <!-- Left Content Column -->
+            <div class="provider-left-column">
+              <!-- 2. Provider Information Section -->
+              <section class="profile-section-card" aria-labelledby="aboutProviderHeading">
+                <h2 class="profile-card-heading" id="aboutProviderHeading">About the Professional</h2>
+                <p class="profile-about-text" id="providerAboutText"></p>
+
+                <div class="provider-info-grid">
+                  <div>
+                    <span class="info-block-label">Professional Experience</span>
+                    <span class="info-block-value" id="infoExperience"></span>
+                  </div>
+                  <div>
+                    <span class="info-block-label">Starting Visit Price</span>
+                    <span class="info-block-value" id="infoStartingPrice"></span>
+                  </div>
+                  <div>
+                    <span class="info-block-label">Services Offered</span>
+                    <span class="info-block-value" id="infoServicesSummary"></span>
+                  </div>
+                  <div>
+                    <span class="info-block-label">Areas &amp; PIN Codes Served</span>
+                    <span class="info-block-value" id="infoAreasServed"></span>
+                  </div>
+                  <div>
+                    <span class="info-block-label">Working Days &amp; Hours</span>
+                    <span class="info-block-value" id="infoWorkingHours"></span>
+                  </div>
+                  <div>
+                    <span class="info-block-label">Sample Contact Details</span>
+                    <span class="info-block-value" id="infoContactDetails"></span>
+                  </div>
+                </div>
+
+                <div style="margin-top: 20px; padding-top: 18px; border-top: var(--border-hairline)">
+                  <span class="info-block-label">Skills &amp; Expertise</span>
+                  <div class="skills-text-list" id="infoSkillsList"></div>
+                </div>
+              </section>
+
+              <!-- 3. Services and Pricing Section -->
+              <section class="profile-section-card" aria-labelledby="servicesPricingHeading">
+                <h2 class="profile-card-heading" id="servicesPricingHeading">
+                  Services &amp; Transparent Pricing (₹)
+                </h2>
+                <div class="provider-services-list" id="providerServicesList"></div>
+              </section>
+
+              <!-- 4. Customer Reviews & Ratings Section -->
+              <section class="profile-section-card" aria-labelledby="reviewsHeading">
+                <div class="reviews-header-row">
+                  <div>
+                    <h2 class="profile-card-heading" id="reviewsHeading" style="margin-bottom: 4px">
+                      Customer Reviews &amp; Ratings
+                    </h2>
+                    <span class="reviews-demo-note">
+                      Sample &amp; locally saved demonstration reviews
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    id="toggleReviewFormBtn"
+                    aria-expanded="false"
+                    aria-controls="addReviewFormCard"
+                  >
+                    Write a Review
+                  </button>
+                </div>
+
+                <!-- Inline Write a Review Form -->
+                <div class="add-review-card" id="addReviewFormCard" hidden>
+                  <div class="add-review-header">
+                    <h3 class="add-review-title">Share Your Experience (Demo)</h3>
+                    <button type="button" class="btn-text-reset" id="cancelReviewFormBtn">
+                      Close
+                    </button>
+                  </div>
+
+                  <form class="add-review-form" id="addReviewForm" novalidate>
+                    <div class="form-row-two">
+                      <div class="form-field">
+                        <label for="reviewCustomerName">Customer Name</label>
+                        <input
+                          type="text"
+                          id="reviewCustomerName"
+                          placeholder="e.g., Ananya Sharma"
+                          maxlength="60"
+                          required
+                        />
+                        <span class="field-error" id="reviewNameError" aria-live="polite"></span>
+                      </div>
+
+                      <div class="form-field">
+                        <span class="star-picker-label" id="starPickerLabel">
+                          Star Rating (1–5)
+                        </span>
+                        <div
+                          class="star-rating-picker"
+                          id="reviewStarPicker"
+                          role="radiogroup"
+                          aria-labelledby="starPickerLabel"
+                        >
+                          <button
+                            type="button"
+                            class="star-pick-btn"
+                            data-star-value="1"
+                            role="radio"
+                            aria-checked="false"
+                            aria-label="1 star"
+                          >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M12 2L14.9 8.6L22 9.3L16.6 14L18.2 21L12 17.3L5.8 21L7.4 14L2 9.3L9.1 8.6L12 2Z" />
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            class="star-pick-btn"
+                            data-star-value="2"
+                            role="radio"
+                            aria-checked="false"
+                            aria-label="2 stars"
+                          >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M12 2L14.9 8.6L22 9.3L16.6 14L18.2 21L12 17.3L5.8 21L7.4 14L2 9.3L9.1 8.6L12 2Z" />
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            class="star-pick-btn"
+                            data-star-value="3"
+                            role="radio"
+                            aria-checked="false"
+                            aria-label="3 stars"
+                          >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M12 2L14.9 8.6L22 9.3L16.6 14L18.2 21L12 17.3L5.8 21L7.4 14L2 9.3L9.1 8.6L12 2Z" />
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            class="star-pick-btn"
+                            data-star-value="4"
+                            role="radio"
+                            aria-checked="false"
+                            aria-label="4 stars"
+                          >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M12 2L14.9 8.6L22 9.3L16.6 14L18.2 21L12 17.3L5.8 21L7.4 14L2 9.3L9.1 8.6L12 2Z" />
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            class="star-pick-btn"
+                            data-star-value="5"
+                            role="radio"
+                            aria-checked="false"
+                            aria-label="5 stars"
+                          >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M12 2L14.9 8.6L22 9.3L16.6 14L18.2 21L12 17.3L5.8 21L7.4 14L2 9.3L9.1 8.6L12 2Z" />
+                            </svg>
+                          </button>
+                          <span class="star-picker-readout" id="starPickerReadout">
+                            Select rating
+                          </span>
+                        </div>
+                        <span class="field-error" id="reviewRatingError" aria-live="polite"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="reviewDescription">Review Description</label>
+                      <textarea
+                        id="reviewDescription"
+                        placeholder="Describe punctuality, work quality, and ₹ price clarity..."
+                        maxlength="500"
+                        required
+                      ></textarea>
+                      <span class="field-error" id="reviewDescError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="add-review-actions">
+                      <button type="submit" class="btn-primary">Submit Review</button>
+                      <button type="button" class="btn-outline-card" id="resetReviewFormBtn">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div
+                  class="auth-feedback-box dash-feedback-spacer"
+                  id="reviewFormFeedback"
+                  role="status"
+                  aria-live="polite"
+                  hidden
+                ></div>
+
+                <div class="rating-summary-grid">
+                  <div class="rating-big-box">
+                    <p class="rating-big-score" id="reviewsOverallScore">0.0</p>
+                    <div class="rating-big-stars" id="reviewsOverallStars" aria-hidden="true"></div>
+                    <p class="rating-total-count" id="reviewsTotalCount">0 reviews</p>
+                  </div>
+                  <div class="rating-bars-list" id="ratingBreakdownList"></div>
+                </div>
+
+                <!-- Star Filter Bar -->
+                <div
+                  class="dash-status-tabs"
+                  id="reviewsFilterBar"
+                  role="tablist"
+                  aria-label="Filter reviews by star rating"
+                >
+                  <button type="button" class="dash-status-tab is-active" role="tab" aria-selected="true" data-review-star="all">
+                    All Reviews
+                  </button>
+                  <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-review-star="5">5 Stars</button>
+                  <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-review-star="4">4 Stars</button>
+                  <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-review-star="3">3 Stars</button>
+                  <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-review-star="2">2 Stars</button>
+                  <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-review-star="1">1 Star</button>
+                </div>
+
+                <div class="reviews-list" id="customerReviewsList"></div>
+
+                <div class="empty-services-state" id="reviewsEmptyState" hidden>
+                  <h3 id="reviewsEmptyHeading">No reviews available yet</h3>
+                  <p id="reviewsEmptyDesc">
+                    Be the first to share a demonstration review for this service provider.
+                  </p>
+                  <button type="button" class="btn-outline-card" id="reviewsEmptyActionBtn">
+                    Write a Review
+                  </button>
+                </div>
+              </section>
+            </div>
+
+            <!-- Right Booking & Contact Sidebar -->
+            <aside class="provider-booking-sidebar" id="bookingSidebar" aria-label="Book or Contact Provider">
+              <div class="sidebar-price-header">
+                <span class="sidebar-starting-label">Starting visit fee</span>
+                <span class="sidebar-starting-price" id="sidebarPrice">₹199</span>
+              </div>
+
+              <p class="sidebar-availability-line" id="sidebarAvailability">Available Today</p>
+
+              <form class="sidebar-booking-form" id="providerBookingForm" novalidate>
+                <div class="form-field">
+                  <label for="bookingServiceSelect">Select Service</label>
+                  <select id="bookingServiceSelect" required></select>
+                  <span class="field-error" id="bookingServiceError" aria-live="polite"></span>
+                </div>
+
+                <div class="form-field">
+                  <label for="bookingDateInput">Preferred Date</label>
+                  <input type="date" id="bookingDateInput" required />
+                  <span class="field-error" id="bookingDateError" aria-live="polite"></span>
+                </div>
+
+                <div class="form-field">
+                  <label for="bookingTimeSelect">Preferred Time</label>
+                  <select id="bookingTimeSelect" required>
+                    <option value="">Choose a time slot</option>
+                    <option value="Morning (9:00 AM – 11:00 AM)">Morning (9:00 AM – 11:00 AM)</option>
+                    <option value="Midday (11:30 AM – 1:30 PM)">Midday (11:30 AM – 1:30 PM)</option>
+                    <option value="Afternoon (2:30 PM – 4:30 PM)">Afternoon (2:30 PM – 4:30 PM)</option>
+                    <option value="Evening (5:00 PM – 7:30 PM)">Evening (5:00 PM – 7:30 PM)</option>
+                  </select>
+                  <span class="field-error" id="bookingTimeError" aria-live="polite"></span>
+                </div>
+
+                <div class="sidebar-actions-stack">
+                  <button type="submit" class="btn-primary btn-full">Book Now</button>
+                  <button type="button" class="btn-contact-provider" id="contactProviderBtn">
+                    Contact Provider
+                  </button>
+                  <a href="#providerBookingDesk" class="btn-outline-card" id="jumpToProviderDesk">
+                    Manage Provider Bookings (Demo)
+                  </a>
+                </div>
+
+                <div
+                  class="auth-feedback-box"
+                  id="providerBookingFeedback"
+                  role="status"
+                  aria-live="polite"
+                  hidden
+                ></div>
+              </form>
+
+              <div class="provider-contact-drawer" id="providerContactDrawer" hidden>
+                <p><strong>Sample Direct Contact (Demo UI)</strong></p>
+                <p id="contactDrawerPhone"></p>
+                <p id="contactDrawerEmail"></p>
+                <p id="contactDrawerHours"></p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Provider Booking Management Desk (Centralized Demo View Scoped to Provider ID) -->
+      <section
+        class="provider-desk-section"
+        id="providerBookingDesk"
+        aria-labelledby="providerDeskHeading"
+        hidden
+      >
+        <div class="container">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div>
+                <p class="section-eyebrow">Provider Booking Management (Demo)</p>
+                <h2 class="dash-card-title" id="providerDeskHeading">
+                  Incoming &amp; Scheduled Bookings
+                </h2>
+                <p class="dash-demo-note">
+                  Scoped to <strong id="providerDeskProviderLabel">this provider</strong> using shared
+                  localStorage demonstration records.
+                </p>
+              </div>
+              <a href="customer-dashboard.html" class="btn-outline-card">
+                View Customer Dashboard
+              </a>
+            </div>
+
+            <div
+              class="auth-feedback-box is-success dash-feedback-spacer"
+              id="providerDeskNotice"
+              role="status"
+              aria-live="polite"
+              hidden
+            ></div>
+
+            <!-- Provider Statistics -->
+            <div class="provider-stats-grid">
+              <article class="dash-stat-card">
+                <span class="dash-stat-label">Total Requests</span>
+                <p class="dash-stat-value" id="provStatTotalRequests">0</p>
+              </article>
+              <article class="dash-stat-card">
+                <span class="dash-stat-label">Accepted Bookings</span>
+                <p class="dash-stat-value" id="provStatAccepted">0</p>
+              </article>
+              <article class="dash-stat-card">
+                <span class="dash-stat-label">Rejected Bookings</span>
+                <p class="dash-stat-value" id="provStatRejected">0</p>
+              </article>
+              <article class="dash-stat-card">
+                <span class="dash-stat-label">Completed Jobs</span>
+                <p class="dash-stat-value" id="provStatCompleted">0</p>
+              </article>
+              <article class="dash-stat-card">
+                <span class="dash-stat-label">Total Estimated Earnings</span>
+                <p class="dash-stat-value" id="provStatEarnings">₹0</p>
+                <p class="dash-stat-sub" id="provStatEarningsSub">₹0 completed · ₹0 confirmed</p>
+              </article>
+            </div>
+
+            <!-- Provider Notifications Strip -->
+            <div class="provider-notif-box">
+              <div class="dash-notif-header">
+                <span class="provider-notif-heading">
+                  Provider Booking Notifications
+                  <span class="provider-notif-count" id="providerNotifUnreadCount" hidden>0</span>
+                </span>
+                <button type="button" class="btn-text-reset" id="providerMarkNotifsReadBtn">
+                  Mark all read
+                </button>
+              </div>
+              <div class="provider-notif-list" id="providerNotifList"></div>
+            </div>
+
+            <!-- Status Tabs -->
+            <div
+              class="dash-status-tabs"
+              id="providerStatusTabs"
+              role="tablist"
+              aria-label="Provider booking status views"
+            >
+              <button type="button" class="dash-status-tab is-active" role="tab" aria-selected="true" data-prov-tab="all">
+                All Requests
+              </button>
+              <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-prov-tab="Pending">
+                Incoming Pending
+              </button>
+              <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-prov-tab="Confirmed">
+                Confirmed
+              </button>
+              <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-prov-tab="Completed">
+                Completed
+              </button>
+              <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-prov-tab="Rejected">
+                Rejected
+              </button>
+              <button type="button" class="dash-status-tab" role="tab" aria-selected="false" data-prov-tab="Cancelled">
+                Cancelled
+              </button>
+            </div>
+
+            <!-- Search, Filter & Sort -->
+            <div class="dash-filters-bar dash-filters-bar-4">
+              <input
+                type="text"
+                id="providerBookingSearch"
+                placeholder="Search by booking ID, customer, or service..."
+                aria-label="Search provider bookings"
+              />
+              <select id="providerBookingStatusFilter" aria-label="Filter provider bookings by status">
+                <option value="all">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <input
+                type="date"
+                id="providerBookingDateFilter"
+                aria-label="Filter provider bookings by date"
+              />
+              <select id="providerBookingSort" aria-label="Sort provider bookings by date">
+                <option value="newest">Date: Newest First</option>
+                <option value="oldest">Date: Oldest First</option>
+              </select>
+            </div>
+
+            <!-- Provider Bookings Table -->
+            <div class="dash-table-wrap" id="providerBookingsTableWrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Customer &amp; Address</th>
+                    <th>Service</th>
+                    <th>Date &amp; Time</th>
+                    <th>Est. Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="providerBookingsBody"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-services-state" id="providerBookingsEmptyState" hidden>
+              <h3>No booking requests for this view</h3>
+              <p>
+                No bookings assigned to this provider match the selected filters. Submit a new
+                booking for this helper to test incoming requests.
+              </p>
+              <button type="button" class="btn-outline-card" id="providerResetFiltersBtn">
+                Reset Filters
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Provider Booking Details & Timeline Modal -->
+    <div
+      class="modal-backdrop"
+      id="providerBookingDetailsModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="provDetailsModalTitle"
+      hidden
+    >
+      <div class="modal-dialog modal-dialog-wide">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow" id="provDetailsModalRef">FM-2026-000000</p>
+            <h2 class="modal-title" id="provDetailsModalTitle">Booking Details</h2>
+          </div>
+          <button
+            type="button"
+            class="modal-close-btn"
+            data-close-modal="providerBookingDetailsModal"
+            aria-label="Close booking details"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="profile-specs-grid" id="provDetailsModalGrid"></div>
+
+        <div class="profile-rate-list">
+          <h3 class="profile-rate-heading">Price Breakdown (₹)</h3>
+          <div id="provDetailsModalPriceList"></div>
+        </div>
+
+        <div
+          id="provDetailsModalInstructions"
+          class="details-instructions-text"
+        ></div>
+
+        <div class="booking-timeline-box">
+          <h3 class="profile-rate-heading">Booking Progress Timeline</h3>
+          <ol class="booking-timeline-list" id="provDetailsModalTimeline"></ol>
+        </div>
+
+        <button
+          type="button"
+          class="btn-primary btn-full"
+          data-close-modal="providerBookingDetailsModal"
+        >
+          Close Details
+        </button>
+      </div>
+    </div>
+
+    <!-- Provider Action Confirmation Modal -->
+    <div
+      class="modal-backdrop"
+      id="providerConfirmModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="providerConfirmTitle"
+      hidden
+    >
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow" id="providerConfirmEyebrow">Booking Action</p>
+            <h2 class="modal-title" id="providerConfirmTitle">Confirm Status Update</h2>
+          </div>
+          <button
+            type="button"
+            class="modal-close-btn"
+            data-close-modal="providerConfirmModal"
+            aria-label="Close confirmation dialog"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <p class="profile-bio" id="providerConfirmDesc">
+          Are you sure you want to update this booking status?
+        </p>
+
+        <div class="provider-card-actions">
+          <button type="button" class="btn-outline-card" data-close-modal="providerConfirmModal">
+            Go Back
+          </button>
+          <button type="button" class="btn-danger-solid" id="providerConfirmSubmitBtn">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="index.html" class="brand-logo footer-logo" aria-label="FixMate Home">
+              <svg
+                class="brand-mark"
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                <path
+                  d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                  fill="#FFFFFF"
+                />
+                <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+              </svg>
+              <span class="brand-name brand-name-light">FixMate</span>
+            </a>
+            <p class="footer-tagline">
+              Connecting Indian households with background-verified local technicians at fair,
+              upfront prices in ₹.
+            </p>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Useful Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Explore Services</a></li>
+              <li><a href="index.html#how-it-works">How It Works</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Service Categories</h3>
+            <ul class="footer-links">
+              <li><a href="services.html?category=Electrician">Electrician (From ₹199)</a></li>
+              <li><a href="services.html?category=Plumber">Plumber (From ₹249)</a></li>
+              <li><a href="services.html?category=Carpenter">Carpenter (From ₹299)</a></li>
+              <li><a href="services.html?category=AC+Repair">AC Repair (From ₹499)</a></li>
+              <li><a href="services.html?category=Home+Cleaning">Home Cleaning (From ₹699)</a></li>
+              <li><a href="services.html?category=Mechanic">Mechanic (From ₹349)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Contact Details</h3>
+            <ul class="footer-contact-list">
+              <li>
+                <span class="footer-contact-label">Phone:</span>
+                <a href="tel:+918045682910">+91 80 4568 2910</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Email:</span>
+                <a href="mailto:support@fixmate.in">support@fixmate.in</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Office:</span>
+                <span>100 Feet Road, Indiranagar, Bengaluru 560038</span>
+              </li>
+              <li>
+                <span class="footer-contact-label">Cities:</span>
+                <span>Bengaluru · Mumbai · Delhi NCR · Pune · Hyderabad · Chennai</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; <span id="currentYear">2026</span> FixMate Home Services Pvt. Ltd. All rights
+            reserved.
+          </p>
+          <div class="footer-bottom-links">
+            <a href="index.html#about">30-Day Service Warranty</a>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <a href="index.html#contact">Partner With FixMate</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="js/provider.js"></script>
+  </body>
+</html>

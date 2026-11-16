@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Local Services – FixMate</title>
+    <meta
+      name="description"
+      content="Browse background-verified electricians, plumbers, carpenters, AC technicians, home cleaners, and mechanics near you with transparent ₹ rates."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header / Navbar (Matches Homepage) -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <a href="index.html#home" class="brand-logo" aria-label="FixMate Home">
+          <svg
+            class="brand-mark"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="32" height="32" rx="8" fill="#1D63ED" />
+            <path
+              d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+              fill="#FFFFFF"
+            />
+            <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+          </svg>
+          <span class="brand-name">FixMate</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary Navigation">
+          <a href="index.html#home" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link is-active" aria-current="page">Services</a>
+          <a href="customer-dashboard.html" class="nav-link">My Bookings</a>
+          <a href="index.html#about" class="nav-link">About</a>
+          <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions" id="headerAuthArea">
+          <a href="login.html" class="btn-ghost">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileDrawer"
+          aria-label="Open navigation menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer" id="mobileDrawer" hidden>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
+          <a href="index.html#home" class="mobile-nav-link">Home</a>
+          <a href="services.html" class="mobile-nav-link is-active" aria-current="page">Services</a>
+          <a href="customer-dashboard.html" class="mobile-nav-link">My Bookings</a>
+          <a href="index.html#about" class="mobile-nav-link">About</a>
+          <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="login.html" class="btn-outline-dark">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Page Banner -->
+      <section class="page-hero-banner">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="container">
+          <div class="page-breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true">/</span>
+            <span>Explore Services</span>
+          </div>
+          <h1 class="page-hero-title">Explore Local Services</h1>
+          <p class="page-hero-subtitle">
+            Find background-verified electricians, plumbers, carpenters, AC technicians, home
+            cleaners, and mechanics near your locality or PIN code with transparent ₹ pricing.
+          </p>
+        </div>
+      </section>
+
+      <!-- Search, Filters & Providers Directory -->
+      <section class="explore-section" aria-label="Service Providers Directory">
+        <div class="container">
+          <!-- Search & Filter Toolbar -->
+          <form class="filters-panel" id="filtersForm" novalidate>
+            <div class="filters-grid">
+              <div class="filter-field">
+                <label for="filterServiceQuery">Service Name</label>
+                <input
+                  type="text"
+                  id="filterServiceQuery"
+                  placeholder="e.g., Electrician, AC, Wiring"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="filter-field">
+                <label for="filterLocationQuery">Location or PIN Code</label>
+                <input
+                  type="text"
+                  id="filterLocationQuery"
+                  placeholder="e.g., Bengaluru or 560038"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="filter-field">
+                <label for="filterCategory">Service Category</label>
+                <select id="filterCategory">
+                  <option value="all">All Categories</option>
+                  <option value="Electrician">Electrician</option>
+                  <option value="Plumber">Plumber</option>
+                  <option value="Carpenter">Carpenter</option>
+                  <option value="AC Repair">AC Repair</option>
+                  <option value="Home Cleaning">Home Cleaning</option>
+                  <option value="Mechanic">Mechanic</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <label for="filterMinPrice">Min Price (₹)</label>
+                <input
+                  type="number"
+                  id="filterMinPrice"
+                  min="0"
+                  step="50"
+                  placeholder="₹150"
+                />
+              </div>
+
+              <div class="filter-field">
+                <label for="filterMaxPrice">Max Price (₹)</label>
+                <input
+                  type="number"
+                  id="filterMaxPrice"
+                  min="0"
+                  step="50"
+                  placeholder="₹1000"
+                />
+              </div>
+
+              <div class="filter-field">
+                <label for="sortProviders">Sort By</label>
+                <select id="sortProviders">
+                  <option value="recommended">Recommended</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                </select>
+              </div>
+
+              <button type="button" class="btn-clear-filters" id="clearFiltersBtn">
+                Clear Filters
+              </button>
+            </div>
+          </form>
+
+          <!-- Results Summary -->
+          <div class="results-toolbar">
+            <p class="results-count" id="providersCountText" aria-live="polite">
+              Showing 12 of 12 verified professionals
+            </p>
+            <p class="results-hint">
+              Inspection fee shown in ₹ is adjusted against the final repair bill
+            </p>
+          </div>
+
+          <!-- Provider Cards Grid -->
+          <div class="providers-grid" id="providersGrid"></div>
+
+          <!-- Empty State -->
+          <div class="empty-services-state" id="emptyProvidersState" hidden>
+            <h3>No matching local helpers found</h3>
+            <p>
+              No professionals match your current search or price range in ₹. Try widening your
+              price range, checking the PIN code, or resetting all filters.
+            </p>
+            <button type="button" class="btn-primary" id="emptyClearFiltersBtn">
+              Clear All Filters
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer (Matches Homepage) -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="index.html#home" class="brand-logo footer-logo" aria-label="FixMate Home">
+              <svg
+                class="brand-mark"
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                <path
+                  d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                  fill="#FFFFFF"
+                />
+                <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+              </svg>
+              <span class="brand-name brand-name-light">FixMate</span>
+            </a>
+            <p class="footer-tagline">
+              Connecting Indian households with background-verified local technicians at fair,
+              upfront prices in ₹.
+            </p>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Useful Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html#home">Home</a></li>
+              <li><a href="services.html">Explore Services</a></li>
+              <li><a href="index.html#how-it-works">How It Works</a></li>
+              <li><a href="index.html#about">Why FixMate</a></li>
+              <li><a href="index.html#contact">Contact Support</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Service Categories</h3>
+            <ul class="footer-links">
+              <li><a href="services.html?category=Electrician">Electrician (From ₹199)</a></li>
+              <li><a href="services.html?category=Plumber">Plumber (From ₹249)</a></li>
+              <li><a href="services.html?category=Carpenter">Carpenter (From ₹299)</a></li>
+              <li><a href="services.html?category=AC+Repair">AC Repair (From ₹499)</a></li>
+              <li><a href="services.html?category=Home+Cleaning">Home Cleaning (From ₹699)</a></li>
+              <li><a href="services.html?category=Mechanic">Mechanic (From ₹349)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Contact Details</h3>
+            <ul class="footer-contact-list">
+              <li>
+                <span class="footer-contact-label">Phone:</span>
+                <a href="tel:+918045682910">+91 80 4568 2910</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Email:</span>
+                <a href="mailto:support@fixmate.in">support@fixmate.in</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Office:</span>
+                <span>100 Feet Road, Indiranagar, Bengaluru 560038</span>
+              </li>
+              <li>
+                <span class="footer-contact-label">Cities:</span>
+                <span>Bengaluru · Mumbai · Delhi NCR · Pune · Hyderabad · Chennai</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; <span id="currentYear">2026</span> FixMate Home Services Pvt. Ltd. All rights
+            reserved.
+          </p>
+          <div class="footer-bottom-links">
+            <a href="index.html#about">30-Day Service Warranty</a>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <a href="index.html#contact">Partner With FixMate</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Provider Profile Modal -->
+    <div
+      class="modal-backdrop"
+      id="profileModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="profileModalName"
+      hidden
+    >
+      <div class="modal-dialog modal-dialog-wide">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow" id="profileModalCategory">Electrician</p>
+            <h2 class="modal-title" id="profileModalName">Provider Name</h2>
+          </div>
+          <button
+            type="button"
+            class="modal-close-btn"
+            data-close-modal="profileModal"
+            aria-label="Close profile modal"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="profile-modal-top">
+          <div class="provider-avatar-wrap" id="profileModalAvatar"></div>
+          <div>
+            <p class="provider-rating-line" id="profileModalRating"></p>
+            <p class="author-meta" id="profileModalLocation"></p>
+            <p class="author-meta" id="profileModalAvailability"></p>
+          </div>
+        </div>
+
+        <p class="profile-bio" id="profileModalBio"></p>
+
+        <div class="profile-specs-grid">
+          <div>
+            <span class="profile-spec-label">Experience</span>
+            <span class="profile-spec-value" id="profileModalExp"></span>
+          </div>
+          <div>
+            <span class="profile-spec-label">Verification</span>
+            <span class="profile-spec-value">Aadhaar &amp; Police Verified</span>
+          </div>
+          <div>
+            <span class="profile-spec-label">PIN Codes Served</span>
+            <span class="profile-spec-value" id="profileModalPins"></span>
+          </div>
+          <div>
+            <span class="profile-spec-label">Starting Visit Fee</span>
+            <span class="profile-spec-value" id="profileModalPrice"></span>
+          </div>
+        </div>
+
+        <div class="profile-rate-list">
+          <h3 class="profile-rate-heading">Standard ₹ Rate Card</h3>
+          <div id="profileModalRates"></div>
+        </div>
+
+        <button type="button" class="btn-primary btn-full" id="profileBookBtn">
+          Book This Professional
+        </button>
+      </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div
+      class="modal-backdrop"
+      id="bookingModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="bookingModalTitle"
+      hidden
+    >
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow">Instant Service Request</p>
+            <h2 class="modal-title" id="bookingModalTitle">Book Helper</h2>
+          </div>
+          <button
+            type="button"
+            class="modal-close-btn"
+            data-close-modal="bookingModal"
+            aria-label="Close booking modal"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <form id="bookingForm" class="modal-form" novalidate>
+          <div class="booking-summary-strip">
+            <div>
+              <span class="summary-label" id="bookingProviderLabel">Assigned Helper</span>
+              <strong id="bookingServiceName">Service</strong>
+            </div>
+            <div class="summary-right">
+              <span class="summary-label">Starting Fee</span>
+              <strong id="bookingServicePrice">₹199</strong>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="bookingLocality">Locality / Full Address</label>
+            <input
+              type="text"
+              id="bookingLocality"
+              placeholder="e.g., Flat 302, Indiranagar, Bengaluru 560038"
+              required
+            />
+            <span class="field-error" id="bookingLocalityError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-field">
+              <label for="bookingCustomerName">Your Name</label>
+              <input type="text" id="bookingCustomerName" placeholder="Full name" required />
+              <span class="field-error" id="bookingNameError" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="bookingPhone">Mobile Number</label>
+              <input
+                type="tel"
+                id="bookingPhone"
+                placeholder="10-digit mobile"
+                maxlength="10"
+                required
+              />
+              <span class="field-error" id="bookingPhoneError" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="bookingSlot">Preferred Arrival Slot</label>
+            <select id="bookingSlot">
+              <option value="Express (Within 60 mins)">Express (Within 60 mins)</option>
+              <option value="Today, 4:00 PM – 6:00 PM">Today, 4:00 PM – 6:00 PM</option>
+              <option value="Tomorrow, 9:00 AM – 11:00 AM">Tomorrow, 9:00 AM – 11:00 AM</option>
+              <option value="Tomorrow, 11:00 AM – 1:00 PM">Tomorrow, 11:00 AM – 1:00 PM</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">Confirm Booking Request</button>
+        </form>
+
+        <div class="modal-confirmation" id="bookingConfirmation" hidden>
+          <div class="confirmation-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M5 13L9 17L19 7"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <h3>Booking Request Received</h3>
+          <p id="bookingConfirmText"></p>
+          <button type="button" class="btn-primary btn-full" data-close-modal="bookingModal">
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth Modal (Login / Register) -->
+    <div
+      class="modal-backdrop"
+      id="authModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="authModalTitle"
+      hidden
+    >
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p class="modal-eyebrow">FixMate Account</p>
+            <h2 class="modal-title" id="authModalTitle">Welcome back</h2>
+          </div>
+          <button
+            type="button"
+            class="modal-close-btn"
+            data-close-modal="authModal"
+            aria-label="Close account modal"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button
+            type="button"
+            class="auth-tab is-active"
+            data-auth-tab="login"
+            role="tab"
+            aria-selected="true"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            class="auth-tab"
+            data-auth-tab="register"
+            role="tab"
+            aria-selected="false"
+          >
+            Register
+          </button>
+        </div>
+
+        <form id="authForm" class="modal-form" novalidate>
+          <div class="form-field" id="authNameGroup" hidden>
+            <label for="authFullName">Full Name</label>
+            <input type="text" id="authFullName" placeholder="e.g., Arjun Mehta" />
+            <span class="field-error" id="authNameError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="authIdentifier">Email or Mobile Number</label>
+            <input
+              type="text"
+              id="authIdentifier"
+              placeholder="name@example.com or 9876543210"
+              required
+            />
+            <span class="field-error" id="authIdentifierError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="authPassword">Password</label>
+            <input
+              type="password"
+              id="authPassword"
+              placeholder="Minimum 6 characters"
+              required
+            />
+            <span class="field-error" id="authPasswordError" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full" id="authSubmitBtn">
+            Login to FixMate
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="js/services.js"></script>
+  </body>
+</html>

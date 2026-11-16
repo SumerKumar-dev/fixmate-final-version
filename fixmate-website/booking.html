@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Your Service – FixMate</title>
+    <meta
+      name="description"
+      content="Select a service, choose a convenient date and time slot, and review your estimated ₹ total before confirming your FixMate booking."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header / Navbar -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-logo" aria-label="FixMate Home">
+          <svg
+            class="brand-mark"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="32" height="32" rx="8" fill="#1D63ED" />
+            <path
+              d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+              fill="#FFFFFF"
+            />
+            <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+          </svg>
+          <span class="brand-name">FixMate</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link is-active" aria-current="page">Services</a>
+          <a href="customer-dashboard.html" class="nav-link">My Bookings</a>
+          <a href="index.html#about" class="nav-link">About</a>
+          <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="login.html" class="btn-ghost">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileDrawer"
+          aria-label="Open navigation menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7H20M4 12H20M4 17H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer" id="mobileDrawer" hidden>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="services.html" class="mobile-nav-link is-active" aria-current="page">Services</a>
+          <a href="customer-dashboard.html" class="mobile-nav-link">My Bookings</a>
+          <a href="index.html#about" class="mobile-nav-link">About</a>
+          <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="login.html" class="btn-outline-dark">Login</a>
+          <a href="register.html" class="btn-primary">Register</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Page Banner -->
+      <section class="page-hero-banner">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="container">
+          <nav class="page-breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true">&gt;</span>
+            <a href="services.html">Services</a>
+            <span aria-hidden="true">&gt;</span>
+            <a href="provider.html" id="breadcrumbProfileLink">Provider Profile</a>
+            <span aria-hidden="true">&gt;</span>
+            <span>Booking</span>
+          </nav>
+          <h1 class="page-hero-title">Book Your Service</h1>
+          <p class="page-hero-subtitle">
+            Choose a service option, pick your preferred date and arrival slot, and review your
+            estimated ₹ cost before submitting your booking request.
+          </p>
+        </div>
+      </section>
+
+      <!-- Main Booking Section -->
+      <section class="booking-page-section">
+        <div class="container">
+          <!-- Friendly Invalid / Missing Provider State -->
+          <div class="provider-not-found-card" id="bookingProviderMissing" hidden>
+            <h2>Select a Verified Service Provider First</h2>
+            <p id="bookingMissingMessage">
+              No valid service provider is currently selected for booking. Browse local
+              electricians, plumbers, carpenters, AC technicians, cleaners, and mechanics on our
+              Explore Services page.
+            </p>
+            <a href="services.html" class="btn-primary">Explore Services</a>
+          </div>
+
+          <!-- Active Booking Form + Summary Grid -->
+          <form id="completeBookingForm" novalidate>
+            <div class="booking-layout-grid" id="bookingMainGrid">
+              <!-- Left Column: Provider Info + 3 Steps -->
+              <div class="booking-steps-column">
+                <!-- Selected Provider Details -->
+                <section class="booking-step-card" aria-label="Selected Service Provider">
+                  <div class="booking-provider-strip">
+                    <div class="booking-provider-left">
+                      <div class="provider-avatar-wrap" id="bookingProviderAvatar"></div>
+                      <div>
+                        <p class="provider-category-label" id="bookingProviderCategory">Category</p>
+                        <h2 class="provider-name" id="bookingProviderName">Provider Name</h2>
+                        <p class="booking-provider-meta" id="bookingProviderMeta"></p>
+                      </div>
+                    </div>
+                    <a href="services.html" class="booking-provider-change">Change Provider</a>
+                  </div>
+                </section>
+
+                <!-- Step 1: Service Selection -->
+                <section class="booking-step-card" aria-labelledby="step1Heading">
+                  <div class="booking-step-header">
+                    <span class="booking-step-index">01</span>
+                    <h2 class="booking-step-title" id="step1Heading">Select Service</h2>
+                  </div>
+                  <div
+                    class="selectable-services-grid"
+                    id="bookingServicesRadioList"
+                    role="radiogroup"
+                    aria-labelledby="step1Heading"
+                  ></div>
+                  <span class="field-error" id="bookingServicePickError" aria-live="polite"></span>
+                </section>
+
+                <!-- Step 2: Date & Time Selection -->
+                <section class="booking-step-card" aria-labelledby="step2Heading">
+                  <div class="booking-step-header">
+                    <span class="booking-step-index">02</span>
+                    <h2 class="booking-step-title" id="step2Heading">
+                      Preferred Date &amp; Time Slot
+                    </h2>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="bookingServiceDate">Preferred Service Date</label>
+                    <input type="date" id="bookingServiceDate" required />
+                    <span class="field-error" id="bookingServiceDateError" aria-live="polite"></span>
+                  </div>
+
+                  <div class="time-periods-stack" id="timeSlotsContainer">
+                    <div>
+                      <span class="time-period-label">Morning Slots</span>
+                      <div class="time-slots-row">
+                        <label class="time-slot-option">
+                          <input
+                            type="radio"
+                            name="bookingTimeSlot"
+                            value="Morning (9:00 AM – 11:00 AM)"
+                          />
+                          <span class="time-slot-box">
+                            <span>9:00 AM – 11:00 AM</span>
+                            <span class="time-slot-status">Available</span>
+                          </span>
+                        </label>
+                        <label class="time-slot-option">
+                          <input
+                            type="radio"
+                            name="bookingTimeSlot"
+                            value="Morning (11:00 AM – 1:00 PM)"
+                          />
+                          <span class="time-slot-box">
+                            <span>11:00 AM – 1:00 PM</span>
+                            <span class="time-slot-status">Available</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span class="time-period-label">Afternoon Slots</span>
+                      <div class="time-slots-row">
+                        <label class="time-slot-option">
+                          <input
+                            type="radio"
+                            name="bookingTimeSlot"
+                            value="Afternoon (1:30 PM – 3:30 PM)"
+                          />
+                          <span class="time-slot-box">
+                            <span>1:30 PM – 3:30 PM</span>
+                            <span class="time-slot-status">Available</span>
+                          </span>
+                        </label>
+                        <label class="time-slot-option">
+                          <input
+                            type="radio"
+                            name="bookingTimeSlot"
+                            value="Afternoon (3:30 PM – 5:30 PM)"
+                          />
+                          <span class="time-slot-box">
+                            <span>3:30 PM – 5:30 PM</span>
+                            <span class="time-slot-status">Available</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span class="time-period-label">Evening Slots</span>
+                      <div class="time-slots-row">
+                        <label class="time-slot-option">
+                          <input
+                            type="radio"
+                            name="bookingTimeSlot"
+                            value="Evening (5:30 PM – 7:30 PM)"
+                          />
+                          <span class="time-slot-box">
+                            <span>5:30 PM – 7:30 PM</span>
+                            <span class="time-slot-status">Available</span>
+                          </span>
+                        </label>
+                        <label class="time-slot-option">
+                          <input
+                            type="radio"
+                            name="bookingTimeSlot"
+                            value="Evening (7:30 PM – 9:00 PM)"
+                          />
+                          <span class="time-slot-box">
+                            <span>7:30 PM – 9:00 PM</span>
+                            <span class="time-slot-status">Available</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="field-error" id="bookingTimeSlotError" aria-live="polite"></span>
+                </section>
+
+                <!-- Step 3: Customer Information -->
+                <section class="booking-step-card" aria-labelledby="step3Heading">
+                  <div class="booking-step-header">
+                    <span class="booking-step-index">03</span>
+                    <h2 class="booking-step-title" id="step3Heading">Customer Information</h2>
+                  </div>
+
+                  <div class="prefill-notice" id="prefillNotice" hidden>
+                    Some contact details were prefilled from your saved frontend preview details.
+                    Please verify before confirming.
+                  </div>
+
+                  <div class="auth-page-form">
+                    <div class="form-field">
+                      <label for="custFullName">Full Name</label>
+                      <input
+                        type="text"
+                        id="custFullName"
+                        placeholder="e.g., Arjun Mehta"
+                        autocomplete="name"
+                        required
+                      />
+                      <span class="field-error" id="custFullNameError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-row-two">
+                      <div class="form-field">
+                        <label for="custEmail">Email Address</label>
+                        <input
+                          type="email"
+                          id="custEmail"
+                          placeholder="arjun@example.in"
+                          autocomplete="email"
+                          required
+                        />
+                        <span class="field-error" id="custEmailError" aria-live="polite"></span>
+                      </div>
+
+                      <div class="form-field">
+                        <label for="custPhone">Mobile Number (+91)</label>
+                        <input
+                          type="tel"
+                          id="custPhone"
+                          placeholder="10-digit Indian mobile"
+                          maxlength="10"
+                          autocomplete="tel-national"
+                          required
+                        />
+                        <span class="field-error" id="custPhoneError" aria-live="polite"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="custAddress">Complete Service Address</label>
+                      <input
+                        type="text"
+                        id="custAddress"
+                        placeholder="Flat / House No., Building, Street, Landmark"
+                        autocomplete="street-address"
+                        required
+                      />
+                      <span class="field-error" id="custAddressError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-row-two">
+                      <div class="form-field">
+                        <label for="custCity">City</label>
+                        <input
+                          type="text"
+                          id="custCity"
+                          placeholder="e.g., Bengaluru"
+                          autocomplete="address-level2"
+                          required
+                        />
+                        <span class="field-error" id="custCityError" aria-live="polite"></span>
+                      </div>
+
+                      <div class="form-field">
+                        <label for="custPin">PIN Code</label>
+                        <input
+                          type="text"
+                          id="custPin"
+                          placeholder="6-digit PIN (e.g., 560038)"
+                          maxlength="6"
+                          autocomplete="postal-code"
+                          required
+                        />
+                        <span class="field-error" id="custPinError" aria-live="polite"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="custInstructions">Additional Instructions (Optional)</label>
+                      <textarea
+                        id="custInstructions"
+                        placeholder="Share gate entry details, floor number, or specific issue notes..."
+                      ></textarea>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <!-- Right Column: Sticky Booking Summary Card -->
+              <aside class="booking-summary-card" aria-label="Booking Price Summary">
+                <h2 class="summary-card-title">Booking Summary</h2>
+
+                <div class="summary-rows-list">
+                  <div class="summary-row">
+                    <span class="summary-row-key">Provider</span>
+                    <span class="summary-row-val" id="summaryProviderName">—</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-row-key">Selected Service</span>
+                    <span class="summary-row-val" id="summaryServiceName">Select a service</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-row-key">Est. Duration</span>
+                    <span class="summary-row-val" id="summaryDuration">—</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-row-key">Date &amp; Slot</span>
+                    <span class="summary-row-val" id="summaryDateTime">Select date &amp; time</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-row-key">Service Price</span>
+                    <span class="summary-row-val" id="summaryServicePrice">₹0</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-row-key">Safety &amp; Convenience Fee</span>
+                    <span class="summary-row-val" id="summaryExtraFee">₹49</span>
+                  </div>
+                </div>
+
+                <div class="summary-total-row">
+                  <span class="summary-total-label">Total Estimated Amount</span>
+                  <span class="summary-total-amount" id="summaryTotalAmount">₹49</span>
+                </div>
+
+                <p class="summary-estimate-note">
+                  This is an estimated service cost in ₹. Any additional spare parts are quoted on
+                  site for your approval. No online payment is collected in this frontend demo.
+                </p>
+
+                <button type="submit" class="btn-primary btn-full auth-submit-btn">
+                  Confirm Booking
+                </button>
+
+                <div
+                  class="auth-feedback-box dash-feedback-top-spacer"
+                  id="bookingFormErrorBanner"
+                  role="alert"
+                  aria-live="polite"
+                  hidden
+                ></div>
+              </aside>
+            </div>
+          </form>
+
+          <!-- Booking Confirmation Screen -->
+          <section
+            class="booking-confirmation-card"
+            id="bookingConfirmationCard"
+            aria-live="polite"
+            hidden
+          >
+            <div class="confirmation-top-banner">
+              <div class="confirmation-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M5 13L9 17L19 7"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <p class="confirmation-ref-text" id="confirmRefId">Reference: FM-2026-000000</p>
+              <h2 class="confirmation-heading">Booking Request Recorded</h2>
+              <p class="confirmation-sub">
+                Your demonstration booking has been saved locally with status <strong>Pending</strong>.
+                Real technician dispatch and live payments will be connected via the backend.
+              </p>
+            </div>
+
+            <div class="confirmation-details-grid" id="confirmationDetailsGrid"></div>
+
+            <div class="confirmation-actions">
+              <a href="customer-dashboard.html" class="btn-primary">Go to Customer Dashboard</a>
+              <a href="#my-bookings" class="btn-outline-card" id="viewMyBookingsBtn">View My Bookings</a>
+              <a href="services.html" class="btn-outline-card">Explore More Services</a>
+              <a href="index.html" class="btn-outline-card">Back to Home</a>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- My Bookings Demonstration Section -->
+      <section class="my-bookings-section" id="my-bookings" aria-labelledby="myBookingsHeading">
+        <div class="container">
+          <div class="my-bookings-header">
+            <div>
+              <p class="section-eyebrow">My Bookings</p>
+              <h2 class="section-title" id="myBookingsHeading">Your Demonstration Booking Records</h2>
+              <p class="section-description">
+                Saved booking requests appear below with read-only demonstration status (Pending,
+                Confirmed, or Completed) ready for the upcoming Customer Dashboard.
+              </p>
+            </div>
+            <div class="confirmation-actions" style="justify-content: flex-start">
+              <a href="customer-dashboard.html" class="btn-outline-card">Open Customer Dashboard</a>
+              <a href="services.html" class="btn-primary">Book Another Helper</a>
+            </div>
+          </div>
+
+          <div class="bookings-records-grid" id="myBookingsList"></div>
+
+          <div class="empty-services-state" id="emptyBookingsState" hidden>
+            <h3>No booking records saved yet</h3>
+            <p>
+              Select a verified electrician, plumber, carpenter, AC technician, home cleaner, or
+              mechanic from Explore Services to create your first demonstration booking.
+            </p>
+            <a href="services.html" class="btn-primary">Browse Local Services</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <a href="index.html" class="brand-logo footer-logo" aria-label="FixMate Home">
+              <svg
+                class="brand-mark"
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="32" height="32" rx="8" fill="#1D63ED" />
+                <path
+                  d="M9.5 16.5L16 10L22.5 16.5V22.5H18V18H14V22.5H9.5V16.5Z"
+                  fill="#FFFFFF"
+                />
+                <circle cx="21.5" cy="10.5" r="2.5" fill="#93C5FD" />
+              </svg>
+              <span class="brand-name brand-name-light">FixMate</span>
+            </a>
+            <p class="footer-tagline">
+              Connecting Indian households with background-verified local technicians at fair,
+              upfront prices in ₹.
+            </p>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Useful Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Explore Services</a></li>
+              <li><a href="#my-bookings">My Bookings</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Service Categories</h3>
+            <ul class="footer-links">
+              <li><a href="services.html?category=Electrician">Electrician (From ₹199)</a></li>
+              <li><a href="services.html?category=Plumber">Plumber (From ₹249)</a></li>
+              <li><a href="services.html?category=Carpenter">Carpenter (From ₹299)</a></li>
+              <li><a href="services.html?category=AC+Repair">AC Repair (From ₹499)</a></li>
+              <li><a href="services.html?category=Home+Cleaning">Home Cleaning (From ₹699)</a></li>
+              <li><a href="services.html?category=Mechanic">Mechanic (From ₹349)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h3 class="footer-heading">Contact Details</h3>
+            <ul class="footer-contact-list">
+              <li>
+                <span class="footer-contact-label">Phone:</span>
+                <a href="tel:+918045682910">+91 80 4568 2910</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Email:</span>
+                <a href="mailto:support@fixmate.in">support@fixmate.in</a>
+              </li>
+              <li>
+                <span class="footer-contact-label">Office:</span>
+                <span>100 Feet Road, Indiranagar, Bengaluru 560038</span>
+              </li>
+              <li>
+                <span class="footer-contact-label">Cities:</span>
+                <span>Bengaluru · Mumbai · Delhi NCR · Pune · Hyderabad · Chennai</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; <span id="currentYear">2026</span> FixMate Home Services Pvt. Ltd. All rights
+            reserved.
+          </p>
+          <div class="footer-bottom-links">
+            <a href="index.html#about">30-Day Service Warranty</a>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <a href="index.html#contact">Partner With FixMate</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="js/booking.js"></script>
+  </body>
+</html>
