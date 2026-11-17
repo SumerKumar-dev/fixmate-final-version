@@ -20,8 +20,6 @@ const PROVIDERS = [
     pinCode: '560038',
     nearbyPins: '560038, 560008, 560075',
     experienceYears: 8,
-    rating: 4.9,
-    reviewCount: 164,
     price: 199,
     availability: 'Available Today',
     availableNow: true,
@@ -44,8 +42,6 @@ const PROVIDERS = [
     pinCode: '400053',
     nearbyPins: '400053, 400058, 400049',
     experienceYears: 11,
-    rating: 4.9,
-    reviewCount: 218,
     price: 249,
     availability: 'Available Today',
     availableNow: true,
@@ -68,8 +64,6 @@ const PROVIDERS = [
     pinCode: '600020',
     nearbyPins: '600020, 600041, 600028',
     experienceYears: 7,
-    rating: 4.8,
-    reviewCount: 139,
     price: 499,
     availability: 'Available Today',
     availableNow: true,
@@ -92,8 +86,6 @@ const PROVIDERS = [
     pinCode: '110017',
     nearbyPins: '110017, 110016, 110049',
     experienceYears: 6,
-    rating: 4.9,
-    reviewCount: 192,
     price: 699,
     availability: 'Available Today',
     availableNow: true,
@@ -116,8 +108,6 @@ const PROVIDERS = [
     pinCode: '411038',
     nearbyPins: '411038, 411004, 411052',
     experienceYears: 10,
-    rating: 4.8,
-    reviewCount: 127,
     price: 299,
     availability: 'Available Today',
     availableNow: true,
@@ -140,8 +130,6 @@ const PROVIDERS = [
     pinCode: '500034',
     nearbyPins: '500034, 500033, 500082',
     experienceYears: 9,
-    rating: 4.8,
-    reviewCount: 154,
     price: 349,
     availability: 'Available Today',
     availableNow: true,
@@ -164,8 +152,6 @@ const PROVIDERS = [
     pinCode: '400076',
     nearbyPins: '400076, 400072, 400087',
     experienceYears: 6,
-    rating: 4.7,
-    reviewCount: 98,
     price: 179,
     availability: 'Next Slot: 3:30 PM',
     availableNow: false,
@@ -188,8 +174,6 @@ const PROVIDERS = [
     pinCode: '560041',
     nearbyPins: '560041, 560011, 560070',
     experienceYears: 12,
-    rating: 4.9,
-    reviewCount: 185,
     price: 329,
     availability: 'Available Today',
     availableNow: true,
@@ -212,8 +196,6 @@ const PROVIDERS = [
     pinCode: '560034',
     nearbyPins: '560034, 560095, 560102',
     experienceYears: 9,
-    rating: 4.7,
-    reviewCount: 112,
     price: 449,
     availability: 'Next Slot: 4:00 PM',
     availableNow: false,
@@ -236,8 +218,6 @@ const PROVIDERS = [
     pinCode: '110016',
     nearbyPins: '110016, 110017, 110029',
     experienceYears: 8,
-    rating: 4.8,
-    reviewCount: 141,
     price: 229,
     availability: 'Available Today',
     availableNow: true,
@@ -260,8 +240,6 @@ const PROVIDERS = [
     pinCode: '411014',
     nearbyPins: '411014, 411006, 411032',
     experienceYears: 7,
-    rating: 4.7,
-    reviewCount: 94,
     price: 299,
     availability: 'Next Slot: 2:30 PM',
     availableNow: false,
@@ -284,8 +262,6 @@ const PROVIDERS = [
     pinCode: '560066',
     nearbyPins: '560066, 560048, 560037',
     experienceYears: 5,
-    rating: 4.8,
-    reviewCount: 121,
     price: 749,
     availability: 'Available Today',
     availableNow: true,
@@ -309,7 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
     maxPrice: '',
     sortBy: 'recommended',
     authMode: 'login',
-    signedInUser: null,
     activeProfileProvider: null,
   };
 
@@ -346,19 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const profileModalPrice = document.getElementById('profileModalPrice');
   const profileModalRates = document.getElementById('profileModalRates');
   const profileBookBtn = document.getElementById('profileBookBtn');
-
-  const bookingModal = document.getElementById('bookingModal');
-  const bookingModalTitle = document.getElementById('bookingModalTitle');
-  const bookingProviderLabel = document.getElementById('bookingProviderLabel');
-  const bookingServiceName = document.getElementById('bookingServiceName');
-  const bookingServicePrice = document.getElementById('bookingServicePrice');
-  const bookingLocality = document.getElementById('bookingLocality');
-  const bookingCustomerName = document.getElementById('bookingCustomerName');
-  const bookingPhone = document.getElementById('bookingPhone');
-  const bookingSlot = document.getElementById('bookingSlot');
-  const bookingForm = document.getElementById('bookingForm');
-  const bookingConfirmation = document.getElementById('bookingConfirmation');
-  const bookingConfirmText = document.getElementById('bookingConfirmText');
 
   const authModal = document.getElementById('authModal');
   const authModalTitle = document.getElementById('authModalTitle');
@@ -643,7 +605,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bookBtn.type = 'button';
       bookBtn.className = 'btn-book-provider';
       bookBtn.textContent = 'Book Now';
-      bookBtn.addEventListener('click', () => openBookingModal(provider));
+      bookBtn.addEventListener('click', () => navigateToBooking(provider));
 
       actions.appendChild(viewBtn);
       actions.appendChild(bookBtn);
@@ -736,7 +698,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  [profileModal, bookingModal, authModal].forEach((modal) => {
+  [profileModal, authModal].forEach((modal) => {
     if (!modal) return;
     modal.addEventListener('click', (event) => {
       if (event.target === modal) {
@@ -748,7 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       closeModal(profileModal);
-      closeModal(bookingModal);
       closeModal(authModal);
       setMobileDrawer(false);
     }
@@ -783,7 +744,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const count = document.createElement('span');
       count.textContent =
         liveStats.reviewCount > 0
-          ? `(${liveStats.reviewCount} ${liveStats.reviewCount === 1 ? 'review' : 'reviews'} · Sample & local demo)`
+          ? `(${liveStats.reviewCount} ${liveStats.reviewCount === 1 ? 'review' : 'reviews'} · local demo)`
           : '(No reviews yet)';
       profileModalRating.appendChild(count);
     }
@@ -832,111 +793,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const provider = state.activeProfileProvider;
       closeModal(profileModal);
       if (provider) {
-        openBookingModal(provider);
+        navigateToBooking(provider);
       }
     });
   }
 
-  // =========================================================================
-  // 5. Booking Modal
-  // =========================================================================
-  const bookingLocalityError = document.getElementById('bookingLocalityError');
-  const bookingNameError = document.getElementById('bookingNameError');
-  const bookingPhoneError = document.getElementById('bookingPhoneError');
-
-  function clearBookingErrors() {
-    clearFieldValidation(bookingLocality, bookingLocalityError);
-    clearFieldValidation(bookingCustomerName, bookingNameError);
-    clearFieldValidation(bookingPhone, bookingPhoneError);
-  }
-
-  [
-    [bookingLocality, bookingLocalityError],
-    [bookingCustomerName, bookingNameError],
-    [bookingPhone, bookingPhoneError],
-  ].forEach(([inputEl, errorEl]) => {
-    if (inputEl) {
-      inputEl.addEventListener('input', () => clearFieldValidation(inputEl, errorEl));
-    }
-  });
-
-  function openBookingModal(provider) {
-    if (bookingModalTitle) {
-      bookingModalTitle.textContent = `Book ${provider.name}`;
-    }
-    if (bookingProviderLabel) {
-      bookingProviderLabel.textContent = `${provider.category} Specialist`;
-    }
-    if (bookingServiceName) {
-      bookingServiceName.textContent = `${provider.name} (${provider.location})`;
-    }
-    if (bookingServicePrice) {
-      bookingServicePrice.textContent = `₹${provider.price}`;
-    }
-    if (bookingLocality) {
-      const typedLoc = filterLocationQuery ? filterLocationQuery.value.trim() : '';
-      bookingLocality.value = typedLoc || `${provider.location} ${provider.pinCode}`;
-    }
-    if (bookingCustomerName && state.signedInUser) {
-      bookingCustomerName.value = state.signedInUser;
-    }
-    if (bookingForm) bookingForm.hidden = false;
-    if (bookingConfirmation) bookingConfirmation.hidden = true;
-    clearBookingErrors();
-    openModal(bookingModal, bookingCustomerName || bookingLocality);
-  }
-
-  if (bookingForm) {
-    bookingForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      clearBookingErrors();
-
-      const locality = bookingLocality ? bookingLocality.value.trim() : '';
-      const name = bookingCustomerName ? bookingCustomerName.value.trim() : '';
-      const phone = bookingPhone ? bookingPhone.value.trim() : '';
-      let isValid = true;
-
-      if (locality.length < 3) {
-        setFieldValidation(
-          bookingLocality,
-          bookingLocalityError,
-          'Please enter your area or street address.'
-        );
-        isValid = false;
-      }
-      if (name.length < 2) {
-        setFieldValidation(bookingCustomerName, bookingNameError, 'Please enter your full name.');
-        isValid = false;
-      }
-      if (!/^[6-9]\d{9}$/.test(phone)) {
-        setFieldValidation(
-          bookingPhone,
-          bookingPhoneError,
-          'Enter a valid 10-digit Indian mobile number.'
-        );
-        isValid = false;
-      }
-
-      if (!isValid) {
-        focusFirstInvalid(bookingForm);
-        return;
-      }
-
-      const submitBtn = bookingForm.querySelector('button[type="submit"]');
-      runWithSubmitGuard(submitBtn, 'Submitting Request...', () => {
-        const selectedHelper = bookingServiceName ? bookingServiceName.textContent : 'Helper';
-        const selectedPrice = bookingServicePrice ? bookingServicePrice.textContent : '₹199';
-        const chosenSlot = bookingSlot ? bookingSlot.value : 'Express (Within 60 mins)';
-        const refCode = `FM-${Math.floor(100000 + Math.random() * 900000)}`;
-
-        bookingForm.hidden = true;
-        if (bookingConfirmText) {
-          bookingConfirmText.textContent = `Reference ${refCode}: ${selectedHelper} (${selectedPrice} starting fee) scheduled for ${chosenSlot} at ${locality}. Confirmation sent to +91 ${phone}.`;
-        }
-        if (bookingConfirmation) bookingConfirmation.hidden = false;
-        bookingForm.reset();
-      });
+  // Booking always continues in the protected, record-creating booking form.
+  function navigateToBooking(provider) {
+    const url = new URLSearchParams({
+      id: provider.id,
     });
+    window.location.href = `booking.html?${url.toString()}`;
   }
 
   // =========================================================================
@@ -988,107 +855,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-auth-open]').forEach((btn) => {
       btn.addEventListener('click', () => {
         setMobileDrawer(false);
-        setAuthMode(btn.dataset.authOpen || 'login');
-        openModal(
-          authModal,
-          state.authMode === 'register' && authFullName ? authFullName : authIdentifier
-        );
+        window.location.href =
+          btn.dataset.authOpen === 'register' ? 'register.html' : 'login.html';
       });
     });
   }
   attachAuthTriggers();
+  if (authForm) {
+    authForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      window.location.href =
+        state.authMode === 'register' ? 'register.html' : 'login.html';
+    });
+  }
 
   authTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       setAuthMode(tab.dataset.authTab || 'login');
     });
   });
-
-  function renderSignedInHeader(displayName) {
-    if (!headerAuthArea) return;
-    headerAuthArea.innerHTML = '';
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'user-session-badge';
-
-    const greeting = document.createElement('span');
-    greeting.textContent = `Hi, ${displayName}`;
-
-    const logoutBtn = document.createElement('button');
-    logoutBtn.type = 'button';
-    logoutBtn.className = 'btn-ghost';
-    logoutBtn.textContent = 'Sign Out';
-    logoutBtn.addEventListener('click', () => {
-      state.signedInUser = null;
-      headerAuthArea.innerHTML = `
-        <button type="button" class="btn-ghost" data-auth-open="login">Login</button>
-        <button type="button" class="btn-primary" data-auth-open="register">Register</button>
-      `;
-      attachAuthTriggers();
-    });
-
-    wrapper.appendChild(greeting);
-    wrapper.appendChild(logoutBtn);
-    headerAuthArea.appendChild(wrapper);
-  }
-
-  if (authForm) {
-    authForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      clearAuthErrors();
-
-      const fullName = authFullName ? authFullName.value.trim() : '';
-      const identifier = authIdentifier ? authIdentifier.value.trim() : '';
-      const password = authPassword ? authPassword.value : '';
-      let isValid = true;
-
-      if (state.authMode === 'register' && fullName.length < 2) {
-        setFieldValidation(authFullName, authNameError, 'Please enter your full name.');
-        isValid = false;
-      }
-
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
-      const isPhone = /^[6-9]\d{9}$/.test(identifier);
-      if (!isEmail && !isPhone) {
-        setFieldValidation(
-          authIdentifier,
-          authIdentifierError,
-          'Enter a valid email or 10-digit Indian mobile number.'
-        );
-        isValid = false;
-      }
-
-      if (password.length < 6) {
-        setFieldValidation(
-          authPassword,
-          authPasswordError,
-          'Password must be at least 6 characters.'
-        );
-        isValid = false;
-      }
-
-      if (!isValid) {
-        focusFirstInvalid(authForm);
-        return;
-      }
-
-      const processingLabel =
-        state.authMode === 'register' ? 'Creating Account...' : 'Signing In...';
-      runWithSubmitGuard(authSubmitBtn, processingLabel, () => {
-        const userLabel =
-          state.authMode === 'register'
-            ? fullName.split(' ')[0]
-            : isEmail
-            ? identifier.split('@')[0]
-            : `+91 ${identifier.slice(0, 5)}…`;
-
-        state.signedInUser = state.authMode === 'register' ? fullName : userLabel;
-        renderSignedInHeader(userLabel);
-        authForm.reset();
-        closeModal(authModal);
-      });
-    });
-  }
 
   // Initial render & live review sync
   renderProviders();
@@ -1104,7 +889,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const count = document.createElement('span');
       count.textContent =
         liveStats.reviewCount > 0
-          ? `(${liveStats.reviewCount} ${liveStats.reviewCount === 1 ? 'review' : 'reviews'} · Sample & local demo)`
+          ? `(${liveStats.reviewCount} ${liveStats.reviewCount === 1 ? 'review' : 'reviews'} · local demo)`
           : '(No reviews yet)';
       profileModalRating.appendChild(count);
     }

@@ -1,9 +1,7 @@
 // FixMate – Homepage Interactive Scripts (Vanilla JavaScript)
 import {
   clearFieldValidation,
-  closeDialogModal,
   focusFirstInvalid,
-  openDialogModal,
   runWithSubmitGuard,
   setFieldValidation,
 } from './ui-helpers.js';
@@ -13,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     activeCategory: 'all',
     searchQuery: '',
     selectedLocation: '',
-    authMode: 'login',
-    signedInUser: null,
   };
 
   // Elements
@@ -36,29 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const emptyResetBtn = document.getElementById('emptyResetBtn');
   const emptyServicesState = document.getElementById('emptyServicesState');
   const servicesSection = document.getElementById('services');
-
-  const bookingModal = document.getElementById('bookingModal');
-  const bookingModalTitle = document.getElementById('bookingModalTitle');
-  const bookingServiceName = document.getElementById('bookingServiceName');
-  const bookingServicePrice = document.getElementById('bookingServicePrice');
-  const bookingLocality = document.getElementById('bookingLocality');
-  const bookingCustomerName = document.getElementById('bookingCustomerName');
-  const bookingPhone = document.getElementById('bookingPhone');
-  const bookingSlot = document.getElementById('bookingSlot');
-  const bookingForm = document.getElementById('bookingForm');
-  const bookingConfirmation = document.getElementById('bookingConfirmation');
-  const bookingConfirmText = document.getElementById('bookingConfirmText');
-
-  const authModal = document.getElementById('authModal');
-  const authModalTitle = document.getElementById('authModalTitle');
-  const authTabs = document.querySelectorAll('[data-auth-tab]');
-  const authNameGroup = document.getElementById('authNameGroup');
-  const authFullName = document.getElementById('authFullName');
-  const authIdentifier = document.getElementById('authIdentifier');
-  const authPassword = document.getElementById('authPassword');
-  const authSubmitBtn = document.getElementById('authSubmitBtn');
-  const authForm = document.getElementById('authForm');
-  const headerAuthArea = document.getElementById('headerAuthArea');
 
   const contactForm = document.getElementById('contactForm');
   const contactName = document.getElementById('contactName');
@@ -238,298 +211,51 @@ document.addEventListener('DOMContentLoaded', () => {
     emptyResetBtn.addEventListener('click', resetSearchAndFilters);
   }
 
-  // =========================================================================
-  // 3. Modals & Helpers
-  // =========================================================================
-  function openModal(modal, preferredFocusEl = null) {
-    openDialogModal(modal, preferredFocusEl);
-  }
-
-  function closeModal(modal) {
-    closeDialogModal(modal);
-  }
-
-  document.querySelectorAll('[data-close-modal]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.dataset.closeModal;
-      if (targetId) {
-        closeModal(document.getElementById(targetId));
-      }
-    });
-  });
-
-  [bookingModal, authModal].forEach((modal) => {
-    if (!modal) return;
-    modal.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        closeModal(modal);
-      }
-    });
-  });
-
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      closeModal(bookingModal);
-      closeModal(authModal);
-      setMobileDrawer(false);
-    }
+    if (event.key === 'Escape') setMobileDrawer(false);
   });
 
   // =========================================================================
-  // 4. Service Booking Flow
+  // 3. Protected Booking Navigation
   // =========================================================================
-  const bookingLocalityError = document.getElementById('bookingLocalityError');
-  const bookingNameError = document.getElementById('bookingNameError');
-  const bookingPhoneError = document.getElementById('bookingPhoneError');
-
-  function clearBookingErrors() {
-    clearFieldValidation(bookingLocality, bookingLocalityError);
-    clearFieldValidation(bookingCustomerName, bookingNameError);
-    clearFieldValidation(bookingPhone, bookingPhoneError);
-  }
-
-  [
-    [bookingLocality, bookingLocalityError],
-    [bookingCustomerName, bookingNameError],
-    [bookingPhone, bookingPhoneError],
-  ].forEach(([inputEl, errorEl]) => {
-    if (inputEl) {
-      inputEl.addEventListener('input', () => clearFieldValidation(inputEl, errorEl));
-    }
-  });
-
   document.querySelectorAll('[data-book-service]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const serviceName = btn.dataset.bookService || 'Home Service';
-      const price = btn.dataset.bookPrice || '199';
-
-      if (bookingModalTitle) bookingModalTitle.textContent = `Book ${serviceName}`;
-      if (bookingServiceName) bookingServiceName.textContent = serviceName;
-      if (bookingServicePrice) bookingServicePrice.textContent = `₹${price}`;
-
-      if (bookingLocality) {
-        bookingLocality.value =
-          (locationInput && locationInput.value.trim()) || state.selectedLocation || '';
-      }
-      if (bookingCustomerName && state.signedInUser) {
-        bookingCustomerName.value = state.signedInUser;
-      }
-      if (bookingForm) bookingForm.hidden = false;
-      if (bookingConfirmation) bookingConfirmation.hidden = true;
-      clearBookingErrors();
-
-      const preferredFocus =
-        bookingLocality && !bookingLocality.value ? bookingLocality : bookingCustomerName;
-      openModal(bookingModal, preferredFocus);
+      const providersByCategory = {
+        Electrician: 'rajesh-kumar',
+        Plumber: 'suresh-verma',
+        Carpenter: 'imran-sheikh',
+        'AC Repair': 'karthik-nair',
+        'Home Cleaning': 'sunita-devi',
+        Mechanic: 'vikram-rathore',
+      };
+      const providerId = providersByCategory[btn.dataset.bookService] || '';
+      window.location.href = `booking.html?id=${encodeURIComponent(providerId)}`;
     });
   });
 
-  if (bookingForm) {
-    bookingForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      clearBookingErrors();
-
-      const locality = bookingLocality ? bookingLocality.value.trim() : '';
-      const name = bookingCustomerName ? bookingCustomerName.value.trim() : '';
-      const phone = bookingPhone ? bookingPhone.value.trim() : '';
-      let isValid = true;
-
-      if (locality.length < 3) {
-        setFieldValidation(
-          bookingLocality,
-          bookingLocalityError,
-          'Please enter your area or street address.'
-        );
-        isValid = false;
-      }
-      if (name.length < 2) {
-        setFieldValidation(bookingCustomerName, bookingNameError, 'Please enter your full name.');
-        isValid = false;
-      }
-      if (!/^[6-9]\d{9}$/.test(phone)) {
-        setFieldValidation(
-          bookingPhone,
-          bookingPhoneError,
-          'Enter a valid 10-digit Indian mobile number.'
-        );
-        isValid = false;
-      }
-
-      if (!isValid) {
-        focusFirstInvalid(bookingForm);
-        return;
-      }
-
-      const submitBtn = bookingForm.querySelector('button[type="submit"]');
-      runWithSubmitGuard(submitBtn, 'Submitting Request...', () => {
-        const selectedService = bookingServiceName ? bookingServiceName.textContent : 'Service';
-        const selectedPrice = bookingServicePrice ? bookingServicePrice.textContent : '₹199';
-        const chosenSlot = bookingSlot ? bookingSlot.value : 'Express (Within 60 mins)';
-        const refCode = `FM-${Math.floor(100000 + Math.random() * 900000)}`;
-
-        bookingForm.hidden = true;
-        if (bookingConfirmText) {
-          bookingConfirmText.textContent = `Reference ${refCode}: ${selectedService} (${selectedPrice} inspection) scheduled for ${chosenSlot} at ${locality}. Our local helper details will be shared on +91 ${phone}.`;
-        }
-        if (bookingConfirmation) bookingConfirmation.hidden = false;
-        bookingForm.reset();
-      });
-    });
-  }
-
   // =========================================================================
-  // 5. Auth Modal (Login / Register)
+  // 4. Demo Authentication Navigation
   // =========================================================================
-  const authNameError = document.getElementById('authNameError');
-  const authIdentifierError = document.getElementById('authIdentifierError');
-  const authPasswordError = document.getElementById('authPasswordError');
-
-  function clearAuthErrors() {
-    clearFieldValidation(authFullName, authNameError);
-    clearFieldValidation(authIdentifier, authIdentifierError);
-    clearFieldValidation(authPassword, authPasswordError);
-  }
-
-  [
-    [authFullName, authNameError],
-    [authIdentifier, authIdentifierError],
-    [authPassword, authPasswordError],
-  ].forEach(([inputEl, errorEl]) => {
-    if (inputEl) {
-      inputEl.addEventListener('input', () => clearFieldValidation(inputEl, errorEl));
-    }
-  });
-
-  function setAuthMode(mode) {
-    state.authMode = mode;
-    const isRegister = mode === 'register';
-
-    authTabs.forEach((tab) => {
-      const active = tab.dataset.authTab === mode;
-      tab.classList.toggle('is-active', active);
-      tab.setAttribute('aria-selected', String(active));
-    });
-
-    if (authModalTitle) {
-      authModalTitle.textContent = isRegister ? 'Create your FixMate account' : 'Welcome back';
-    }
-    if (authNameGroup) {
-      authNameGroup.hidden = !isRegister;
-    }
-    if (authSubmitBtn) {
-      authSubmitBtn.textContent = isRegister ? 'Create Account' : 'Login to FixMate';
-    }
-    clearAuthErrors();
-  }
-
   function attachAuthTriggers() {
     document.querySelectorAll('[data-auth-open]').forEach((btn) => {
       btn.addEventListener('click', () => {
         setMobileDrawer(false);
-        setAuthMode(btn.dataset.authOpen || 'login');
-        openModal(
-          authModal,
-          state.authMode === 'register' && authFullName ? authFullName : authIdentifier
-        );
+        window.location.href =
+          btn.dataset.authOpen === 'register' ? 'register.html' : 'login.html';
       });
     });
   }
   attachAuthTriggers();
-
-  authTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      setAuthMode(tab.dataset.authTab || 'login');
-    });
-  });
-
-  function renderSignedInHeader(displayName) {
-    if (!headerAuthArea) return;
-    headerAuthArea.innerHTML = '';
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'user-session-badge';
-
-    const greeting = document.createElement('span');
-    greeting.textContent = `Hi, ${displayName}`;
-
-    const logoutBtn = document.createElement('button');
-    logoutBtn.type = 'button';
-    logoutBtn.className = 'btn-ghost';
-    logoutBtn.textContent = 'Sign Out';
-    logoutBtn.addEventListener('click', () => {
-      state.signedInUser = null;
-      headerAuthArea.innerHTML = `
-        <button type="button" class="btn-ghost" data-auth-open="login">Login</button>
-        <button type="button" class="btn-primary" data-auth-open="register">Register</button>
-      `;
-      attachAuthTriggers();
-    });
-
-    wrapper.appendChild(greeting);
-    wrapper.appendChild(logoutBtn);
-    headerAuthArea.appendChild(wrapper);
-  }
-
+  const authForm = document.getElementById('authForm');
   if (authForm) {
     authForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      clearAuthErrors();
-
-      const fullName = authFullName ? authFullName.value.trim() : '';
-      const identifier = authIdentifier ? authIdentifier.value.trim() : '';
-      const password = authPassword ? authPassword.value : '';
-      let isValid = true;
-
-      if (state.authMode === 'register' && fullName.length < 2) {
-        setFieldValidation(authFullName, authNameError, 'Please enter your full name.');
-        isValid = false;
-      }
-
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
-      const isPhone = /^[6-9]\d{9}$/.test(identifier);
-      if (!isEmail && !isPhone) {
-        setFieldValidation(
-          authIdentifier,
-          authIdentifierError,
-          'Enter a valid email or 10-digit Indian mobile number.'
-        );
-        isValid = false;
-      }
-
-      if (password.length < 6) {
-        setFieldValidation(
-          authPassword,
-          authPasswordError,
-          'Password must be at least 6 characters.'
-        );
-        isValid = false;
-      }
-
-      if (!isValid) {
-        focusFirstInvalid(authForm);
-        return;
-      }
-
-      const processingLabel =
-        state.authMode === 'register' ? 'Creating Account...' : 'Signing In...';
-      runWithSubmitGuard(authSubmitBtn, processingLabel, () => {
-        const userLabel =
-          state.authMode === 'register'
-            ? fullName.split(' ')[0]
-            : isEmail
-            ? identifier.split('@')[0]
-            : `+91 ${identifier.slice(0, 5)}…`;
-
-        state.signedInUser = state.authMode === 'register' ? fullName : userLabel;
-        renderSignedInHeader(userLabel);
-        authForm.reset();
-        closeModal(authModal);
-      });
+      window.location.href = 'login.html';
     });
   }
 
   // =========================================================================
-  // 6. Contact / Callback Form Validation
+  // 5. Contact / Callback Form Validation
   // =========================================================================
   const contactNameError = document.getElementById('contactNameError');
   const contactPhoneError = document.getElementById('contactPhoneError');

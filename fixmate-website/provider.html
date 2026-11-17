@@ -216,7 +216,7 @@
                       Customer Reviews &amp; Ratings
                     </h2>
                     <span class="reviews-demo-note">
-                      Sample &amp; locally saved demonstration reviews
+                      Reviews submitted in this browser; not independently verified
                     </span>
                   </div>
                   <button
@@ -483,8 +483,8 @@
                   localStorage demonstration records.
                 </p>
               </div>
-              <a href="customer-dashboard.html" class="btn-outline-card">
-                View Customer Dashboard
+              <a href="services.html" class="btn-outline-card">
+                Browse Services
               </a>
             </div>
 
@@ -513,11 +513,6 @@
               <article class="dash-stat-card">
                 <span class="dash-stat-label">Completed Jobs</span>
                 <p class="dash-stat-value" id="provStatCompleted">0</p>
-              </article>
-              <article class="dash-stat-card">
-                <span class="dash-stat-label">Total Estimated Earnings</span>
-                <p class="dash-stat-value" id="provStatEarnings">₹0</p>
-                <p class="dash-stat-sub" id="provStatEarningsSub">₹0 completed · ₹0 confirmed</p>
               </article>
             </div>
 
@@ -608,10 +603,9 @@
             </div>
 
             <div class="empty-services-state" id="providerBookingsEmptyState" hidden>
-              <h3>No booking requests for this view</h3>
+              <h3>No booking requests available yet.</h3>
               <p>
-                No bookings assigned to this provider match the selected filters. Submit a new
-                booking for this helper to test incoming requests.
+                Booking requests submitted by customers for this provider will appear here.
               </p>
               <button type="button" class="btn-outline-card" id="providerResetFiltersBtn">
                 Reset Filters
@@ -818,6 +812,7 @@
       </div>
     </footer>
 
+    <script type="module" src="js/auth-session.js"></script>
     <script type="module" src="js/provider.js"></script>
   </body>
 </html>

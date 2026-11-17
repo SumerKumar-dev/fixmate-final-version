@@ -1,3 +1,5 @@
+import { getDemoSession, getProfileStorageKey } from './auth-session.js';
+
 // FixMate – Centralized Booking Management System (Pure Vanilla JavaScript)
 // Frontend demonstration using browser localStorage. Does not provide real-time multi-user sync or server-side booking security.
 
@@ -23,179 +25,15 @@ export const VALID_STATUS_TRANSITIONS = Object.freeze({
   Completed: [],
 });
 
-export const DEFAULT_DEMO_PROFILE = Object.freeze({
-  fullName: 'Arjun Mehta',
-  email: 'arjun.mehta@example.in',
-  phone: '9845098765',
-  address: 'Flat 302, Palm Grove Residency, 12th Main, Indiranagar',
-  city: 'Bengaluru',
-  pinCode: '560038',
-});
-
-const INITIAL_SEED_BOOKINGS = [
-  {
-    referenceId: 'FM-2026-814502',
-    providerId: 'rajesh-kumar',
-    providerName: 'Rajesh Kumar',
-    providerCategory: 'Electrician',
-    providerLocation: 'Indiranagar, Bengaluru · 560038',
-    serviceName: 'Switchboard & Modular Socket Replacement',
-    servicePrice: 349,
-    additionalCharges: 49,
-    totalEstimatedAmount: 398,
-    appointmentDate: '2026-11-22',
-    appointmentTime: 'Morning (9:00 AM – 11:00 AM)',
-    customerName: 'Arjun Mehta',
-    customerEmail: 'arjun.mehta@example.in',
-    customerPhone: '9845098765',
-    address: 'Flat 302, Palm Grove Residency, 12th Main, Indiranagar',
-    city: 'Bengaluru',
-    pinCode: '560038',
-    instructions: 'Sample pending booking for kitchen 16A socket replacement.',
-    status: 'Pending',
-    createdAt: '2026-11-16T08:20:00.000Z',
-  },
-  {
-    referenceId: 'FM-2026-702319',
-    providerId: 'arvind-patel',
-    providerName: 'Arvind Patel',
-    providerCategory: 'AC Repair',
-    providerLocation: 'Koramangala, Bengaluru · 560034',
-    serviceName: 'Indoor Water Leakage Fix',
-    servicePrice: 499,
-    additionalCharges: 49,
-    totalEstimatedAmount: 548,
-    appointmentDate: '2026-11-20',
-    appointmentTime: 'Afternoon (3:30 PM – 5:30 PM)',
-    customerName: 'Arjun Mehta',
-    customerEmail: 'arjun.mehta@example.in',
-    customerPhone: '9845098765',
-    address: 'Flat 302, Palm Grove Residency, 12th Main, Indiranagar',
-    city: 'Bengaluru',
-    pinCode: '560038',
-    instructions: 'Call security gate intercom 302 on arrival.',
-    status: 'Confirmed',
-    createdAt: '2026-11-15T11:10:00.000Z',
-    acceptedAt: '2026-11-15T12:05:00.000Z',
-  },
-  {
-    referenceId: 'FM-2026-619044',
-    providerId: 'deepak-kulkarni',
-    providerName: 'Deepak Kulkarni',
-    providerCategory: 'Carpenter',
-    providerLocation: 'Jayanagar, Bengaluru · 560041',
-    serviceName: 'Woodwork Inspection & Door Alignment',
-    servicePrice: 329,
-    additionalCharges: 49,
-    totalEstimatedAmount: 378,
-    appointmentDate: '2026-11-08',
-    appointmentTime: 'Morning (11:00 AM – 1:00 PM)',
-    customerName: 'Arjun Mehta',
-    customerEmail: 'arjun.mehta@example.in',
-    customerPhone: '9845098765',
-    address: 'Flat 302, Palm Grove Residency, 12th Main, Indiranagar',
-    city: 'Bengaluru',
-    pinCode: '560038',
-    instructions: 'Main teak door hinge alignment.',
-    status: 'Completed',
-    createdAt: '2026-11-06T10:05:00.000Z',
-    acceptedAt: '2026-11-06T10:45:00.000Z',
-    completedAt: '2026-11-08T12:30:00.000Z',
-  },
-  {
-    referenceId: 'FM-2026-508812',
-    providerId: 'prakash-gowda',
-    providerName: 'Prakash Gowda',
-    providerCategory: 'Home Cleaning',
-    providerLocation: 'Whitefield, Bengaluru · 560066',
-    serviceName: 'Balcony & Utility Deep Scrub',
-    servicePrice: 649,
-    additionalCharges: 49,
-    totalEstimatedAmount: 698,
-    appointmentDate: '2026-10-29',
-    appointmentTime: 'Evening (5:30 PM – 7:30 PM)',
-    customerName: 'Arjun Mehta',
-    customerEmail: 'arjun.mehta@example.in',
-    customerPhone: '9845098765',
-    address: 'Flat 302, Palm Grove Residency, 12th Main, Indiranagar',
-    city: 'Bengaluru',
-    pinCode: '560038',
-    instructions: 'Rescheduled due to travel.',
-    status: 'Cancelled',
-    createdAt: '2026-10-27T16:40:00.000Z',
-    cancelledAt: '2026-10-28T09:15:00.000Z',
-  },
-  {
-    referenceId: 'FM-2026-418205',
-    providerId: 'karthik-nair',
-    providerName: 'Karthik Nair',
-    providerCategory: 'AC Repair',
-    providerLocation: 'Adyar, Chennai · 600020',
-    serviceName: 'Split AC Foam-Jet Deep Servicing',
-    servicePrice: 499,
-    additionalCharges: 49,
-    totalEstimatedAmount: 548,
-    appointmentDate: '2026-11-12',
-    appointmentTime: 'Morning (11:00 AM – 1:00 PM)',
-    customerName: 'Priya Subramanian',
-    customerEmail: 'priya.s@example.in',
-    customerPhone: '9840112233',
-    address: 'Flat 2B, Besant Avenue, Adyar',
-    city: 'Chennai',
-    pinCode: '600020',
-    instructions: 'Sample completed booking record for demonstration.',
-    status: 'Completed',
-    createdAt: '2026-11-10T09:15:00.000Z',
-    acceptedAt: '2026-11-10T10:00:00.000Z',
-    completedAt: '2026-11-12T12:15:00.000Z',
-  },
-  {
-    referenceId: 'FM-2026-529104',
-    providerId: 'suresh-verma',
-    providerName: 'Suresh Verma',
-    providerCategory: 'Plumber',
-    providerLocation: 'Andheri West, Mumbai · 400053',
-    serviceName: 'Tap, Angle Valve & Mixer Replacement',
-    servicePrice: 299,
-    additionalCharges: 49,
-    totalEstimatedAmount: 348,
-    appointmentDate: '2026-11-24',
-    appointmentTime: 'Afternoon (3:30 PM – 5:30 PM)',
-    customerName: 'Amitabh Joshi',
-    customerEmail: 'amitabh.j@example.in',
-    customerPhone: '9820411223',
-    address: '704, Sagarika CHS, Lokhandwala',
-    city: 'Mumbai',
-    pinCode: '400053',
-    instructions: 'Sample confirmed booking record for demonstration.',
-    status: 'Confirmed',
-    createdAt: '2026-11-15T14:30:00.000Z',
-    acceptedAt: '2026-11-15T15:10:00.000Z',
-  },
-  {
-    referenceId: 'FM-2026-903418',
-    providerId: 'rajesh-kumar',
-    providerName: 'Rajesh Kumar',
-    providerCategory: 'Electrician',
-    providerLocation: 'Indiranagar, Bengaluru · 560038',
-    serviceName: 'Ceiling / Exhaust Fan Installation',
-    servicePrice: 249,
-    additionalCharges: 49,
-    totalEstimatedAmount: 298,
-    appointmentDate: '2026-11-23',
-    appointmentTime: 'Afternoon (1:30 PM – 3:30 PM)',
-    customerName: 'Kavita Deshmukh',
-    customerEmail: 'kavita.d@example.in',
-    customerPhone: '9880123456',
-    address: '14, 6th Cross, HAL 2nd Stage',
-    city: 'Bengaluru',
-    pinCode: '560008',
-    instructions: 'Two BLDC ceiling fans in bedrooms.',
-    status: 'Confirmed',
-    createdAt: '2026-11-15T16:10:00.000Z',
-    acceptedAt: '2026-11-15T16:50:00.000Z',
-  },
-];
+const LEGACY_SEED_REFERENCE_IDS = new Set([
+  'FM-2026-814502',
+  'FM-2026-702319',
+  'FM-2026-619044',
+  'FM-2026-508812',
+  'FM-2026-418205',
+  'FM-2026-529104',
+  'FM-2026-903418',
+]);
 
 export function getTodayISODate() {
   const now = new Date();
@@ -331,94 +169,114 @@ function deduplicateAndMigrateBookings(list) {
   return Array.from(byRef.values());
 }
 
-/**
- * Ensures initial seed data exists gracefully without duplicating or erasing user records.
- */
-export function ensureDemoSeedData() {
+function loadCleanBookings() {
   try {
     const rawBookings = localStorage.getItem(BOOKINGS_STORAGE_KEY);
-    if (!rawBookings) {
-      const normalizedSeed = deduplicateAndMigrateBookings(INITIAL_SEED_BOOKINGS);
-      localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(normalizedSeed));
-      localStorage.setItem(DASHBOARD_SEEDED_FLAG, 'true');
-      return normalizedSeed;
-    }
-
+    if (!rawBookings) return [];
     const parsed = JSON.parse(rawBookings);
     if (!Array.isArray(parsed)) {
-      const fallbackSeed = deduplicateAndMigrateBookings(INITIAL_SEED_BOOKINGS);
-      localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(fallbackSeed));
-      return fallbackSeed;
+      localStorage.removeItem(BOOKINGS_STORAGE_KEY);
+      return [];
     }
 
-    let migrated = deduplicateAndMigrateBookings(parsed);
-    const hasSavedCustomer = Boolean(localStorage.getItem(CUSTOMER_PROFILE_KEY));
-    const alreadySeeded = Boolean(localStorage.getItem(DASHBOARD_SEEDED_FLAG));
-
-    if (!hasSavedCustomer && !alreadySeeded) {
-      const existingRefs = new Set(migrated.map((b) => b.referenceId));
-      const missingSeeds = INITIAL_SEED_BOOKINGS.filter((s) => !existingRefs.has(s.referenceId))
-        .map(normalizeBookingRecord)
-        .filter(Boolean);
-      if (missingSeeds.length > 0) {
-        migrated = [...missingSeeds, ...migrated];
-      }
-      localStorage.setItem(DASHBOARD_SEEDED_FLAG, 'true');
+    const migrated = deduplicateAndMigrateBookings(
+      parsed.filter(
+        (item) => !item || !LEGACY_SEED_REFERENCE_IDS.has(String(item.referenceId || item.bookingId || ''))
+      )
+    );
+    if (JSON.stringify(parsed) !== JSON.stringify(migrated)) {
+      localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(migrated));
     }
-
-    localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(migrated));
     return migrated;
   } catch {
-    return deduplicateAndMigrateBookings(INITIAL_SEED_BOOKINGS);
+    try {
+      localStorage.removeItem(BOOKINGS_STORAGE_KEY);
+    } catch {
+      // Storage may be unavailable in restricted browser contexts.
+    }
+    return [];
   }
 }
 
-export function loadAllBookings() {
+/**
+ * Removes only known legacy demo records; never creates bookings.
+ */
+export function ensureDemoSeedData() {
+  const bookings = loadCleanBookings();
   try {
-    const raw = localStorage.getItem(BOOKINGS_STORAGE_KEY);
-    if (!raw) {
-      return ensureDemoSeedData();
+    localStorage.removeItem(DASHBOARD_SEEDED_FLAG);
+    const legacyProfile = JSON.parse(localStorage.getItem(CUSTOMER_PROFILE_KEY) || 'null');
+    if (
+      legacyProfile &&
+      legacyProfile.fullName === 'Arjun Mehta' &&
+      legacyProfile.email === 'arjun.mehta@example.in'
+    ) {
+      localStorage.removeItem(CUSTOMER_PROFILE_KEY);
     }
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) {
-      return ensureDemoSeedData();
+    const notifications = loadNotifications();
+    const cleanedNotifications = notifications.filter(
+      (item) => !LEGACY_SEED_REFERENCE_IDS.has(String(item.bookingId || ''))
+    );
+    if (cleanedNotifications.length !== notifications.length) {
+      localStorage.setItem(NOTIFICATIONS_STORAGE_KEY, JSON.stringify(cleanedNotifications));
     }
-    const migrated = deduplicateAndMigrateBookings(parsed);
-    return migrated;
   } catch {
-    return deduplicateAndMigrateBookings(INITIAL_SEED_BOOKINGS);
+    // Missing or malformed legacy data is treated as empty.
   }
+  return bookings;
+}
+
+export function loadAllBookings() {
+  return loadCleanBookings();
 }
 
 export function saveAllBookings(list) {
   const cleanList = deduplicateAndMigrateBookings(list);
-  try {
-    localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(cleanList));
-  } catch {
-    // Ignore storage quota errors gracefully
-  }
+  localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(cleanList));
   dispatchBookingsChanged({ reason: 'save' });
   return cleanList;
 }
 
+function getSessionProfileDefaults(session) {
+  const identifier = String(session && session.identifier ? session.identifier : '');
+  const email = identifier.includes('@') ? identifier : '';
+  const phone = /^[6-9]\d{9}$/.test(identifier) ? identifier : '';
+  const displayName = email
+    ? email
+        .split('@')[0]
+        .split(/[._-]+/)
+        .filter(Boolean)
+        .map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
+        .join(' ')
+    : 'Customer';
+  return {
+    fullName: (session && session.displayName) || displayName,
+    email,
+    phone,
+    address: '',
+    city: '',
+    pinCode: '',
+  };
+}
+
 export function loadCustomerProfile() {
+  const session = getDemoSession();
+  const defaults = getSessionProfileDefaults(session);
+  if (!session || session.role !== 'Customer') return defaults;
   try {
-    const raw = localStorage.getItem(CUSTOMER_PROFILE_KEY);
-    if (!raw) {
-      localStorage.setItem(CUSTOMER_PROFILE_KEY, JSON.stringify(DEFAULT_DEMO_PROFILE));
-      return { ...DEFAULT_DEMO_PROFILE };
-    }
+    const raw = localStorage.getItem(getProfileStorageKey(session));
+    if (!raw) return defaults;
     const parsed = JSON.parse(raw);
     return {
-      fullName: parsed.fullName || DEFAULT_DEMO_PROFILE.fullName,
-      email: parsed.email || DEFAULT_DEMO_PROFILE.email,
-      phone: parsed.phone || DEFAULT_DEMO_PROFILE.phone,
-      address: parsed.address || DEFAULT_DEMO_PROFILE.address,
-      city: parsed.city || DEFAULT_DEMO_PROFILE.city,
-      pinCode: parsed.pinCode || DEFAULT_DEMO_PROFILE.pinCode,
+      fullName: parsed.fullName || defaults.fullName,
+      email: parsed.email || defaults.email,
+      phone: parsed.phone || defaults.phone,
+      address: parsed.address || '',
+      city: parsed.city || '',
+      pinCode: parsed.pinCode || '',
     };
   } catch {
-    return { ...DEFAULT_DEMO_PROFILE };
+    return defaults;
   }
 }
 
@@ -431,25 +289,19 @@ export function saveCustomerProfile(profileObj) {
     city: String(profileObj.city || '').trim(),
     pinCode: String(profileObj.pinCode || '').trim(),
   };
-  try {
-    localStorage.setItem(CUSTOMER_PROFILE_KEY, JSON.stringify(cleanProfile));
-  } catch {
-    // Ignore storage quota errors
+  const session = getDemoSession();
+  if (!session || session.role !== 'Customer') {
+    return cleanProfile;
   }
+  localStorage.setItem(getProfileStorageKey(session), JSON.stringify(cleanProfile));
   dispatchBookingsChanged({ reason: 'profile' });
   return cleanProfile;
 }
 
-export function getCustomerBookings(profile = loadCustomerProfile()) {
-  const all = loadAllBookings();
-  const emailLower = (profile.email || '').trim().toLowerCase();
-  const phoneDigits = (profile.phone || '').trim();
-
-  return all.filter((b) => {
-    const bEmail = (b.customerEmail || '').trim().toLowerCase();
-    const bPhone = (b.customerPhone || '').trim();
-    return (emailLower && bEmail === emailLower) || (phoneDigits && bPhone === phoneDigits);
-  });
+export function getCustomerBookings() {
+  const session = getDemoSession();
+  if (!session || session.role !== 'Customer') return [];
+  return loadAllBookings().filter((booking) => booking.customerId === session.id);
 }
 
 export function getProviderBookings(providerId) {
@@ -492,6 +344,7 @@ export function pushBookingNotification({
   const entry = {
     id: `NTF-${Date.now()}-${Math.floor(100 + Math.random() * 900)}`,
     bookingId: booking.referenceId,
+    customerId: booking.customerId,
     providerId: booking.providerId,
     customerEmail: booking.customerEmail,
     customerPhone: booking.customerPhone,
@@ -507,16 +360,19 @@ export function pushBookingNotification({
   return entry;
 }
 
-export function getCustomerNotifications(profile = loadCustomerProfile(), includeAll = false) {
+export function getCustomerNotifications(profile = loadCustomerProfile()) {
   const all = loadNotifications();
-  if (includeAll) return all;
-  const emailLower = (profile.email || '').trim().toLowerCase();
-  const phoneDigits = (profile.phone || '').trim();
+  const session = getDemoSession();
+  if (!session || session.role !== 'Customer') return [];
   return all.filter((n) => {
     if (n.audience !== 'both' && n.audience !== 'customer') return false;
-    const nEmail = (n.customerEmail || '').trim().toLowerCase();
-    const nPhone = (n.customerPhone || '').trim();
-    return (emailLower && nEmail === emailLower) || (phoneDigits && nPhone === phoneDigits);
+    if (n.customerId) return n.customerId === session.id;
+    const email = (profile.email || '').trim().toLowerCase();
+    const phone = (profile.phone || '').trim();
+    return Boolean(
+      (email && n.customerEmail === email) ||
+        (phone && n.customerPhone === phone)
+    );
   });
 }
 
@@ -533,7 +389,11 @@ export function markNotificationsRead(role, identifier) {
   const cleanIdent = String(identifier || '').trim().toLowerCase();
   const updated = all.map((n) => {
     if (role === 'customer') {
-      if (!cleanIdent || (n.customerEmail || '').toLowerCase() === cleanIdent) {
+      if (
+        !cleanIdent ||
+        n.customerId === cleanIdent ||
+        (n.customerEmail || '').toLowerCase() === cleanIdent
+      ) {
         return { ...n, readByCustomer: true };
       }
     } else if (role === 'provider') {
@@ -587,7 +447,14 @@ export function createBookingRecord(input) {
   }
 
   const updated = [normalized, ...all];
-  saveAllBookings(updated);
+  try {
+    saveAllBookings(updated);
+  } catch {
+    return {
+      ok: false,
+      error: 'Could not save your booking in this browser. Check storage availability and try again.',
+    };
+  }
 
   pushBookingNotification({
     booking: normalized,
@@ -696,6 +563,12 @@ export function transitionBookingStatus({
         error: 'Only customers can cancel their booking.',
       };
     }
+    if (!actorId || current.customerId !== actorId) {
+      return {
+        ok: false,
+        error: 'Customers can only cancel their own bookings.',
+      };
+    }
     const cancelCheck = evaluateCustomerCancellation(current);
     if (!cancelCheck.allowed) {
       return { ok: false, error: cancelCheck.reason };
@@ -722,7 +595,14 @@ export function transitionBookingStatus({
 
   const nextList = [...all];
   nextList[index] = updatedRecord;
-  saveAllBookings(nextList);
+  try {
+    saveAllBookings(nextList);
+  } catch {
+    return {
+      ok: false,
+      error: 'Could not save this booking update in the browser. Please try again.',
+    };
+  }
 
   // Emit appropriate in-app notification
   if (cleanTarget === BOOKING_STATUSES.CONFIRMED) {
@@ -916,12 +796,6 @@ export function getProviderStats(bookings) {
   const cancelled = list.filter((b) => b.status === BOOKING_STATUSES.CANCELLED).length;
 
   const acceptedBookings = confirmed + completedJobs;
-  const completedEarnings = list
-    .filter((b) => b.status === BOOKING_STATUSES.COMPLETED)
-    .reduce((sum, b) => sum + (Number(b.totalEstimatedAmount) || 0), 0);
-  const confirmedPipeline = list
-    .filter((b) => b.status === BOOKING_STATUSES.CONFIRMED)
-    .reduce((sum, b) => sum + (Number(b.totalEstimatedAmount) || 0), 0);
 
   return {
     totalRequests: list.length,
@@ -931,9 +805,6 @@ export function getProviderStats(bookings) {
     rejectedBookings: rejected,
     completedJobs,
     cancelledBookings: cancelled,
-    completedEarnings,
-    confirmedPipeline,
-    totalEstimatedEarnings: completedEarnings + confirmedPipeline,
   };
 }
 
@@ -956,6 +827,7 @@ export function subscribeBookingChanges(callback) {
       !event.key ||
       event.key === BOOKINGS_STORAGE_KEY ||
       event.key === CUSTOMER_PROFILE_KEY ||
+      event.key.startsWith(`${CUSTOMER_PROFILE_KEY}:`) ||
       event.key === NOTIFICATIONS_STORAGE_KEY
     ) {
       callback({ source: 'storage', key: event.key });

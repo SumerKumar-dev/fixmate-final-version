@@ -95,6 +95,14 @@
               <span>Booking History</span>
             </button>
 
+            <button type="button" class="dash-nav-item" data-dash-section="transactions">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8" />
+                <path d="M3 10H21M7 15H11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+              <span>Transaction History</span>
+            </button>
+
             <button type="button" class="dash-nav-item" data-dash-section="profile">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8" />
@@ -205,8 +213,8 @@
               id="topbarProfileBtn"
               aria-label="Go to My Profile"
             >
-              <span class="dash-mini-avatar" id="topbarAvatarInitials">AM</span>
-              <span id="topbarCustomerName">Arjun</span>
+              <span class="dash-mini-avatar" id="topbarAvatarInitials">FM</span>
+              <span id="topbarCustomerName">Customer</span>
             </button>
 
             <button type="button" class="btn-outline-card" id="topbarLogoutBtn">Logout</button>
@@ -217,26 +225,13 @@
           <!-- Welcome Header -->
           <div class="dash-welcome-row">
             <div>
-              <h1 class="dash-welcome-title" id="welcomeHeading">Welcome Back, Arjun Mehta!</h1>
+              <h1 class="dash-welcome-title" id="welcomeHeading">Welcome to FixMate</h1>
               <p class="dash-welcome-sub">Manage your services and bookings in one place.</p>
               <p class="dash-demo-note">
-                Frontend demonstration using browser localStorage. Multi-user authentication and
-                server-side booking sync are not active in this stage.
+                Frontend-only demo session. Passwords and payments are not stored or processed.
               </p>
             </div>
 
-            <div class="dash-scope-toggle" role="group" aria-label="Booking scope filter">
-              <button
-                type="button"
-                class="dash-scope-btn is-active"
-                data-scope="customer"
-              >
-                My Account Bookings
-              </button>
-              <button type="button" class="dash-scope-btn" data-scope="all">
-                All Local Demo Records
-              </button>
-            </div>
           </div>
 
           <!-- Feedback Toast Banner -->
@@ -339,10 +334,9 @@
               </div>
 
               <div class="empty-services-state" id="overviewEmptyState" hidden>
-                <h3>No bookings found yet</h3>
+                <h3>You haven't booked any services yet.</h3>
                 <p>
-                  You have not created any service bookings under this customer email yet. Find a
-                  trusted helper near you to get started.
+                  Explore the available services and book a local helper when you are ready.
                 </p>
                 <a href="services.html" class="btn-primary">Find Services</a>
               </div>
@@ -412,7 +406,7 @@
               </div>
 
               <div class="empty-services-state" id="myBookingsEmptyState" hidden>
-                <h3>No matching bookings</h3>
+                <h3>You haven't booked any services yet.</h3>
                 <p>
                   No bookings match your search, status, or date filter. Reset filters or browse
                   verified local professionals.
@@ -469,6 +463,18 @@
             </div>
           </section>
 
+          <section class="dash-panel" id="panel-transactions" aria-label="Transaction History" hidden>
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h2 class="dash-card-title">Transaction History</h2>
+              </div>
+              <div class="empty-services-state">
+                <h3>No transactions have been made yet.</h3>
+                <p>This frontend demo does not collect or record payments.</p>
+              </div>
+            </div>
+          </section>
+
           <!-- ===============================================================
                Section 4: My Profile
                =============================================================== -->
@@ -478,9 +484,9 @@
                 <div class="dash-profile-identity">
                   <div class="dash-profile-avatar-lg" id="profileAvatarInitials">AM</div>
                   <div>
-                    <h2 class="dash-card-title" id="profileDisplayName">Arjun Mehta</h2>
+                    <h2 class="dash-card-title" id="profileDisplayName">Customer</h2>
                     <p class="dash-welcome-sub" id="profileDisplaySub">
-                      Customer Account · Bengaluru
+                      Customer Account
                     </p>
                   </div>
                 </div>
@@ -721,11 +727,13 @@
         </p>
         <div class="provider-card-actions">
           <a href="login.html" class="btn-outline-card">Go to Login</a>
-          <a href="index.html" class="btn-book-provider">Back to Home</a>
+          <button type="button" class="btn-book-provider" id="confirmLogoutBtn">Logout</button>
+          <a href="index.html" class="btn-outline-card">Back to Home</a>
         </div>
       </div>
     </div>
 
+    <script type="module" src="js/auth-session.js"></script>
     <script type="module" src="js/customer-dashboard.js"></script>
   </body>
 </html>

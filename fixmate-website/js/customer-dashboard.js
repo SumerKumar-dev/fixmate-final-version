@@ -4,7 +4,6 @@
 import {
   BOOKING_STATUSES,
   buildBookingTimeline,
-  ensureDemoSeedData,
   evaluateCustomerCancellation,
   filterAndSortBookings,
   formatRupees,
@@ -12,7 +11,6 @@ import {
   getCustomerBookings,
   getCustomerNotifications,
   getCustomerStats,
-  loadAllBookings,
   loadCustomerProfile,
   markNotificationsRead,
   saveCustomerProfile,
@@ -29,6 +27,7 @@ import {
   setFieldValidation,
   showFeedbackBanner,
 } from './ui-helpers.js';
+import { clearDemoSession, getDemoSession } from './auth-session.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const state = {
     activeSection: 'overview',
-    scope: 'customer', // 'customer' | 'all'
     searchQuery: '',
     statusFilter: 'all',
     dateFilter: '',
@@ -46,9 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     openDetailsRefId: null,
   };
 
-  // Ensure initial demonstration records exist safely
-  ensureDemoSeedData();
-
   // Set footer year
   const yearEl = document.getElementById('currentYear');
   if (yearEl) {
@@ -56,10 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getScopedBookings() {
-    if (state.scope === 'all') {
-      return loadAllBookings();
-    }
-    return getCustomerBookings(loadCustomerProfile());
+    return getCustomerBookings();
   }
 
   function getInitials(name) {
@@ -109,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overview: 'Customer Dashboard / Overview',
     bookings: 'Customer Dashboard / My Bookings',
     history: 'Customer Dashboard / Booking History',
+    transactions: 'Customer Dashboard / Transaction History',
     profile: 'Customer Dashboard / My Profile',
   };
 
@@ -119,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.toggle('is-active', btn.dataset.dashSection === sectionKey);
     });
 
-    ['overview', 'bookings', 'history', 'profile'].forEach((key) => {
+    ['overview', 'bookings', 'history', 'transactions', 'profile'].forEach((key) => {
       const panel = document.getElementById(`panel-${key}`);
       if (panel) panel.hidden = key !== sectionKey;
     });
@@ -147,17 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (topbarProfileBtn) {
     topbarProfileBtn.addEventListener('click', () => switchSection('profile'));
   }
-
-  // Scope Toggle
-  document.querySelectorAll('[data-scope]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      state.scope = btn.dataset.scope || 'customer';
-      document.querySelectorAll('[data-scope]').forEach((b) => {
-        b.classList.toggle('is-active', b === btn);
-      });
-      refreshDashboard();
-    });
-  });
 
   // =========================================================================
   // Notification Popover (In-App Booking Updates)
@@ -191,7 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (markNotifsReadBtn) {
     markNotifsReadBtn.addEventListener('click', () => {
       const profile = loadCustomerProfile();
-      markNotificationsRead('customer', state.scope === 'all' ? '' : profile.email);
+      const session = getDemoSession();
+      markNotificationsRead('customer', session ? session.id : profile.email);
       renderNotifications(getScopedBookings());
     });
   }
@@ -200,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!dashNotifList || !dashNotifCount) return;
 
     const profile = loadCustomerProfile();
-    const events = getCustomerNotifications(profile, state.scope === 'all');
+    const events = getCustomerNotifications(profile);
     const unreadEvents = events.filter((e) => !e.readByCustomer);
 
     const activeFallbackCount = bookings.filter(
@@ -314,6 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   );
+
+  const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+  if (confirmLogoutBtn) {
+    confirmLogoutBtn.addEventListener('click', () => {
+      clearDemoSession();
+      window.location.replace('index.html');
+    });
+  }
 
   function renderTimelineInto(container, booking) {
     if (!container) return;
@@ -465,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
           bookingId: targetRef,
           targetStatus: BOOKING_STATUSES.CANCELLED,
           actorRole: 'customer',
+          actorId: (getDemoSession() || {}).id || '',
         });
 
         state.pendingCancelRefId = null;
@@ -527,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('recentBookingsBody');
     const wrap = document.getElementById('recentBookingsWrap');
     const empty = document.getElementById('overviewEmptyState');
+    const emptyHeading = empty ? empty.querySelector('h3') : null;
     if (!tbody) return;
 
     tbody.innerHTML = '';
@@ -540,6 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (wrap) wrap.hidden = recent.length === 0;
     if (empty) empty.hidden = recent.length > 0;
+    if (emptyHeading) emptyHeading.textContent = "You haven't booked any services yet.";
 
     recent.forEach((b) => {
       const tr = document.createElement('tr');
@@ -616,6 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('myBookingsBody');
     const wrap = document.getElementById('myBookingsTableWrap');
     const empty = document.getElementById('myBookingsEmptyState');
+    const emptyHeading = empty ? empty.querySelector('h3') : null;
     if (!tbody) return;
 
     syncStatusTabsUI(bookings);
@@ -630,6 +625,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tbody.innerHTML = '';
     if (wrap) wrap.hidden = sorted.length === 0;
     if (empty) empty.hidden = sorted.length > 0;
+    if (emptyHeading) {
+      emptyHeading.textContent =
+        bookings.length === 0
+          ? "You haven't booked any services yet."
+          : 'No matching bookings';
+    }
 
     sorted.forEach((b) => {
       const tr = document.createElement('tr');
@@ -866,7 +867,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setText('topbarAvatarInitials', initials);
     setText('profileAvatarInitials', initials);
     setText('profileDisplayName', profile.fullName);
-    setText('profileDisplaySub', `Customer Account · ${profile.city}`);
+    setText(
+      'profileDisplaySub',
+      `Customer Account${profile.city ? ` · ${profile.city}` : ''}`
+    );
 
     setText('profViewName', profile.fullName);
     setText('profViewEmail', profile.email);

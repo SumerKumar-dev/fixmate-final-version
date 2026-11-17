@@ -4,10 +4,9 @@
 import {
   CONVENIENCE_FEE,
   createBookingRecord,
-  ensureDemoSeedData,
   formatRupees,
+  getCustomerBookings,
   getTodayISODate,
-  loadAllBookings,
   loadCustomerProfile,
   saveCustomerProfile,
   subscribeBookingChanges,
@@ -21,6 +20,7 @@ import {
   setFieldValidation,
   showFeedbackBanner,
 } from './ui-helpers.js';
+import { getDemoSession } from './auth-session.js';
 
 const BOOKING_PROVIDERS = [
   {
@@ -31,8 +31,6 @@ const BOOKING_PROVIDERS = [
     category: 'Electrician',
     location: 'Indiranagar, Bengaluru · 560038',
     experienceYears: 8,
-    rating: 4.9,
-    reviewCount: 164,
     price: 199,
     services: [
       {
@@ -69,8 +67,6 @@ const BOOKING_PROVIDERS = [
     category: 'Plumber',
     location: 'Andheri West, Mumbai · 400053',
     experienceYears: 11,
-    rating: 4.9,
-    reviewCount: 218,
     price: 249,
     services: [
       {
@@ -107,8 +103,6 @@ const BOOKING_PROVIDERS = [
     category: 'AC Repair',
     location: 'Adyar, Chennai · 600020',
     experienceYears: 7,
-    rating: 4.8,
-    reviewCount: 139,
     price: 499,
     services: [
       {
@@ -145,8 +139,6 @@ const BOOKING_PROVIDERS = [
     category: 'Home Cleaning',
     location: 'Saket, New Delhi · 110017',
     experienceYears: 6,
-    rating: 4.9,
-    reviewCount: 192,
     price: 699,
     services: [
       {
@@ -183,8 +175,6 @@ const BOOKING_PROVIDERS = [
     category: 'Carpenter',
     location: 'Kothrud, Pune · 411038',
     experienceYears: 10,
-    rating: 4.8,
-    reviewCount: 127,
     price: 299,
     services: [
       {
@@ -221,8 +211,6 @@ const BOOKING_PROVIDERS = [
     category: 'Mechanic',
     location: 'Banjara Hills, Hyderabad · 500034',
     experienceYears: 9,
-    rating: 4.8,
-    reviewCount: 154,
     price: 349,
     services: [
       {
@@ -259,8 +247,6 @@ const BOOKING_PROVIDERS = [
     category: 'Electrician',
     location: 'Powai, Mumbai · 400076',
     experienceYears: 6,
-    rating: 4.7,
-    reviewCount: 98,
     price: 179,
     services: [
       {
@@ -291,8 +277,6 @@ const BOOKING_PROVIDERS = [
     category: 'Carpenter',
     location: 'Jayanagar, Bengaluru · 560041',
     experienceYears: 12,
-    rating: 4.9,
-    reviewCount: 185,
     price: 329,
     services: [
       {
@@ -323,8 +307,6 @@ const BOOKING_PROVIDERS = [
     category: 'AC Repair',
     location: 'Koramangala, Bengaluru · 560034',
     experienceYears: 9,
-    rating: 4.7,
-    reviewCount: 112,
     price: 449,
     services: [
       {
@@ -355,8 +337,6 @@ const BOOKING_PROVIDERS = [
     category: 'Plumber',
     location: 'Hauz Khas, New Delhi · 110016',
     experienceYears: 8,
-    rating: 4.8,
-    reviewCount: 141,
     price: 229,
     services: [
       {
@@ -387,8 +367,6 @@ const BOOKING_PROVIDERS = [
     category: 'Mechanic',
     location: 'Viman Nagar, Pune · 411014',
     experienceYears: 7,
-    rating: 4.7,
-    reviewCount: 94,
     price: 299,
     services: [
       {
@@ -419,8 +397,6 @@ const BOOKING_PROVIDERS = [
     category: 'Home Cleaning',
     location: 'Whitefield, Bengaluru · 560066',
     experienceYears: 5,
-    rating: 4.8,
-    reviewCount: 121,
     price: 749,
     services: [
       {
@@ -446,6 +422,9 @@ const BOOKING_PROVIDERS = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+  const session = getDemoSession();
+  if (!session || session.role !== 'Customer') return;
+
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const INDIAN_PHONE_REGEX = /^[6-9]\d{9}$/;
   const INDIAN_PIN_REGEX = /^[1-9]\d{5}$/;
@@ -485,14 +464,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // Structured My Bookings Display (Centralized Booking Manager)
   // =========================================================================
-  ensureDemoSeedData();
-
   function renderMyBookingsList() {
     const listEl = document.getElementById('myBookingsList');
     const emptyEl = document.getElementById('emptyBookingsState');
     if (!listEl) return;
 
-    const records = [...loadAllBookings()].sort((a, b) =>
+    const records = [...getCustomerBookings()].sort((a, b) =>
       (b.createdAt || b.appointmentDate || '').localeCompare(
         a.createdAt || a.appointmentDate || ''
       )
@@ -791,34 +768,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const custInstructions = document.getElementById('custInstructions');
   const prefillNotice = document.getElementById('prefillNotice');
 
-  if (localStorage.getItem('fixmate_demo_customer')) {
-    const savedProfile = loadCustomerProfile();
-    let prefilledAny = false;
-    if (savedProfile.fullName && custFullName) {
-      custFullName.value = savedProfile.fullName;
-      prefilledAny = true;
-    }
-    if (savedProfile.email && custEmail) {
-      custEmail.value = savedProfile.email;
-      prefilledAny = true;
-    }
-    if (savedProfile.phone && custPhone) {
-      custPhone.value = savedProfile.phone;
-      prefilledAny = true;
-    }
-    if (savedProfile.address && custAddress) {
-      custAddress.value = savedProfile.address;
-      prefilledAny = true;
-    }
-    if (savedProfile.city && custCity) {
-      custCity.value = savedProfile.city;
-    }
-    if (savedProfile.pinCode && custPin) {
-      custPin.value = savedProfile.pinCode;
-    }
-    if (prefilledAny && prefillNotice) {
-      prefillNotice.hidden = false;
-    }
+  const savedProfile = loadCustomerProfile();
+  let prefilledAny = false;
+  if (savedProfile.fullName && custFullName) {
+    custFullName.value = savedProfile.fullName;
+    prefilledAny = true;
+  }
+  if (savedProfile.email && custEmail) {
+    custEmail.value = savedProfile.email;
+    prefilledAny = true;
+  }
+  if (savedProfile.phone && custPhone) {
+    custPhone.value = savedProfile.phone;
+    prefilledAny = true;
+  }
+  if (savedProfile.address && custAddress) {
+    custAddress.value = savedProfile.address;
+    prefilledAny = true;
+  }
+  if (savedProfile.city && custCity) {
+    custCity.value = savedProfile.city;
+  }
+  if (savedProfile.pinCode && custPin) {
+    custPin.value = savedProfile.pinCode;
+  }
+  if (prefilledAny && prefillNotice) {
+    prefillNotice.hidden = false;
   }
 
   // Clear inline errors on input
@@ -968,6 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalEstimatedAmount = selectedServiceObj.price + CONVENIENCE_FEE;
 
         const result = createBookingRecord({
+          customerId: session.id,
           providerId: provider.id,
           providerName: provider.name,
           providerCategory: provider.category,
@@ -998,14 +974,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const bookingRecord = result.booking;
-        saveCustomerProfile({
-          fullName: nameVal,
-          email: emailVal,
-          phone: phoneVal,
-          address: addressVal,
-          city: cityVal,
-          pinCode: pinVal,
-        });
+        try {
+          saveCustomerProfile({
+            fullName: nameVal,
+            email: emailVal,
+            phone: phoneVal,
+            address: addressVal,
+            city: cityVal,
+            pinCode: pinVal,
+          });
+        } catch {
+          showFeedbackBanner(
+            bookingFormErrorBanner,
+            'Your booking was saved, but these contact details could not be saved for next time.',
+            'error'
+          );
+        }
 
         renderMyBookingsList();
 

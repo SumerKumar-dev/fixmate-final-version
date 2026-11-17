@@ -5,7 +5,6 @@
 import {
   BOOKING_STATUSES,
   buildBookingTimeline,
-  ensureDemoSeedData,
   filterAndSortBookings,
   formatRupees,
   formatTimestampLabel,
@@ -30,8 +29,6 @@ function statusClassName(status) {
 export function initProviderBookingDesk({ providerId, providerName, rootEl }) {
   if (!rootEl || !providerId) return null;
 
-  ensureDemoSeedData();
-
   const state = {
     providerId,
     providerName: providerName || 'Service Provider',
@@ -49,8 +46,6 @@ export function initProviderBookingDesk({ providerId, providerName, rootEl }) {
     statAccepted: rootEl.querySelector('#provStatAccepted'),
     statRejected: rootEl.querySelector('#provStatRejected'),
     statCompleted: rootEl.querySelector('#provStatCompleted'),
-    statEarnings: rootEl.querySelector('#provStatEarnings'),
-    statEarningsSub: rootEl.querySelector('#provStatEarningsSub'),
     tabsWrap: rootEl.querySelector('#providerStatusTabs'),
     searchInput: rootEl.querySelector('#providerBookingSearch'),
     statusSelect: rootEl.querySelector('#providerBookingStatusFilter'),
@@ -216,7 +211,7 @@ export function initProviderBookingDesk({ providerId, providerName, rootEl }) {
     const actionLabels = {
       Confirmed: `Booking ${booking.referenceId} accepted and marked Confirmed.`,
       Rejected: `Booking ${booking.referenceId} has been Rejected.`,
-      Completed: `Booking ${booking.referenceId} marked Completed. Estimated earnings updated.`,
+      Completed: `Booking ${booking.referenceId} marked Completed.`,
     };
 
     showDeskNotice(
@@ -245,7 +240,7 @@ export function initProviderBookingDesk({ providerId, providerName, rootEl }) {
     if (el.confirmDesc) {
       el.confirmDesc.textContent = isReject
         ? `Are you sure you want to reject ${booking.customerName}'s ${booking.serviceName} request for ${booking.appointmentDate} (${booking.appointmentTime})? This status update cannot be undone.`
-        : `Confirm that ${booking.serviceName} for ${booking.customerName} on ${booking.appointmentDate} is finished? Estimated earnings (${formatRupees(booking.totalEstimatedAmount)}) will be added to completed earnings.`;
+        : `Confirm that ${booking.serviceName} for ${booking.customerName} on ${booking.appointmentDate} is finished? This demo only records the booking status; it does not process payments.`;
     }
 
     el.confirmSubmitBtn.className = isReject ? 'btn-danger-solid' : 'btn-book-provider';
@@ -260,13 +255,6 @@ export function initProviderBookingDesk({ providerId, providerName, rootEl }) {
     if (el.statAccepted) el.statAccepted.textContent = String(stats.acceptedBookings);
     if (el.statRejected) el.statRejected.textContent = String(stats.rejectedBookings);
     if (el.statCompleted) el.statCompleted.textContent = String(stats.completedJobs);
-    if (el.statEarnings) {
-      el.statEarnings.textContent = formatRupees(stats.totalEstimatedEarnings);
-    }
-    if (el.statEarningsSub) {
-      el.statEarningsSub.textContent = `${formatRupees(stats.completedEarnings)} completed · ${formatRupees(stats.confirmedPipeline)} confirmed`;
-    }
-
     // Sync quick status tabs with counts
     if (el.tabsWrap) {
       const counts = {
@@ -347,6 +335,13 @@ export function initProviderBookingDesk({ providerId, providerName, rootEl }) {
     el.tbody.innerHTML = '';
     if (el.tableWrap) el.tableWrap.hidden = filtered.length === 0;
     if (el.emptyState) el.emptyState.hidden = filtered.length > 0;
+    const emptyHeading = el.emptyState ? el.emptyState.querySelector('h3') : null;
+    if (emptyHeading) {
+      emptyHeading.textContent =
+        bookings.length === 0
+          ? 'No booking requests available yet.'
+          : 'No booking requests match this view.';
+    }
 
     filtered.forEach((b) => {
       const tr = document.createElement('tr');

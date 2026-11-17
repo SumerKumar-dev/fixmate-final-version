@@ -2,6 +2,7 @@
 
 import { getTodayISODate } from './booking-manager.js';
 import { initProviderBookingDesk } from './provider-dashboard.js';
+import { getDemoSession } from './auth-session.js';
 import {
   addProviderReview,
   getProviderRatingStats,
@@ -26,8 +27,6 @@ const PROVIDER_PROFILES = [
     location: 'Indiranagar, Bengaluru · 560038',
     areasServed: 'Indiranagar, Ulsoor, Domlur, HAL 2nd Stage (560038, 560008, 560075)',
     experienceYears: 8,
-    rating: 4.9,
-    reviewCount: 164,
     price: 199,
     availability: 'Available Today · 45 mins ETA',
     availableNow: true,
@@ -70,36 +69,6 @@ const PROVIDER_PROFILES = [
         duration: '90 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 84 },
-      { stars: 4, percent: 11 },
-      { stars: 3, percent: 3 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Ananya Iyer',
-        rating: 5,
-        date: '14 Oct 2026',
-        comment:
-          'Arrived on time in Indiranagar and fixed our tripping MCB and loose inverter terminal in 25 minutes. Transparent ₹349 billing.',
-      },
-      {
-        customer: 'Siddharth Menon',
-        rating: 5,
-        date: '02 Oct 2026',
-        comment:
-          'Installed two BLDC ceiling fans and replaced an old 16A geyser socket neatly without damaging wall paint.',
-      },
-      {
-        customer: 'Meera Krishnan',
-        rating: 4,
-        date: '19 Sep 2026',
-        comment:
-          'Polite and thorough with safety testing using a multimeter. Explained the wiring issue clearly.',
-      },
-    ],
   },
   {
     id: 'suresh-verma',
@@ -110,8 +79,6 @@ const PROVIDER_PROFILES = [
     location: 'Andheri West, Mumbai · 400053',
     areasServed: 'Andheri West, Versova, Juhu, Lokhandwala (400053, 400058, 400049)',
     experienceYears: 11,
-    rating: 4.9,
-    reviewCount: 218,
     price: 249,
     availability: 'Available Today · 50 mins ETA',
     availableNow: true,
@@ -154,35 +121,6 @@ const PROVIDER_PROFILES = [
         duration: '60 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 86 },
-      { stars: 4, percent: 10 },
-      { stars: 3, percent: 2 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Neha Kulkarni',
-        rating: 5,
-        date: '18 Oct 2026',
-        comment:
-          'Solved a stubborn kitchen sink pipe leak in Lokhandwala cleanly. Charged ₹299 for valve replacement with proper seal.',
-      },
-      {
-        customer: 'Amitabh Joshi',
-        rating: 5,
-        date: '05 Oct 2026',
-        comment:
-          'Very experienced plumber. Replaced our concealed flush valve without breaking the bathroom tiles.',
-      },
-      {
-        customer: 'Ritu Kapoor',
-        rating: 5,
-        date: '24 Sep 2026',
-        comment: 'Punctual arrival and carried all original brass fittings in his kit.',
-      },
-    ],
   },
   {
     id: 'karthik-nair',
@@ -193,8 +131,6 @@ const PROVIDER_PROFILES = [
     location: 'Adyar, Chennai · 600020',
     areasServed: 'Adyar, Besant Nagar, Thiruvanmiyur, Mylapore (600020, 600041, 600028)',
     experienceYears: 7,
-    rating: 4.8,
-    reviewCount: 139,
     price: 499,
     availability: 'Available Today · 60 mins ETA',
     availableNow: true,
@@ -237,35 +173,6 @@ const PROVIDER_PROFILES = [
         duration: '90–120 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 79 },
-      { stars: 4, percent: 15 },
-      { stars: 3, percent: 4 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Priya Subramanian',
-        rating: 5,
-        date: '16 Oct 2026',
-        comment:
-          'Foam-jet servicing made our 3-year-old split AC cool like new again. Zero water mess on the wall.',
-      },
-      {
-        customer: 'Vigneshwaran R',
-        rating: 5,
-        date: '04 Oct 2026',
-        comment:
-          'Diagnosed a faulty outdoor capacitor honestly instead of pushing an unnecessary gas refill.',
-      },
-      {
-        customer: 'Lakshmi Narayanan',
-        rating: 4,
-        date: '21 Sep 2026',
-        comment: 'Courteous technician and clear ₹499 rate card.',
-      },
-    ],
   },
   {
     id: 'sunita-devi',
@@ -276,8 +183,6 @@ const PROVIDER_PROFILES = [
     location: 'Saket, New Delhi · 110017',
     areasServed: 'Saket, Malviya Nagar, Hauz Khas, Green Park (110017, 110016, 110049)',
     experienceYears: 6,
-    rating: 4.9,
-    reviewCount: 192,
     price: 699,
     availability: 'Available Today · Same-day slots',
     availableNow: true,
@@ -320,35 +225,6 @@ const PROVIDER_PROFILES = [
         duration: '4–5 hours',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 85 },
-      { stars: 4, percent: 11 },
-      { stars: 3, percent: 3 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 0 },
-    ],
-    reviews: [
-      {
-        customer: 'Kavita Malhotra',
-        rating: 5,
-        date: '19 Oct 2026',
-        comment:
-          'Sunita and her teammate removed years of hard-water stains from our Saket bathroom tiles. Paid ₹699.',
-      },
-      {
-        customer: 'Raghav Khanna',
-        rating: 5,
-        date: '07 Oct 2026',
-        comment:
-          'Booked 2BHK move-in cleaning before shifting. Extremely thorough and brought all machines.',
-      },
-      {
-        customer: 'Nandini Gupta',
-        rating: 5,
-        date: '26 Sep 2026',
-        comment: 'Kitchen chimney and tiles look brand new. Very reliable crew.',
-      },
-    ],
   },
   {
     id: 'imran-sheikh',
@@ -359,8 +235,6 @@ const PROVIDER_PROFILES = [
     location: 'Kothrud, Pune · 411038',
     areasServed: 'Kothrud, Erandwane, Deccan, Warje (411038, 411004, 411052)',
     experienceYears: 10,
-    rating: 4.8,
-    reviewCount: 127,
     price: 299,
     availability: 'Available Today · 60 mins ETA',
     availableNow: true,
@@ -403,33 +277,6 @@ const PROVIDER_PROFILES = [
         duration: '90–120 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 80 },
-      { stars: 4, percent: 14 },
-      { stars: 3, percent: 4 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Rohan Deshmukh',
-        rating: 5,
-        date: '15 Oct 2026',
-        comment: 'Aligned three wardrobe doors and replaced a noisy drawer channel in Kothrud.',
-      },
-      {
-        customer: 'Snehal Patwardhan',
-        rating: 5,
-        date: '03 Oct 2026',
-        comment: 'Fitted our Godrej main door lock cleanly with zero splintering.',
-      },
-      {
-        customer: 'Prasad Gokhale',
-        rating: 4,
-        date: '20 Sep 2026',
-        comment: 'Quick and clean work, cleaned up sawdust before leaving.',
-      },
-    ],
   },
   {
     id: 'vikram-rathore',
@@ -440,8 +287,6 @@ const PROVIDER_PROFILES = [
     location: 'Banjara Hills, Hyderabad · 500034',
     areasServed: 'Banjara Hills, Jubilee Hills, Panjagutta, Somajiguda (500034, 500033, 500082)',
     experienceYears: 9,
-    rating: 4.8,
-    reviewCount: 154,
     price: 349,
     availability: 'Available Today · 45 mins ETA',
     availableNow: true,
@@ -484,35 +329,6 @@ const PROVIDER_PROFILES = [
         duration: '30 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 81 },
-      { stars: 4, percent: 13 },
-      { stars: 3, percent: 4 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Sandeep Reddy',
-        rating: 5,
-        date: '17 Oct 2026',
-        comment:
-          'Car battery died in basement parking at Banjara Hills. Vikram reached in 35 minutes and jump-started it for ₹349.',
-      },
-      {
-        customer: 'Divya Rao',
-        rating: 5,
-        date: '06 Oct 2026',
-        comment:
-          'Got my Activa serviced right outside our apartment gate. Honest pricing and genuine oil.',
-      },
-      {
-        customer: 'Kiran Verma',
-        rating: 4,
-        date: '22 Sep 2026',
-        comment: 'Checked engine warning light using OBD scanner and cleared a loose sensor issue.',
-      },
-    ],
   },
   {
     id: 'manoj-tiwari',
@@ -523,8 +339,6 @@ const PROVIDER_PROFILES = [
     location: 'Powai, Mumbai · 400076',
     areasServed: 'Powai, Chandivali, Vikhroli West (400076, 400072, 400087)',
     experienceYears: 6,
-    rating: 4.7,
-    reviewCount: 98,
     price: 179,
     availability: 'Next Slot: 3:30 PM',
     availableNow: false,
@@ -560,27 +374,6 @@ const PROVIDER_PROFILES = [
         duration: '30–45 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 76 },
-      { stars: 4, percent: 17 },
-      { stars: 3, percent: 5 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Pooja Deshpande',
-        rating: 5,
-        date: '11 Oct 2026',
-        comment: 'Installed two chandeliers in Hiranandani Powai cleanly and safely.',
-      },
-      {
-        customer: 'Nikhil Shah',
-        rating: 4,
-        date: '29 Sep 2026',
-        comment: 'Fixed a burnt kitchen geyser socket promptly at ₹349.',
-      },
-    ],
   },
   {
     id: 'deepak-kulkarni',
@@ -591,8 +384,6 @@ const PROVIDER_PROFILES = [
     location: 'Jayanagar, Bengaluru · 560041',
     areasServed: 'Jayanagar, Basavanagudi, JP Nagar (560041, 560011, 560070)',
     experienceYears: 12,
-    rating: 4.9,
-    reviewCount: 185,
     price: 329,
     availability: 'Available Today · 55 mins ETA',
     availableNow: true,
@@ -628,27 +419,6 @@ const PROVIDER_PROFILES = [
         duration: '45–60 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 87 },
-      { stars: 4, percent: 9 },
-      { stars: 3, percent: 3 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 0 },
-    ],
-    reviews: [
-      {
-        customer: 'Harish Rao',
-        rating: 5,
-        date: '13 Oct 2026',
-        comment: 'Fixed our jammed teak bedroom door and hydraulic bed lifts in Jayanagar.',
-      },
-      {
-        customer: 'Suma Hegde',
-        rating: 5,
-        date: '01 Oct 2026',
-        comment: 'Very skilled craftsman and transparent rates.',
-      },
-    ],
   },
   {
     id: 'arvind-patel',
@@ -659,8 +429,6 @@ const PROVIDER_PROFILES = [
     location: 'Koramangala, Bengaluru · 560034',
     areasServed: 'Koramangala, HSR Layout, BTM Layout (560034, 560095, 560102)',
     experienceYears: 9,
-    rating: 4.7,
-    reviewCount: 112,
     price: 449,
     availability: 'Next Slot: 4:00 PM',
     availableNow: false,
@@ -696,27 +464,6 @@ const PROVIDER_PROFILES = [
         duration: '90 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 75 },
-      { stars: 4, percent: 18 },
-      { stars: 3, percent: 5 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Varun Bhatia',
-        rating: 5,
-        date: '10 Oct 2026',
-        comment: 'Stopped our split AC from dripping water in Koramangala 4th Block.',
-      },
-      {
-        customer: 'Shreya Nair',
-        rating: 4,
-        date: '25 Sep 2026',
-        comment: 'Good preventive servicing before warm weather.',
-      },
-    ],
   },
   {
     id: 'mahesh-yadav',
@@ -727,8 +474,6 @@ const PROVIDER_PROFILES = [
     location: 'Hauz Khas, New Delhi · 110016',
     areasServed: 'Hauz Khas, Green Park, SDA, Saket (110016, 110017, 110029)',
     experienceYears: 8,
-    rating: 4.8,
-    reviewCount: 141,
     price: 229,
     availability: 'Available Today · 50 mins ETA',
     availableNow: true,
@@ -764,27 +509,6 @@ const PROVIDER_PROFILES = [
         duration: '60 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 82 },
-      { stars: 4, percent: 13 },
-      { stars: 3, percent: 3 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Deepa Chawla',
-        rating: 5,
-        date: '12 Oct 2026',
-        comment: 'Fixed our running bathroom cistern quickly and cleanly.',
-      },
-      {
-        customer: 'Gaurav Saxena',
-        rating: 5,
-        date: '28 Sep 2026',
-        comment: 'Replaced wash basin trap and kitchen tap without any mess.',
-      },
-    ],
   },
   {
     id: 'farhan-ansari',
@@ -795,8 +519,6 @@ const PROVIDER_PROFILES = [
     location: 'Viman Nagar, Pune · 411014',
     areasServed: 'Viman Nagar, Kalyani Nagar, Kharadi (411014, 411006, 411032)',
     experienceYears: 7,
-    rating: 4.7,
-    reviewCount: 94,
     price: 299,
     availability: 'Next Slot: 2:30 PM',
     availableNow: false,
@@ -832,27 +554,6 @@ const PROVIDER_PROFILES = [
         duration: '40 mins',
       },
     ],
-    breakdown: [
-      { stars: 5, percent: 77 },
-      { stars: 4, percent: 16 },
-      { stars: 3, percent: 5 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Tanvi Kulkarni',
-        rating: 5,
-        date: '09 Oct 2026',
-        comment: 'Replaced my scooter clutch cable right in our Viman Nagar society parking.',
-      },
-      {
-        customer: 'Abhishek Pawar',
-        rating: 4,
-        date: '27 Sep 2026',
-        comment: 'Prompt doorstep oil change and brake service.',
-      },
-    ],
   },
   {
     id: 'prakash-gowda',
@@ -863,8 +564,6 @@ const PROVIDER_PROFILES = [
     location: 'Whitefield, Bengaluru · 560066',
     areasServed: 'Whitefield, ITPL, Brookefield, Marathahalli (560066, 560048, 560037)',
     experienceYears: 5,
-    rating: 4.8,
-    reviewCount: 121,
     price: 749,
     availability: 'Available Today · Same-day slots',
     availableNow: true,
@@ -898,27 +597,6 @@ const PROVIDER_PROFILES = [
         description: 'Full apartment deep clean before shifting in with family.',
         price: 3499,
         duration: '5–6 hours',
-      },
-    ],
-    breakdown: [
-      { stars: 5, percent: 81 },
-      { stars: 4, percent: 14 },
-      { stars: 3, percent: 3 },
-      { stars: 2, percent: 1 },
-      { stars: 1, percent: 1 },
-    ],
-    reviews: [
-      {
-        customer: 'Nandita Rao',
-        rating: 5,
-        date: '15 Oct 2026',
-        comment: 'Cleaned our L-shaped fabric sofa and balcony in Whitefield spotless for ₹749.',
-      },
-      {
-        customer: 'Saurabh Jain',
-        rating: 5,
-        date: '02 Oct 2026',
-        comment: 'Great equipment and polite two-member team.',
       },
     ],
   },
@@ -1156,7 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Reviews & Ratings System (Sample + localStorage Demo Reviews)
+  // 4. Reviews & Ratings System (locally submitted demo reviews)
   let selectedReviewStarFilter = 'all';
   let chosenFormRating = 0;
   let hoveredFormRating = 0;
@@ -1218,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderReviewsAndRatings() {
-    const stats = getProviderRatingStats(provider.id, provider.reviews);
+    const stats = getProviderRatingStats(provider.id);
 
     // Update Hero + Reviews Summary
     renderHeroRating(stats);
@@ -1226,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setText(
       'reviewsTotalCount',
       stats.reviewCount > 0
-        ? `${stats.reviewCount} ${stats.reviewCount === 1 ? 'review' : 'reviews'} (Sample & local demo)`
+        ? `${stats.reviewCount} ${stats.reviewCount === 1 ? 'review' : 'reviews'} (local demo)`
         : 'No reviews yet'
     );
 
@@ -1658,7 +1336,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. Initialize Centralized Provider Booking Management Desk (Demo View)
   const providerDeskEl = document.getElementById('providerBookingDesk');
   const providerDeskLabel = document.getElementById('providerDeskProviderLabel');
-  if (providerDeskEl) {
+  const session = getDemoSession();
+  const canManageBookings =
+    session &&
+    session.role === 'Service Provider' &&
+    session.providerId === provider.id;
+  const jumpToProviderDesk = document.getElementById('jumpToProviderDesk');
+  if (jumpToProviderDesk) jumpToProviderDesk.hidden = !canManageBookings;
+  if (providerDeskEl && canManageBookings) {
     providerDeskEl.hidden = false;
     if (providerDeskLabel) {
       providerDeskLabel.textContent = `${provider.name} (${provider.id})`;

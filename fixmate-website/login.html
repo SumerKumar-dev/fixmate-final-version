@@ -204,7 +204,8 @@
               <p class="auth-card-eyebrow">Member Sign In</p>
               <h1 class="auth-card-title" id="loginHeading">Welcome Back to FixMate</h1>
               <p class="auth-card-subtitle">
-                Enter your registered email address or 10-digit Indian mobile number to continue.
+                Frontend demo sign-in: enter a valid email or mobile number, use any password with
+                at least 8 characters, and choose the account role you want to preview.
               </p>
             </div>
 
@@ -232,12 +233,40 @@
                     type="text"
                     id="loginIdentifier"
                     name="identifier"
-                    placeholder="arjun@example.in or 9876543210"
+                    placeholder="name@example.in or 9876543210"
                     autocomplete="username"
                     required
                   />
                 </div>
                 <span class="field-error" id="loginIdentifierError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="loginRole">Demo Account Role</label>
+                <select id="loginRole" name="role">
+                  <option value="Customer">Customer</option>
+                  <option value="Service Provider">Service Provider</option>
+                </select>
+              </div>
+
+              <div class="form-field" id="loginProviderGroup" hidden>
+                <label for="loginProviderId">Provider Profile</label>
+                <select id="loginProviderId" name="providerId">
+                  <option value="">Choose your provider profile</option>
+                  <option value="rajesh-kumar">Rajesh Kumar · Electrician</option>
+                  <option value="suresh-verma">Suresh Verma · Plumber</option>
+                  <option value="karthik-nair">Karthik Nair · AC Repair</option>
+                  <option value="sunita-devi">Sunita Devi · Home Cleaning</option>
+                  <option value="imran-sheikh">Imran Sheikh · Carpenter</option>
+                  <option value="vikram-rathore">Vikram Rathore · Mechanic</option>
+                  <option value="manoj-tiwari">Manoj Tiwari · Electrician</option>
+                  <option value="deepak-kulkarni">Deepak Kulkarni · Carpenter</option>
+                  <option value="arvind-patel">Arvind Patel · AC Repair</option>
+                  <option value="mahesh-yadav">Mahesh Yadav · Plumber</option>
+                  <option value="farhan-ansari">Farhan Ansari · Mechanic</option>
+                  <option value="prakash-gowda">Prakash Gowda · Home Cleaning</option>
+                </select>
+                <span class="field-error" id="loginProviderError" aria-live="polite"></span>
               </div>
 
               <div class="form-field">
@@ -303,10 +332,7 @@
               </div>
 
               <div class="auth-options-row">
-                <label class="checkbox-label">
-                  <input type="checkbox" id="rememberMe" name="rememberMe" />
-                  <span>Remember me on this device</span>
-                </label>
+                <span class="field-hint">Demo session only; no password is stored.</span>
                 <button type="button" class="auth-inline-link" id="forgotPasswordBtn">
                   Forgot Password?
                 </button>
@@ -440,6 +466,7 @@
       </div>
     </footer>
 
+    <script type="module" src="js/auth-session.js"></script>
     <script type="module" src="js/auth.js"></script>
   </body>
 </html>

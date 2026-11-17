@@ -374,114 +374,6 @@
       </div>
     </div>
 
-    <!-- Booking Modal -->
-    <div
-      class="modal-backdrop"
-      id="bookingModal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="bookingModalTitle"
-      hidden
-    >
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <div>
-            <p class="modal-eyebrow">Instant Service Request</p>
-            <h2 class="modal-title" id="bookingModalTitle">Book Helper</h2>
-          </div>
-          <button
-            type="button"
-            class="modal-close-btn"
-            data-close-modal="bookingModal"
-            aria-label="Close booking modal"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M6 6L18 18M18 6L6 18"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <form id="bookingForm" class="modal-form" novalidate>
-          <div class="booking-summary-strip">
-            <div>
-              <span class="summary-label" id="bookingProviderLabel">Assigned Helper</span>
-              <strong id="bookingServiceName">Service</strong>
-            </div>
-            <div class="summary-right">
-              <span class="summary-label">Starting Fee</span>
-              <strong id="bookingServicePrice">₹199</strong>
-            </div>
-          </div>
-
-          <div class="form-field">
-            <label for="bookingLocality">Locality / Full Address</label>
-            <input
-              type="text"
-              id="bookingLocality"
-              placeholder="e.g., Flat 302, Indiranagar, Bengaluru 560038"
-              required
-            />
-            <span class="field-error" id="bookingLocalityError" aria-live="polite"></span>
-          </div>
-
-          <div class="form-row-two">
-            <div class="form-field">
-              <label for="bookingCustomerName">Your Name</label>
-              <input type="text" id="bookingCustomerName" placeholder="Full name" required />
-              <span class="field-error" id="bookingNameError" aria-live="polite"></span>
-            </div>
-            <div class="form-field">
-              <label for="bookingPhone">Mobile Number</label>
-              <input
-                type="tel"
-                id="bookingPhone"
-                placeholder="10-digit mobile"
-                maxlength="10"
-                required
-              />
-              <span class="field-error" id="bookingPhoneError" aria-live="polite"></span>
-            </div>
-          </div>
-
-          <div class="form-field">
-            <label for="bookingSlot">Preferred Arrival Slot</label>
-            <select id="bookingSlot">
-              <option value="Express (Within 60 mins)">Express (Within 60 mins)</option>
-              <option value="Today, 4:00 PM – 6:00 PM">Today, 4:00 PM – 6:00 PM</option>
-              <option value="Tomorrow, 9:00 AM – 11:00 AM">Tomorrow, 9:00 AM – 11:00 AM</option>
-              <option value="Tomorrow, 11:00 AM – 1:00 PM">Tomorrow, 11:00 AM – 1:00 PM</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn-primary btn-full">Confirm Booking Request</button>
-        </form>
-
-        <div class="modal-confirmation" id="bookingConfirmation" hidden>
-          <div class="confirmation-icon" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M5 13L9 17L19 7"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          <h3>Booking Request Received</h3>
-          <p id="bookingConfirmText"></p>
-          <button type="button" class="btn-primary btn-full" data-close-modal="bookingModal">
-            Done
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Auth Modal (Login / Register) -->
     <div
       class="modal-backdrop"
@@ -538,7 +430,7 @@
         <form id="authForm" class="modal-form" novalidate>
           <div class="form-field" id="authNameGroup" hidden>
             <label for="authFullName">Full Name</label>
-            <input type="text" id="authFullName" placeholder="e.g., Arjun Mehta" />
+            <input type="text" id="authFullName" placeholder="e.g., Your full name" />
             <span class="field-error" id="authNameError" aria-live="polite"></span>
           </div>
 
@@ -571,6 +463,7 @@
       </div>
     </div>
 
+    <script type="module" src="js/auth-session.js"></script>
     <script type="module" src="js/services.js"></script>
   </body>
 </html>

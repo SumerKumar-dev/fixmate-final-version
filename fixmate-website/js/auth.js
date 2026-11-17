@@ -9,6 +9,7 @@ import {
   setFieldValidation,
   showFeedbackBanner,
 } from './ui-helpers.js';
+import { saveDemoSession } from './auth-session.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -99,10 +100,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
   const loginIdentifier = document.getElementById('loginIdentifier');
   const loginPassword = document.getElementById('loginPassword');
-  const rememberMe = document.getElementById('rememberMe');
+  const loginRole = document.getElementById('loginRole');
+  const loginProviderGroup = document.getElementById('loginProviderGroup');
+  const loginProviderId = document.getElementById('loginProviderId');
+  const loginProviderError = document.getElementById('loginProviderError');
   const loginIdentifierError = document.getElementById('loginIdentifierError');
   const loginPasswordError = document.getElementById('loginPasswordError');
   const loginFeedback = document.getElementById('loginFeedback');
+
+  if (loginRole && loginProviderGroup) {
+    loginRole.addEventListener('change', () => {
+      const isProvider = loginRole.value === 'Service Provider';
+      loginProviderGroup.hidden = !isProvider;
+      if (!isProvider) setFieldError(loginProviderId, loginProviderError, '');
+    });
+  }
 
   if (loginIdentifier) {
     loginIdentifier.addEventListener('input', () => {
@@ -165,18 +177,83 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const role = loginRole ? loginRole.value : 'Customer';
+      const providerId = loginProviderId ? loginProviderId.value : '';
+      if (role === 'Service Provider' && !providerId) {
+        setFieldError(loginProviderId, loginProviderError, 'Choose a provider profile to continue.');
+        return;
+      }
+
       const submitBtn = loginForm.querySelector('button[type="submit"]');
       runWithSubmitGuard(submitBtn, 'Signing In...', () => {
-        const rememberNote =
-          rememberMe && rememberMe.checked ? ' (Remember Me checked)' : '';
-        showFeedback(
-          loginFeedback,
-          `Login inputs validated for ${identifierVal}${rememberNote}. This is a frontend interface preview — live authentication will be connected once the backend is integrated.`,
-          true
-        );
-        if (loginPassword) loginPassword.value = '';
+        const normalizedIdentifier = identifierVal.toLowerCase();
+        const displayName = normalizedIdentifier.includes('@')
+          ? normalizedIdentifier
+              .split('@')[0]
+              .split(/[._-]+/)
+              .filter(Boolean)
+              .map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
+              .join(' ')
+          : 'Customer';
+
+        try {
+          saveDemoSession({
+            id:
+              role === 'Customer'
+                ? normalizedIdentifier.includes('@')
+                  ? normalizedIdentifier
+                  : `phone:${normalizedIdentifier}`
+                : `provider:${providerId}`,
+            identifier: normalizedIdentifier,
+            displayName,
+            role,
+            providerId: role === 'Service Provider' ? providerId : '',
+          });
+        } catch {
+          showFeedback(loginFeedback, 'Could not start a demo session in this browser.', false);
+          return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const requestedDestination = params.get('redirect') || '';
+        const safeDestination = (() => {
+          try {
+            const target = new URL(requestedDestination, window.location.href);
+            if (target.origin !== window.location.origin) return '';
+            const page = target.pathname.split('/').pop();
+            if (
+              role === 'Customer' &&
+              (page === 'booking.html' || page === 'customer-dashboard.html')
+            ) {
+              return `${page}${target.search}${target.hash}`;
+            }
+            if (
+              role === 'Service Provider' &&
+              page === 'provider.html' &&
+              target.hash === '#providerBookingDesk'
+            ) {
+              return `${page}${target.search}${target.hash}`;
+            }
+          } catch {
+            return '';
+          }
+          return '';
+        })();
+
+        const defaultDestination =
+          role === 'Customer'
+            ? 'customer-dashboard.html'
+            : `provider.html?id=${encodeURIComponent(providerId)}#providerBookingDesk`;
+        window.location.replace(safeDestination || defaultDestination);
       });
     });
+  }
+
+  const loginParams = new URLSearchParams(window.location.search);
+  if (loginParams.get('reason') === 'booking') {
+    showFeedback(loginFeedback, 'Please log in to book a service.', false);
+  } else if (loginParams.get('reason') === 'dashboard') {
+    showFeedback(loginFeedback, 'Please log in to access this dashboard.', false);
   }
 
   // Inline Forgot Password Panel
@@ -231,8 +308,8 @@ document.addEventListener('DOMContentLoaded', () => {
       runWithSubmitGuard(submitBtn, 'Sending Link...', () => {
         showFeedback(
           forgotFeedback,
-          `Reset request validated for ${val}. Password recovery emails/SMS will be sent once backend services are connected.`,
-          true
+          'Password reset is not available in this frontend demo. Use the demo Login form to preview a session.',
+          false
         );
         forgotForm.reset();
       });
@@ -378,8 +455,8 @@ document.addEventListener('DOMContentLoaded', () => {
       runWithSubmitGuard(submitBtn, 'Creating Account...', () => {
         showFeedback(
           registerFeedback,
-          `Registration details validated for ${fullName} (${accountType}, +91 ${phone}). Frontend interface is ready — account creation will be connected to the backend later.`,
-          true
+          `No account was created for ${fullName} (${accountType}, +91 ${phone}). This frontend demo does not register accounts or store passwords.`,
+          false
         );
 
         // Reset sensitive password inputs without storing anything

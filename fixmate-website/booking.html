@@ -281,7 +281,7 @@
                       <input
                         type="text"
                         id="custFullName"
-                        placeholder="e.g., Arjun Mehta"
+                        placeholder="e.g., Your full name"
                         autocomplete="name"
                         required
                       />
@@ -443,8 +443,8 @@
               <p class="confirmation-ref-text" id="confirmRefId">Reference: FM-2026-000000</p>
               <h2 class="confirmation-heading">Booking Request Recorded</h2>
               <p class="confirmation-sub">
-                Your demonstration booking has been saved locally with status <strong>Pending</strong>.
-                Real technician dispatch and live payments will be connected via the backend.
+                Your booking request is saved locally with status <strong>Pending</strong>. No
+                payment is processed or recorded in this frontend demo.
               </p>
             </div>
 
@@ -460,16 +460,15 @@
         </div>
       </section>
 
-      <!-- My Bookings Demonstration Section -->
+      <!-- My Current Bookings -->
       <section class="my-bookings-section" id="my-bookings" aria-labelledby="myBookingsHeading">
         <div class="container">
           <div class="my-bookings-header">
             <div>
               <p class="section-eyebrow">My Bookings</p>
-              <h2 class="section-title" id="myBookingsHeading">Your Demonstration Booking Records</h2>
+              <h2 class="section-title" id="myBookingsHeading">My Current Bookings</h2>
               <p class="section-description">
-                Saved booking requests appear below with read-only demonstration status (Pending,
-                Confirmed, or Completed) ready for the upcoming Customer Dashboard.
+                Booking requests you create will appear here.
               </p>
             </div>
             <div class="confirmation-actions" style="justify-content: flex-start">
@@ -481,10 +480,9 @@
           <div class="bookings-records-grid" id="myBookingsList"></div>
 
           <div class="empty-services-state" id="emptyBookingsState" hidden>
-            <h3>No booking records saved yet</h3>
+            <h3>No current bookings yet</h3>
             <p>
-              Select a verified electrician, plumber, carpenter, AC technician, home cleaner, or
-              mechanic from Explore Services to create your first demonstration booking.
+              Confirm a booking request to see it listed here.
             </p>
             <a href="services.html" class="btn-primary">Browse Local Services</a>
           </div>
@@ -582,6 +580,7 @@
       </div>
     </footer>
 
+    <script type="module" src="js/auth-session.js"></script>
     <script type="module" src="js/booking.js"></script>
   </body>
 </html>
