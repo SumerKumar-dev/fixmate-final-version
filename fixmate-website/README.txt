@@ -16,11 +16,10 @@ Included Files:
 How to Run Locally:
 Because the JavaScript files use standard browser ES Modules (<script type="module">),
 opening HTML files directly via file:// may be blocked by browser CORS rules.
-Serve the extracted folder over any local static HTTP server, for example:
+Do not double-click login.html or register.html. Use VS Code Live Server:
 
-  1) Python:   python3 -m http.server 8000
-     Then open http://localhost:8000/index.html
+  1) Open this extracted folder in VS Code.
+  2) Right-click index.html and choose "Open with Live Server".
+  3) Use the http://localhost or http://127.0.0.1 address shown in your browser.
 
-  2) Node.js:  npx serve .
-
-  3) VS Code:  Right-click index.html -> "Open with Live Server"
+Live Server only serves these static files locally; FixMate has no backend or database.

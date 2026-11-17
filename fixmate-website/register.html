@@ -6,7 +6,7 @@
     <title>Create Account – FixMate</title>
     <meta
       name="description"
-      content="Create a FixMate Customer or Service Provider account to book or offer verified home services with transparent ₹ pricing."
+      content="Create a browser-local FixMate Customer or Service Provider account to book or offer services with ₹ pricing."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -132,8 +132,8 @@
 
               <h2 class="auth-showcase-title">Join households &amp; skilled technicians across India</h2>
               <p class="auth-showcase-desc">
-                Register as a homeowner to book trusted doorstep repairs starting at ₹199, or join
-                as a verified trade specialist to grow steady local bookings.
+                Register locally as a customer to book doorstep services starting at ₹199, or create
+                a Service Provider profile in this browser.
               </p>
 
               <div class="auth-highlights-list">
@@ -206,11 +206,11 @@
               <p class="auth-card-eyebrow">Get Started</p>
               <h1 class="auth-card-title" id="registerHeading">Create Your FixMate Account</h1>
               <p class="auth-card-subtitle">
-                Fill in your details below to register as a Customer or Service Provider.
+                Create an account saved in this Chrome profile. Passwords are stored only as salted hashes; accounts are not synced or identity-verified.
               </p>
             </div>
 
-            <form class="auth-page-form" id="registerForm" novalidate>
+            <form class="auth-page-form" id="registerForm" method="post" novalidate>
               <!-- Account Type Selection -->
               <fieldset class="account-type-fieldset">
                 <legend class="account-type-legend">Account Type</legend>
@@ -226,15 +226,55 @@
                     <input type="radio" name="accountType" value="Service Provider" />
                     <span class="account-type-box">
                       <span class="account-type-name">Service Provider</span>
-                      <span class="account-type-desc">Offer verified repair skills</span>
+                      <span class="account-type-desc">Offer local repair services</span>
                     </span>
                   </label>
                 </div>
               </fieldset>
 
+              <div id="providerRegistrationFields" hidden>
+                <div class="form-row-two">
+                  <div class="form-field">
+                    <label for="registerProviderCategory">Service Category</label>
+                    <select id="registerProviderCategory" name="providerCategory">
+                      <option value="">Choose a category</option>
+                      <option value="Electrician">Electrician</option>
+                      <option value="Plumber">Plumber</option>
+                      <option value="Carpenter">Carpenter</option>
+                      <option value="AC Repair">AC Repair</option>
+                      <option value="Home Cleaning">Home Cleaning</option>
+                      <option value="Mechanic">Mechanic</option>
+                    </select>
+                    <span class="field-error" id="registerProviderCategoryError" aria-live="polite"></span>
+                  </div>
+                  <div class="form-field">
+                    <label for="registerProviderCity">Service City</label>
+                    <input
+                      type="text"
+                      id="registerProviderCity"
+                      name="providerCity"
+                      placeholder="e.g., Bengaluru"
+                      autocomplete="address-level2"
+                    />
+                    <span class="field-error" id="registerProviderCityError" aria-live="polite"></span>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="registerProviderPrice">Starting Visit Price (₹)</label>
+                  <input
+                    type="number"
+                    id="registerProviderPrice"
+                    name="providerPrice"
+                    min="1"
+                    step="1"
+                    inputmode="numeric"
+                  />
+                  <span class="field-error" id="registerProviderPriceError" aria-live="polite"></span>
+                </div>
+              </div>
+
               <div class="provider-note-banner" id="providerNoteBanner" hidden>
-                Service Provider onboarding includes Aadhaar verification and transparent ₹ rate card
-                setup once backend verification is activated.
+                Provider details stay in this browser. This local profile does not perform identity or trade-skill verification.
               </div>
 
               <div class="form-field">
@@ -300,7 +340,7 @@
                       type="email"
                       id="registerEmail"
                       name="email"
-                      placeholder="arjun@example.in"
+                      placeholder="name@example.in"
                       autocomplete="email"
                       required
                     />
@@ -410,7 +450,7 @@
                   </button>
                 </div>
                 <span class="field-hint">
-                  Use at least 8 characters including letters and at least 1 number.
+                Use at least 8 characters including letters and at least 1 number.
                 </span>
                 <span class="field-error" id="registerPasswordError" aria-live="polite"></span>
               </div>
@@ -554,8 +594,8 @@
             assigned FixMate specialist.
           </p>
           <p style="margin-top: 10px">
-            3. Service Providers agree to complete identity and trade skill verification before
-            accepting doorstep bookings.
+            3. Browser-local Service Provider profiles are not identity or trade-skill verified.
+            Customers should confirm provider details before arranging a service.
           </p>
         </div>
         <button type="button" class="btn-primary btn-full" data-close-modal="termsModal">
@@ -589,8 +629,7 @@
               <span class="brand-name brand-name-light">FixMate</span>
             </a>
             <p class="footer-tagline">
-              Connecting Indian households with background-verified local technicians at fair,
-              upfront prices in ₹.
+              Connecting Indian households with local service profiles at listed prices in ₹.
             </p>
           </div>
 
@@ -654,7 +693,6 @@
       </div>
     </footer>
 
-    <script type="module" src="js/auth-session.js"></script>
-    <script type="module" src="js/auth.js"></script>
+    <script src="js/file-protocol-guard.js"></script>
   </body>
 </html>

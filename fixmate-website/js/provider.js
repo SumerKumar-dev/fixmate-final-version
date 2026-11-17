@@ -3,6 +3,7 @@
 import { getTodayISODate } from './booking-manager.js';
 import { initProviderBookingDesk } from './provider-dashboard.js';
 import { getDemoSession } from './auth-session.js';
+import { getLocalProviderProfile } from './local-auth.js';
 import {
   addProviderReview,
   getProviderRatingStats,
@@ -641,10 +642,53 @@ document.addEventListener('DOMContentLoaded', () => {
   const requestedId = (params.get('id') || '').trim();
 
   let provider = null;
+  let localProfileReadError = '';
   if (!hasIdParam) {
     provider = PROVIDER_PROFILES[0];
   } else {
     provider = PROVIDER_PROFILES.find((item) => item.id === requestedId) || null;
+    if (!provider) {
+      try {
+        const localProfile = getLocalProviderProfile(requestedId);
+        if (localProfile) {
+          provider = {
+            id: localProfile.id,
+            name: localProfile.name,
+            initials: localProfile.name
+              .split(/\s+/)
+              .filter(Boolean)
+              .slice(0, 2)
+              .map((part) => part[0].toUpperCase())
+              .join(''),
+            avatar: '',
+            category: localProfile.category,
+            location: localProfile.location,
+            areasServed: localProfile.location,
+            experienceYears: 0,
+            price: localProfile.price,
+            availability: 'Availability to be confirmed',
+            availableNow: false,
+            workingHours: 'Confirm availability after receiving a booking request.',
+            samplePhone: 'Shared after booking request',
+            sampleEmail: 'Shared after booking request',
+            about: 'Service provider profile created in this browser.',
+            servicesSummary: `${localProfile.category} service visit`,
+            skills: [localProfile.category],
+            services: [
+              {
+                name: `${localProfile.category} Service Visit`,
+                description: 'The service provider will confirm the work details after receiving the request.',
+                price: localProfile.price,
+                duration: 'To be confirmed',
+              },
+            ],
+          };
+        }
+      } catch (error) {
+        localProfileReadError =
+          error instanceof Error ? error.message : 'Could not read the local provider profile.';
+      }
+    }
   }
 
   const providerHeroCard = document.getElementById('providerHeroCard');
@@ -658,8 +702,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (providerContentGrid) providerContentGrid.hidden = true;
     if (breadcrumbProviderName) breadcrumbProviderName.textContent = 'Provider Not Found';
     if (providerNotFound) providerNotFound.hidden = false;
-    if (providerNotFoundMessage && requestedId) {
-      providerNotFoundMessage.textContent = `No service provider profile was found for ID "${requestedId}". Please return to Explore Services to select an active helper.`;
+    if (providerNotFoundMessage) {
+      providerNotFoundMessage.textContent =
+        localProfileReadError ||
+        (requestedId
+          ? `No service provider profile was found for ID "${requestedId}". Please return to Explore Services to select an active helper.`
+          : 'No service provider profile is available.');
     }
     document.title = 'Provider Not Found – FixMate';
     return;
@@ -716,7 +764,12 @@ document.addEventListener('DOMContentLoaded', () => {
   setText('providerHeroCategory', provider.category);
   setText('providerHeroName', provider.name);
   setText('providerHeroLocation', provider.location);
-  setText('providerHeroExp', `${provider.experienceYears} years experience`);
+  setText(
+    'providerHeroExp',
+    provider.experienceYears > 0
+      ? `${provider.experienceYears} years experience`
+      : 'Experience not specified'
+  );
   setText('providerHeroPrice', `From ₹${provider.price}`);
 
   function renderHeroRating(stats) {
@@ -740,7 +793,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. Populate Provider Information Section
   setText('providerAboutText', provider.about);
-  setText('infoExperience', `${provider.experienceYears} years of field experience`);
+  setText(
+    'infoExperience',
+    provider.experienceYears > 0
+      ? `${provider.experienceYears} years of field experience`
+      : 'Experience not specified'
+  );
   setText('infoStartingPrice', `₹${provider.price} (inspection visit)`);
   setText('infoServicesSummary', provider.servicesSummary);
   setText('infoAreasServed', provider.areasServed);

@@ -1,8 +1,9 @@
 import { ensureDemoSeedData } from './booking-manager.js';
 import { removeLegacySampleReviews } from './reviews-manager.js';
 
-// FixMate – Frontend-only demo session and page access checks.
-export const DEMO_SESSION_KEY = 'fixmate_demo_session';
+// FixMate – Browser-local account session and page access checks.
+export const DEMO_SESSION_KEY = 'fixmate_local_session_v1';
+const LEGACY_DEMO_SESSION_KEY = 'fixmate_demo_session';
 
 const CUSTOMER_PAGE = 'customer-dashboard.html';
 
@@ -15,7 +16,9 @@ export function getDemoSession() {
       !session ||
       typeof session.id !== 'string' ||
       !session.id ||
-      !['Customer', 'Service Provider'].includes(session.role)
+      !['Customer', 'Service Provider'].includes(session.role) ||
+      (session.role === 'Service Provider' &&
+        (typeof session.providerId !== 'string' || !session.providerId))
     ) {
       return null;
     }
@@ -120,6 +123,11 @@ function protectPage(session) {
 function initializeSessionNavigation() {
   ensureDemoSeedData();
   removeLegacySampleReviews();
+  try {
+    sessionStorage.removeItem(LEGACY_DEMO_SESSION_KEY);
+  } catch {
+    // Keep the public pages available when browser storage is restricted.
+  }
   const session = getDemoSession();
   protectPage(session);
   if (session) updateNavigation(session);

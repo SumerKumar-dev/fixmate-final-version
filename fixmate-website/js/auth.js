@@ -1,5 +1,5 @@
 // FixMate – Login & Registration Frontend Validation (Pure Vanilla JavaScript)
-// Note: Frontend validation only. No passwords are stored in localStorage or sessionStorage.
+// Browser-local accounts use salted password hashes; this is not production-secure authentication.
 import {
   closeDialogModal,
   focusFirstInvalid,
@@ -10,8 +10,9 @@ import {
   showFeedbackBanner,
 } from './ui-helpers.js';
 import { saveDemoSession } from './auth-session.js';
+import { authenticateLocalAccount, registerLocalAccount } from './local-auth.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+function initializeAuth() {
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const INDIAN_PHONE_REGEX = /^[6-9]\d{9}$/;
   const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
@@ -94,27 +95,37 @@ document.addEventListener('DOMContentLoaded', () => {
     return EMAIL_REGEX.test(cleaned) || INDIAN_PHONE_REGEX.test(cleaned);
   }
 
+  async function runAuthAction(button, processingText, task) {
+    if (!button) return task();
+    if (button.dataset.busy === 'true') return;
+
+    const originalText = button.textContent;
+    const wasDisabled = button.disabled;
+    button.dataset.busy = 'true';
+    button.disabled = true;
+    button.classList.add('is-loading');
+    button.setAttribute('aria-busy', 'true');
+    button.textContent = processingText;
+    try {
+      await task();
+    } finally {
+      delete button.dataset.busy;
+      button.disabled = wasDisabled;
+      button.classList.remove('is-loading');
+      button.removeAttribute('aria-busy');
+      button.textContent = originalText;
+    }
+  }
+
   // =========================================================================
   // 3. Login Page Logic (login.html)
   // =========================================================================
   const loginForm = document.getElementById('loginForm');
   const loginIdentifier = document.getElementById('loginIdentifier');
   const loginPassword = document.getElementById('loginPassword');
-  const loginRole = document.getElementById('loginRole');
-  const loginProviderGroup = document.getElementById('loginProviderGroup');
-  const loginProviderId = document.getElementById('loginProviderId');
-  const loginProviderError = document.getElementById('loginProviderError');
   const loginIdentifierError = document.getElementById('loginIdentifierError');
   const loginPasswordError = document.getElementById('loginPasswordError');
   const loginFeedback = document.getElementById('loginFeedback');
-
-  if (loginRole && loginProviderGroup) {
-    loginRole.addEventListener('change', () => {
-      const isProvider = loginRole.value === 'Service Provider';
-      loginProviderGroup.hidden = !isProvider;
-      if (!isProvider) setFieldError(loginProviderId, loginProviderError, '');
-    });
-  }
 
   if (loginIdentifier) {
     loginIdentifier.addEventListener('input', () => {
@@ -131,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (loginForm) {
-    loginForm.addEventListener('submit', (event) => {
+    loginForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       hideFeedback(loginFeedback);
 
@@ -160,13 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!passwordVal) {
         setFieldError(loginPassword, loginPasswordError, 'Please enter your password.');
         isValid = false;
-      } else if (passwordVal.length < 8) {
-        setFieldError(
-          loginPassword,
-          loginPasswordError,
-          'Password must be at least 8 characters long.'
-        );
-        isValid = false;
       } else {
         setFieldError(loginPassword, loginPasswordError, '');
       }
@@ -177,74 +181,68 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const role = loginRole ? loginRole.value : 'Customer';
-      const providerId = loginProviderId ? loginProviderId.value : '';
-      if (role === 'Service Provider' && !providerId) {
-        setFieldError(loginProviderId, loginProviderError, 'Choose a provider profile to continue.');
-        return;
-      }
-
       const submitBtn = loginForm.querySelector('button[type="submit"]');
-      runWithSubmitGuard(submitBtn, 'Signing In...', () => {
-        const normalizedIdentifier = identifierVal.toLowerCase();
-        const displayName = normalizedIdentifier.includes('@')
-          ? normalizedIdentifier
-              .split('@')[0]
-              .split(/[._-]+/)
-              .filter(Boolean)
-              .map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
-              .join(' ')
-          : 'Customer';
-
+      await runAuthAction(submitBtn, 'Signing In...', async () => {
         try {
-          saveDemoSession({
-            id:
-              role === 'Customer'
-                ? normalizedIdentifier.includes('@')
-                  ? normalizedIdentifier
-                  : `phone:${normalizedIdentifier}`
-                : `provider:${providerId}`,
-            identifier: normalizedIdentifier,
-            displayName,
-            role,
-            providerId: role === 'Service Provider' ? providerId : '',
-          });
-        } catch {
-          showFeedback(loginFeedback, 'Could not start a demo session in this browser.', false);
-          return;
-        }
-
-        const params = new URLSearchParams(window.location.search);
-        const requestedDestination = params.get('redirect') || '';
-        const safeDestination = (() => {
-          try {
-            const target = new URL(requestedDestination, window.location.href);
-            if (target.origin !== window.location.origin) return '';
-            const page = target.pathname.split('/').pop();
-            if (
-              role === 'Customer' &&
-              (page === 'booking.html' || page === 'customer-dashboard.html')
-            ) {
-              return `${page}${target.search}${target.hash}`;
-            }
-            if (
-              role === 'Service Provider' &&
-              page === 'provider.html' &&
-              target.hash === '#providerBookingDesk'
-            ) {
-              return `${page}${target.search}${target.hash}`;
-            }
-          } catch {
-            return '';
+          const account = await authenticateLocalAccount(identifierVal, passwordVal);
+          if (!account) {
+            showFeedback(
+              loginFeedback,
+              'No matching account and password were found in this browser. Register first or check your details.',
+              false
+            );
+            return;
           }
-          return '';
-        })();
 
-        const defaultDestination =
-          role === 'Customer'
-            ? 'customer-dashboard.html'
-            : `provider.html?id=${encodeURIComponent(providerId)}#providerBookingDesk`;
-        window.location.replace(safeDestination || defaultDestination);
+          const role = account.role;
+          const providerId = account.providerId;
+          saveDemoSession({
+            id: role === 'Customer' ? account.email : providerId,
+            identifier: account.email,
+            phone: account.phone,
+            displayName: account.fullName,
+            role,
+            providerId,
+          });
+
+          const params = new URLSearchParams(window.location.search);
+          const requestedDestination = params.get('redirect') || '';
+          const safeDestination = (() => {
+            try {
+              const target = new URL(requestedDestination, window.location.href);
+              if (target.origin !== window.location.origin) return '';
+              const page = target.pathname.split('/').pop();
+              if (
+                role === 'Customer' &&
+                (page === 'booking.html' || page === 'customer-dashboard.html')
+              ) {
+                return `${page}${target.search}${target.hash}`;
+              }
+              if (
+                role === 'Service Provider' &&
+                page === 'provider.html' &&
+                target.hash === '#providerBookingDesk'
+              ) {
+                return `${page}${target.search}${target.hash}`;
+              }
+            } catch {
+              return '';
+            }
+            return '';
+          })();
+
+          const defaultDestination =
+            role === 'Customer'
+              ? 'customer-dashboard.html'
+              : `provider.html?id=${encodeURIComponent(providerId)}#providerBookingDesk`;
+          window.location.replace(safeDestination || defaultDestination);
+        } catch (error) {
+          showFeedback(
+            loginFeedback,
+            error instanceof Error ? error.message : 'Could not read local account data.',
+            false
+          );
+        }
       });
     });
   }
@@ -308,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
       runWithSubmitGuard(submitBtn, 'Sending Link...', () => {
         showFeedback(
           forgotFeedback,
-          'Password reset is not available in this frontend demo. Use the demo Login form to preview a session.',
+          'Password reset is unavailable for browser-local accounts. The account owner must remember the password.',
           false
         );
         forgotForm.reset();
@@ -335,13 +333,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const registerTermsError = document.getElementById('registerTermsError');
   const registerFeedback = document.getElementById('registerFeedback');
   const providerNoteBanner = document.getElementById('providerNoteBanner');
+  const providerRegistrationFields = document.getElementById('providerRegistrationFields');
+  const registerProviderCategory = document.getElementById('registerProviderCategory');
+  const registerProviderCity = document.getElementById('registerProviderCity');
+  const registerProviderPrice = document.getElementById('registerProviderPrice');
+  const registerProviderCategoryError = document.getElementById('registerProviderCategoryError');
+  const registerProviderCityError = document.getElementById('registerProviderCityError');
+  const registerProviderPriceError = document.getElementById('registerProviderPriceError');
 
   // Account type toggle info
   document.querySelectorAll('input[name="accountType"]').forEach((radio) => {
     radio.addEventListener('change', () => {
+      const isProvider = radio.value === 'Service Provider' && radio.checked;
+      if (providerRegistrationFields) providerRegistrationFields.hidden = !isProvider;
       if (providerNoteBanner) {
-        providerNoteBanner.hidden = radio.value !== 'Service Provider';
+        providerNoteBanner.hidden = !isProvider;
       }
+      if (registerProviderCategory) registerProviderCategory.required = isProvider;
+      if (registerProviderCity) registerProviderCity.required = isProvider;
+      if (registerProviderPrice) registerProviderPrice.required = isProvider;
     });
   });
 
@@ -352,6 +362,9 @@ document.addEventListener('DOMContentLoaded', () => {
     [registerPhone, registerPhoneError],
     [registerPassword, registerPasswordError],
     [registerConfirmPassword, registerConfirmError],
+    [registerProviderCategory, registerProviderCategoryError],
+    [registerProviderCity, registerProviderCityError],
+    [registerProviderPrice, registerProviderPriceError],
   ].forEach(([inputEl, errorEl]) => {
     if (inputEl) {
       inputEl.addEventListener('input', () => {
@@ -369,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (registerForm) {
-    registerForm.addEventListener('submit', (event) => {
+    registerForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       hideFeedback(registerFeedback);
 
@@ -381,6 +394,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const termsAccepted = termsCheckbox ? termsCheckbox.checked : false;
       const selectedTypeEl = document.querySelector('input[name="accountType"]:checked');
       const accountType = selectedTypeEl ? selectedTypeEl.value : 'Customer';
+      const providerCategory = registerProviderCategory ? registerProviderCategory.value : '';
+      const providerCity = registerProviderCity ? registerProviderCity.value.trim() : '';
+      const providerPrice = registerProviderPrice ? Number(registerProviderPrice.value) : 0;
+      const isProvider = accountType === 'Service Provider';
 
       let isValid = true;
 
@@ -441,6 +458,39 @@ document.addEventListener('DOMContentLoaded', () => {
         setFieldError(termsCheckbox, registerTermsError, '');
       }
 
+      if (isProvider && !providerCategory) {
+        setFieldError(
+          registerProviderCategory,
+          registerProviderCategoryError,
+          'Choose your main service category.'
+        );
+        isValid = false;
+      } else {
+        setFieldError(registerProviderCategory, registerProviderCategoryError, '');
+      }
+
+      if (isProvider && providerCity.length < 2) {
+        setFieldError(
+          registerProviderCity,
+          registerProviderCityError,
+          'Enter the city where you provide services.'
+        );
+        isValid = false;
+      } else {
+        setFieldError(registerProviderCity, registerProviderCityError, '');
+      }
+
+      if (isProvider && (!Number.isInteger(providerPrice) || providerPrice < 1)) {
+        setFieldError(
+          registerProviderPrice,
+          registerProviderPriceError,
+          'Enter a starting visit price in ₹.'
+        );
+        isValid = false;
+      } else {
+        setFieldError(registerProviderPrice, registerProviderPriceError, '');
+      }
+
       if (!isValid) {
         showFeedback(
           registerFeedback,
@@ -452,16 +502,57 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const submitBtn = registerForm.querySelector('button[type="submit"]');
-      runWithSubmitGuard(submitBtn, 'Creating Account...', () => {
-        showFeedback(
-          registerFeedback,
-          `No account was created for ${fullName} (${accountType}, +91 ${phone}). This frontend demo does not register accounts or store passwords.`,
-          false
-        );
+      await runAuthAction(submitBtn, 'Creating Account...', async () => {
+        try {
+          const result = await registerLocalAccount({
+            fullName,
+            email,
+            phone,
+            password,
+            role: accountType,
+            providerCategory,
+            providerCity,
+            providerPrice,
+          });
+          if (!result.ok) {
+            showFeedback(registerFeedback, result.error, false);
+            return;
+          }
 
-        // Reset sensitive password inputs without storing anything
-        if (registerPassword) registerPassword.value = '';
-        if (registerConfirmPassword) registerConfirmPassword.value = '';
+          const account = result.account;
+          try {
+            saveDemoSession({
+              id: account.role === 'Customer' ? account.email : account.providerId,
+              identifier: account.email,
+              phone: account.phone,
+              displayName: account.fullName,
+              role: account.role,
+              providerId: account.providerId,
+            });
+          } catch {
+            showFeedback(
+              registerFeedback,
+              'Your account was saved, but this browser could not start a sign-in session. Please use Login.',
+              false
+            );
+            return;
+          }
+
+          const destination =
+            account.role === 'Customer'
+              ? 'customer-dashboard.html'
+              : `provider.html?id=${encodeURIComponent(account.providerId)}#providerBookingDesk`;
+          window.location.replace(destination);
+        } catch (error) {
+          showFeedback(
+            registerFeedback,
+            error instanceof Error ? error.message : 'Could not save your account in this browser.',
+            false
+          );
+        } finally {
+          if (registerPassword) registerPassword.value = '';
+          if (registerConfirmPassword) registerConfirmPassword.value = '';
+        }
       });
     });
   }
@@ -496,4 +587,10 @@ document.addEventListener('DOMContentLoaded', () => {
       closeDialogModal(termsModal);
     }
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeAuth, { once: true });
+} else {
+  initializeAuth();
+}

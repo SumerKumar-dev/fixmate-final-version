@@ -252,7 +252,7 @@ function getSessionProfileDefaults(session) {
   return {
     fullName: (session && session.displayName) || displayName,
     email,
-    phone,
+    phone: phone || String(session && session.phone ? session.phone : ''),
     address: '',
     city: '',
     pinCode: '',

@@ -6,7 +6,7 @@
     <title>Login – FixMate</title>
     <meta
       name="description"
-      content="Sign in to your FixMate account to manage bookings, view verified local helpers, and track ₹ service estimates."
+      content="Sign in to your browser-local FixMate account to manage bookings and view local service estimates."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -130,10 +130,10 @@
                 </a>
               </div>
 
-              <h2 class="auth-showcase-title">Reliable local helpers across 12+ Indian cities</h2>
+              <h2 class="auth-showcase-title">FixMate Local Account</h2>
               <p class="auth-showcase-desc">
-                Access your saved addresses, view standard ₹ rate cards, and schedule verified
-                electricians, plumbers, carpenters, AC technicians, cleaners, and mechanics.
+                Access saved booking details and browse listed electricians, plumbers, carpenters,
+                AC technicians, cleaners, and mechanics.
               </p>
 
               <div class="auth-highlights-list">
@@ -154,8 +154,8 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="auth-highlight-title">Police &amp; Aadhaar Verified</p>
-                    <p class="auth-highlight-sub">Every local specialist passes background checks</p>
+                    <p class="auth-highlight-title">Browser-Local Account</p>
+                    <p class="auth-highlight-sub">Sign in only in this Chrome profile</p>
                   </div>
                 </div>
 
@@ -172,8 +172,8 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="auth-highlight-title">Transparent ₹ Pricing</p>
-                    <p class="auth-highlight-sub">Inspection visits starting at ₹199</p>
+                    <p class="auth-highlight-title">₹ Price Estimates</p>
+                    <p class="auth-highlight-sub">See listed visit prices before requesting a service</p>
                   </div>
                 </div>
 
@@ -185,8 +185,8 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="auth-highlight-title">30-Day Service Warranty</p>
-                    <p class="auth-highlight-sub">Free revisit cover on completed jobs</p>
+                    <p class="auth-highlight-title">No Payment Processing</p>
+                    <p class="auth-highlight-sub">This site does not collect or store payments</p>
                   </div>
                 </div>
               </div>
@@ -204,12 +204,11 @@
               <p class="auth-card-eyebrow">Member Sign In</p>
               <h1 class="auth-card-title" id="loginHeading">Welcome Back to FixMate</h1>
               <p class="auth-card-subtitle">
-                Frontend demo sign-in: enter a valid email or mobile number, use any password with
-                at least 8 characters, and choose the account role you want to preview.
+                Sign in to an account registered in this Chrome profile. Your saved account role is used automatically.
               </p>
             </div>
 
-            <form class="auth-page-form" id="loginForm" novalidate>
+            <form class="auth-page-form" id="loginForm" method="post" novalidate>
               <div class="form-field">
                 <label for="loginIdentifier">Email or Mobile Number</label>
                 <div class="input-icon-wrap">
@@ -241,33 +240,7 @@
                 <span class="field-error" id="loginIdentifierError" aria-live="polite"></span>
               </div>
 
-              <div class="form-field">
-                <label for="loginRole">Demo Account Role</label>
-                <select id="loginRole" name="role">
-                  <option value="Customer">Customer</option>
-                  <option value="Service Provider">Service Provider</option>
-                </select>
-              </div>
-
-              <div class="form-field" id="loginProviderGroup" hidden>
-                <label for="loginProviderId">Provider Profile</label>
-                <select id="loginProviderId" name="providerId">
-                  <option value="">Choose your provider profile</option>
-                  <option value="rajesh-kumar">Rajesh Kumar · Electrician</option>
-                  <option value="suresh-verma">Suresh Verma · Plumber</option>
-                  <option value="karthik-nair">Karthik Nair · AC Repair</option>
-                  <option value="sunita-devi">Sunita Devi · Home Cleaning</option>
-                  <option value="imran-sheikh">Imran Sheikh · Carpenter</option>
-                  <option value="vikram-rathore">Vikram Rathore · Mechanic</option>
-                  <option value="manoj-tiwari">Manoj Tiwari · Electrician</option>
-                  <option value="deepak-kulkarni">Deepak Kulkarni · Carpenter</option>
-                  <option value="arvind-patel">Arvind Patel · AC Repair</option>
-                  <option value="mahesh-yadav">Mahesh Yadav · Plumber</option>
-                  <option value="farhan-ansari">Farhan Ansari · Mechanic</option>
-                  <option value="prakash-gowda">Prakash Gowda · Home Cleaning</option>
-                </select>
-                <span class="field-error" id="loginProviderError" aria-live="polite"></span>
-              </div>
+              <p class="field-hint">Your role and provider profile come from your saved registration.</p>
 
               <div class="form-field">
                 <label for="loginPassword">Password</label>
@@ -332,7 +305,7 @@
               </div>
 
               <div class="auth-options-row">
-                <span class="field-hint">Demo session only; no password is stored.</span>
+                <span class="field-hint">Password hashes are stored only in this browser profile.</span>
                 <button type="button" class="auth-inline-link" id="forgotPasswordBtn">
                   Forgot Password?
                 </button>
@@ -350,9 +323,9 @@
                 <button type="button" class="auth-inline-link" id="closeForgotPanelBtn">Close</button>
               </div>
               <p class="field-hint">
-                Enter your email or 10-digit mobile number to preview a password reset request.
+                Password reset is unavailable for browser-local accounts. Use your saved password to sign in.
               </p>
-              <form id="forgotForm" novalidate>
+              <form id="forgotForm" method="post" novalidate>
                 <div class="forgot-inline-row">
                   <input
                     type="text"
@@ -401,8 +374,7 @@
               <span class="brand-name brand-name-light">FixMate</span>
             </a>
             <p class="footer-tagline">
-              Connecting Indian households with background-verified local technicians at fair,
-              upfront prices in ₹.
+              Connecting Indian households with local service profiles at listed prices in ₹.
             </p>
           </div>
 
@@ -466,7 +438,6 @@
       </div>
     </footer>
 
-    <script type="module" src="js/auth-session.js"></script>
-    <script type="module" src="js/auth.js"></script>
+    <script src="js/file-protocol-guard.js"></script>
   </body>
 </html>
